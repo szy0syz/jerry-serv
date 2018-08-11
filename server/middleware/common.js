@@ -2,16 +2,17 @@ import KoaBody from 'koa-bodyparser'
 import koaLogger from 'koa-logger'
 import session from 'koa-session'
 import cors from '@koa/cors'
-// import koaStatic from 'koa-static'
+import koaStatic from 'koa-static'
+import path from 'path'
 
 export const addLogger = app => {
   app.use(koaLogger())
 }
 
-// export const addStatic = app => {
-//   // 配置静态资源加载中间件
-//   app.use(koaStatic(path.join(__dirname, './src')))
-// }
+export const addStatic = app => {
+  // 配置静态资源加载中间件
+  app.use(koaStatic(path.join(__dirname, '../static')))
+}
 
 export const addCORS = app => {
   app.use(cors())

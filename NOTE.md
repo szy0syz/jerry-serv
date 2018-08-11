@@ -7,3 +7,4 @@
 * 🔥Remove  删除 `tinymce`
 * 🔨Refact  使用 `class` 重构server入口文件
 * 🔨Refact  使用 `ramda` 和 `require.context` 重构server入口文件加载模式
+* 🐛Fix     修复 全局样式 & 新增 `Koa-Static` 中间件
