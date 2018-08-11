@@ -1,40 +1,30 @@
 import Koa from 'koa'
 import { Nuxt, Builder } from 'nuxt'
-import session from 'koa-session2'
-import bodyParser from 'koa-bodyparser'
 import Router from 'koa-router'
-import koaLogger from 'koa-logger'
 import route from './routers'
-import cors from '@koa/cors'
-import koaStatic from 'koa-static'
-import path from 'path'
+import R from 'ramda'
+
 
 const host = process.env.HOST || '127.0.0.1'
 const port = process.env.PORT || 3000
 
+// 自动遍历 ./middleware/*.js 导出对象后再逐个遍历初始化koa中间件
+const useMiddlewares = (app) => {
+  const context = require.context('./middleware/', false, /\.js$/)
+  context.keys().forEach(key => {
+    R.forEachObjIndexed(
+      initWith => initWith(app)
+    )(context(key))
+  })
+}
 
 class Server {
   constructor() {
     this.app = new Koa()
+    useMiddlewares(this.app)
   }
 
   async start(host, port) {
-    // session必须在路由前注册
-    this.app.use(
-      session({
-        key: '12345',
-        overwrite: true
-      })
-    )
-    // 配置控制台日志中间件
-    this.app.use(koaLogger())
-
-    // 配置静态资源加载中间件
-    this.app.use(koaStatic(path.join(__dirname, './src')))
-
-    this.app.use(cors())
-    this.app.use(bodyParser())
-
     const router = new Router()
     router.use('', route.routes())
     this.app.use(router.routes()).use(router.allowedMethods())

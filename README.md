@@ -60,5 +60,3 @@ npm run publish:prod
 [iview-admin](https://github.com/iview/iview-admin)
 
 [koa-template](https://github.com/nuxt-community/koa-template)
-
-
