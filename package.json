@@ -49,6 +49,7 @@
     "source-map-support": "^0.5.8",
     "tinymce": "^4.7.4",
     "tinymce-vue-2": "0.0.5",
+    "vue-quill-editor": "^3.0.6",
     "vuex-persist": "^1.2.2"
   },
   "devDependencies": {

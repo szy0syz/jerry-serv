@@ -14,7 +14,7 @@ import { createStore } from './store.js'
 /* Plugins */
 import nuxt_plugin_flexible_f1952bd6 from 'nuxt_plugin_flexible_f1952bd6' // Source: ../plugins/flexible.js (ssr: false)
 import nuxt_plugin_iview_ab80ed00 from 'nuxt_plugin_iview_ab80ed00' // Source: ../plugins/iview.js
-import nuxt_plugin_tinymce_ced4b34e from 'nuxt_plugin_tinymce_ced4b34e' // Source: ../plugins/tinymce (ssr: false)
+import nuxt_plugin_quillEditor_3b2368db from 'nuxt_plugin_quillEditor_3b2368db' // Source: ../plugins/quillEditor.js (ssr: false)
 
 
 // Component: <no-ssr>
@@ -157,7 +157,7 @@ async function createApp (ssrContext) {
   
   if (process.browser) { 
     if (typeof nuxt_plugin_flexible_f1952bd6 === 'function') await nuxt_plugin_flexible_f1952bd6(app.context, inject)
-    if (typeof nuxt_plugin_tinymce_ced4b34e === 'function') await nuxt_plugin_tinymce_ced4b34e(app.context, inject)
+    if (typeof nuxt_plugin_quillEditor_3b2368db === 'function') await nuxt_plugin_quillEditor_3b2368db(app.context, inject)
   }
 
   // If server-side, wait for async component to be resolved first

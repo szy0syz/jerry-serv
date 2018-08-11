@@ -132,7 +132,11 @@
                     </div>
                 </Form>
                 <div class="margin-top-20">
-                  <textarea id="articleEditor"></textarea>
+                  <!-- <textarea id="articleEditor"></textarea> -->
+                  <div class="quill-editor" 
+                    v-model="content"
+                    v-quill:myQuillEditor="editorOption">
+                  </div>
                 </div>
             </Card>
             </Col>
@@ -267,8 +271,29 @@ export default {
   name: 'artical-publish',
   data() {
     return {
-      content: {
-          content: ''
+      content: '',
+      editorOption: {
+        modules: {
+          toolbar: [
+            ['bold', 'italic', 'underline', 'strike'],
+            ['blockquote', 'code-block'],
+            [{ 'header': 1 }, { 'header': 2 }],
+            [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+            [{ 'script': 'sub' }, { 'script': 'super' }],
+            [{ 'indent': '-1' }, { 'indent': '+1' }],
+            [{ 'direction': 'rtl' }],
+            [{ 'size': ['small', false, 'large', 'huge'] }],
+            [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+            [{ 'font': [] }],
+            [{ 'color': [] }, { 'background': [] }],
+            [{ 'align': [] }],
+            ['clean'],
+            ['link', 'image', 'video']
+          ],
+          syntax: {
+            highlight: text => hljs.highlightAuto(text).value
+          }
+        }
       },
       articleTitle: '',
       articleError: '',
@@ -438,7 +463,7 @@ export default {
       }
     },
     handleSelectTag() {
-      localStorage.tagsList = JSON.stringify(this.articleTagSelected) // 本地存储文章标签列表
+      // localStorage.tagsList = JSON.stringify(this.articleTagSelected) // 本地存储文章标签列表
     }
   },
   computed: {
@@ -537,32 +562,32 @@ export default {
       }
     ]
 
-    tinymce.init({
-      selector: '#articleEditor',
-      branding: false,
-      elementpath: false,
-      height: 600,
-      language: 'zh_CN.GB2312',
-      menubar: 'edit insert view format table tools',
-      theme: 'modern',
-      plugins: [
-        'advlist autolink lists link image charmap print preview hr anchor pagebreak imagetools',
-        'searchreplace visualblocks visualchars code fullscreen fullpage',
-        'insertdatetime media nonbreaking save table contextmenu directionality',
-        'emoticons paste textcolor colorpicker textpattern imagetools codesample'
-      ],
-      toolbar1:
-        ' newnote print fullscreen preview | undo redo | insert | styleselect | forecolor backcolor bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image emoticons media codesample',
-      autosave_interval: '20s',
-      image_advtab: true,
-      table_default_styles: {
-        width: '100%',
-        borderCollapse: 'collapse'
-      }
-    })
+    // tinymce.init({
+    //   selector: '#articleEditor',
+    //   branding: false,
+    //   elementpath: false,
+    //   height: 600,
+    //   language: 'zh_CN.GB2312',
+    //   menubar: 'edit insert view format table tools',
+    //   theme: 'modern',
+    //   plugins: [
+    //     'advlist autolink lists link image charmap print preview hr anchor pagebreak imagetools',
+    //     'searchreplace visualblocks visualchars code fullscreen fullpage',
+    //     'insertdatetime media nonbreaking save table contextmenu directionality',
+    //     'emoticons paste textcolor colorpicker textpattern imagetools codesample'
+    //   ],
+    //   toolbar1:
+    //     ' newnote print fullscreen preview | undo redo | insert | styleselect | forecolor backcolor bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image emoticons media codesample',
+    //   autosave_interval: '20s',
+    //   image_advtab: true,
+    //   table_default_styles: {
+    //     width: '100%',
+    //     borderCollapse: 'collapse'
+    //   }
+    // })
   },
   destroyed() {
-    tinymce.get('articleEditor').destroy()
+    // tinymce.get('articleEditor').destroy()
   }
 }
 </script>

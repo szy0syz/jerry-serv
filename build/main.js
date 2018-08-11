@@ -248,10 +248,10 @@ module.exports = {
     meta: [{ charset: 'utf-8' }, { hid: 'description', name: 'description', content: 'Nuxt.js project' }],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }, { rel: 'stylesheet', name: 'iview', href: '/styles/iview.css' }, { rel: 'stylesheet', name: 'theme', href: '' }]
   },
-  css: [{ src: '~assets/css/main.css'
-    // { src: 'iview/dist/styles/iview.css' }
-  }],
-  plugins: [{ src: '~plugins/flexible.js', ssr: false }, { src: '~plugins/iview.js', ssr: true }, { src: '~/plugins/tinymce', ssr: false }],
+  css: [{ src: '~assets/css/main.css' }, 'quill/dist/quill.snow.css', 'quill/dist/quill.bubble.css', 'quill/dist/quill.core.css'
+  // { src: 'iview/dist/styles/iview.css' }
+  ],
+  plugins: [{ src: '~plugins/flexible.js', ssr: false }, { src: '~plugins/iview.js', ssr: true }, { src: '~/plugins/quillEditor.js', ssr: false }],
   loading: './components/loading.vue',
   env: {
     NODE_ENV: "development"
@@ -264,7 +264,7 @@ module.exports = {
     middleware: 'route' // 在每页渲染前运行 middleware/route.js 中间件的逻辑
   },
   build: {
-    vendor: ['axios', 'iview', './plugins/iview.js', 'tinymce-vue-2'],
+    vendor: ['axios', 'iview', './plugins/iview.js'],
     extend: function extend(config, ctx) {
       if (ctx.isClient) {
         // config.module.rules.push({

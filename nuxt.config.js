@@ -15,13 +15,16 @@ module.exports = {
     ]
   },
   css: [
-    { src: '~assets/css/main.css' }
+    { src: '~assets/css/main.css' },
+    'quill/dist/quill.snow.css',
+    'quill/dist/quill.bubble.css',
+    'quill/dist/quill.core.css'
     // { src: 'iview/dist/styles/iview.css' }
   ],
   plugins: [
     { src: '~plugins/flexible.js', ssr: false },
     { src: '~plugins/iview.js', ssr: true },
-    {src: '~/plugins/tinymce', ssr: false}
+    { src: '~/plugins/quillEditor.js', ssr: false }
   ],
   loading: './components/loading.vue',
   env: {
@@ -35,7 +38,7 @@ module.exports = {
     middleware: 'route' // 在每页渲染前运行 middleware/route.js 中间件的逻辑
   },
   build: {
-    vendor: ['axios', 'iview', './plugins/iview.js', 'tinymce-vue-2'],
+    vendor: ['axios', 'iview', './plugins/iview.js'],
     extend(config, ctx) {
       if (ctx.isClient) {
         // config.module.rules.push({

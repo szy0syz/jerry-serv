@@ -3,6 +3,12 @@ import NuxtLoading from '../components/loading.vue'
 
 import '../assets/css/main.css'
 
+import '../node_modules/quill/dist/quill.snow.css'
+
+import '../node_modules/quill/dist/quill.bubble.css'
+
+import '../node_modules/quill/dist/quill.core.css'
+
 
 let layouts = {
 
