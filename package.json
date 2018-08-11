@@ -1,8 +1,8 @@
 {
-  "name": "nuxt-demo",
-  "version": "1.0.0",
+  "name": "jerry-serc",
+  "version": "0.1.0",
   "description": "Nuxt.js project",
-  "author": "moedong",
+  "author": "jerry shi",
   "private": true,
   "scripts": {
     "dev": "backpack dev",
@@ -46,8 +46,9 @@
     "rasterizehtml": "^1.2.4",
     "simplemde": "^1.11.2",
     "sortablejs": "^1.7.0",
-    "source-map-support": "^0.4.15",
+    "source-map-support": "^0.5.8",
     "tinymce": "^4.7.4",
+    "tinymce-vue-2": "0.0.5",
     "vuex-persist": "^1.2.2"
   },
   "devDependencies": {

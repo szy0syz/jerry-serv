@@ -251,7 +251,7 @@ module.exports = {
   css: [{ src: '~assets/css/main.css'
     // { src: 'iview/dist/styles/iview.css' }
   }],
-  plugins: [{ src: '~plugins/flexible.js', ssr: false }, { src: '~plugins/iview.js', ssr: true }],
+  plugins: [{ src: '~plugins/flexible.js', ssr: false }, { src: '~plugins/iview.js', ssr: true }, { src: '~/plugins/tinymce', ssr: false }],
   loading: './components/loading.vue',
   env: {
     NODE_ENV: "development"
@@ -264,7 +264,7 @@ module.exports = {
     middleware: 'route' // 在每页渲染前运行 middleware/route.js 中间件的逻辑
   },
   build: {
-    vendor: ['axios', 'iview', './plugins/iview.js'],
+    vendor: ['axios', 'iview', './plugins/iview.js', 'tinymce-vue-2'],
     extend: function extend(config, ctx) {
       if (ctx.isClient) {
         // config.module.rules.push({
