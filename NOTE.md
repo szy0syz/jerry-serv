@@ -1,5 +1,9 @@
 # 项目更新日志
 
+## 2018-08-12
+
+* 🚀Feat    新增 `user-schema`: 使用bcrypt内置实例方法comparePassword和incLoginAttempts等
+
 ## 2018-08-11
 
 * 🐛Fix     修复 `iview-admin` 中 `tinymce` 在ssr中兼容性问题
