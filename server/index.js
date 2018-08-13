@@ -25,6 +25,7 @@ class Server {
   constructor() {
     this.app = new Koa()
     useMiddlewares(this.app)
+    console.log('来了吗？？')
   }
 
   async start(host, port) {
@@ -34,8 +35,7 @@ class Server {
 
     // Import and Set Nuxt.js options
     let config = require('../nuxt.config.js')
-    // 由于涉及到三个环境变化，使用在test，production 时候，为false
-    config.dev = !(app.env === 'production' || app.env === 'test')
+    config.dev = !(process.env.NODE_ENV === 'production')
     // console.log('env === ', app.env, env, process.env.COOKIE_DOMAIN, process.env.APP_ENV, config.dev)
 
     // Instantiate nuxt.js
@@ -60,11 +60,16 @@ class Server {
         })
       })
     })
-
+    console.log('来了吗？？')
     this.app.listen(port, host)
     console.log('Server listening on ' + host + ':' + port) // eslint-disable-line no-console
   }
 }
 
-const app = new Server()
-app.start(host, port)
+try {
+  const app = new Server()
+  app.start(host, port)
+} catch (err) { 
+  console.error(err)
+}
+

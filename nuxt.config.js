@@ -38,6 +38,9 @@ module.exports = {
     middleware: 'route' // 在每页渲染前运行 middleware/route.js 中间件的逻辑
   },
   build: {
+    // babel: {  // 前端不需要修饰器，后端才要
+    //   plugins: ['babel-plugin-transform-decorators-legacy']
+    // },
     vendor: ['axios', 'iview', './plugins/iview.js'],
     extend(config, ctx) {
       if (ctx.isClient) {
