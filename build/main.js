@@ -67,9 +67,10 @@ module.exports =
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-module.exports = require("babel-runtime/regenerator");
+module.exports = __webpack_require__(8);
+
 
 /***/ }),
 /* 1 */
@@ -100,7 +101,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _lodash = __webpack_require__(16);
+var _lodash = __webpack_require__(17);
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
@@ -114,7 +115,7 @@ var env = "development" || 'development';
 // const confPath = resolve(__dirname, `./${env}.json`)
 
 // 同步加载json配置文件
-var conf = __webpack_require__(17)("./" + env + '.json');
+var conf = __webpack_require__(18)("./" + env + '.json');
 
 // 用lodash合并
 exports.default = _lodash2.default.assign({ env: env, host: host }, conf);
@@ -142,7 +143,7 @@ var _regenerator = __webpack_require__(0);
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
-var _promise = __webpack_require__(8);
+var _promise = __webpack_require__(9);
 
 var _promise2 = _interopRequireDefault(_promise);
 
@@ -150,25 +151,25 @@ var _asyncToGenerator2 = __webpack_require__(1);
 
 var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
-var _classCallCheck2 = __webpack_require__(9);
+var _classCallCheck2 = __webpack_require__(10);
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
 
-var _createClass2 = __webpack_require__(10);
+var _createClass2 = __webpack_require__(11);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _koa = __webpack_require__(11);
+var _koa = __webpack_require__(12);
 
 var _koa2 = _interopRequireDefault(_koa);
 
-var _nuxt = __webpack_require__(12);
+var _nuxt = __webpack_require__(13);
 
 var _koaRouter = __webpack_require__(3);
 
 var _koaRouter2 = _interopRequireDefault(_koaRouter);
 
-var _routers = __webpack_require__(13);
+var _routers = __webpack_require__(14);
 
 var _routers2 = _interopRequireDefault(_routers);
 
@@ -186,7 +187,7 @@ var port = process.env.PORT || 3000;
 
 // 自动遍历 ./middleware/*.js 导出对象后再逐个遍历初始化koa中间件
 var useMiddlewares = function useMiddlewares(app) {
-  var context = __webpack_require__(21);
+  var context = __webpack_require__(22);
   context.keys().forEach(function (key) {
     _ramda2.default.forEachObjIndexed(function (initWith) {
       return initWith(app);
@@ -200,7 +201,6 @@ var Server = function () {
 
     this.app = new _koa2.default();
     useMiddlewares(this.app);
-    console.log('来了吗？？');
   }
 
   (0, _createClass3.default)(Server, [{
@@ -220,7 +220,7 @@ var Server = function () {
                 this.app.use(router.routes()).use(router.allowedMethods());
 
                 // Import and Set Nuxt.js options
-                config = __webpack_require__(35);
+                config = __webpack_require__(36);
 
                 config.dev = !("development" === 'production');
                 // console.log('env === ', app.env, env, process.env.COOKIE_DOMAIN, process.env.APP_ENV, config.dev)
@@ -274,11 +274,11 @@ var Server = function () {
                     return _ref2.apply(this, arguments);
                   };
                 }());
-                console.log('来了吗？？');
+
                 this.app.listen(port, host);
                 console.log('Server listening on ' + host + ':' + port); // eslint-disable-line no-console
 
-              case 14:
+              case 13:
               case 'end':
                 return _context2.stop();
             }
@@ -307,34 +307,40 @@ try {
 /* 8 */
 /***/ (function(module, exports) {
 
-module.exports = require("babel-runtime/core-js/promise");
+module.exports = require("regenerator-runtime");
 
 /***/ }),
 /* 9 */
 /***/ (function(module, exports) {
 
-module.exports = require("babel-runtime/helpers/classCallCheck");
+module.exports = require("babel-runtime/core-js/promise");
 
 /***/ }),
 /* 10 */
 /***/ (function(module, exports) {
 
-module.exports = require("babel-runtime/helpers/createClass");
+module.exports = require("babel-runtime/helpers/classCallCheck");
 
 /***/ }),
 /* 11 */
 /***/ (function(module, exports) {
 
-module.exports = require("koa");
+module.exports = require("babel-runtime/helpers/createClass");
 
 /***/ }),
 /* 12 */
 /***/ (function(module, exports) {
 
-module.exports = require("nuxt");
+module.exports = require("koa");
 
 /***/ }),
 /* 13 */
+/***/ (function(module, exports) {
+
+module.exports = require("nuxt");
+
+/***/ }),
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -348,7 +354,7 @@ var _koaRouter = __webpack_require__(3);
 
 var _koaRouter2 = _interopRequireDefault(_koaRouter);
 
-var _user = __webpack_require__(14);
+var _user = __webpack_require__(15);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -362,7 +368,7 @@ router.get('/api/logout', _user.logout);
 exports.default = router;
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -381,7 +387,7 @@ var _asyncToGenerator2 = __webpack_require__(1);
 
 var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
-var _axios = __webpack_require__(15);
+var _axios = __webpack_require__(16);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -389,7 +395,7 @@ var _config = __webpack_require__(4);
 
 var _config2 = _interopRequireDefault(_config);
 
-var _axiosMockAdapter = __webpack_require__(20);
+var _axiosMockAdapter = __webpack_require__(21);
 
 var _axiosMockAdapter2 = _interopRequireDefault(_axiosMockAdapter);
 
@@ -597,24 +603,24 @@ var logout = exports.logout = function () {
 }();
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports) {
 
 module.exports = require("axios");
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports) {
 
 module.exports = require("lodash");
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
-	"./development.json": 18,
-	"./production.json": 19
+	"./development.json": 19,
+	"./production.json": 20
 };
 function webpackContext(req) {
 	return __webpack_require__(webpackContextResolve(req));
@@ -630,34 +636,34 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
-webpackContext.id = 17;
-
-/***/ }),
-/* 18 */
-/***/ (function(module, exports) {
-
-module.exports = {"db":"mongodb://localhost:27017/jerryServ","SITE_ROOT_URL":"http://jj.jerryshi.com"}
+webpackContext.id = 18;
 
 /***/ }),
 /* 19 */
 /***/ (function(module, exports) {
 
-module.exports = {"db":"mongodb://localhost/jerryServ","SITE_ROOT_URL":"http://jj.jerryshi.com"}
+module.exports = {"db":"mongodb://localhost:27017/jerryServ","SITE_ROOT_URL":"http://jj.jerryshi.com"}
 
 /***/ }),
 /* 20 */
 /***/ (function(module, exports) {
 
-module.exports = require("axios-mock-adapter");
+module.exports = {"db":"mongodb://localhost/jerryServ","SITE_ROOT_URL":"http://jj.jerryshi.com"}
 
 /***/ }),
 /* 21 */
+/***/ (function(module, exports) {
+
+module.exports = require("axios-mock-adapter");
+
+/***/ }),
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
-	"./common.js": 22,
-	"./database.js": 28,
-	"./router.js": 34
+	"./common.js": 23,
+	"./database.js": 29,
+	"./router.js": 35
 };
 function webpackContext(req) {
 	return __webpack_require__(webpackContextResolve(req));
@@ -673,10 +679,10 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
-webpackContext.id = 21;
+webpackContext.id = 22;
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -687,23 +693,23 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.addSession = exports.addBody = exports.addCORS = exports.addStatic = exports.addLogger = undefined;
 
-var _koaBodyparser = __webpack_require__(23);
+var _koaBodyparser = __webpack_require__(24);
 
 var _koaBodyparser2 = _interopRequireDefault(_koaBodyparser);
 
-var _koaLogger = __webpack_require__(24);
+var _koaLogger = __webpack_require__(25);
 
 var _koaLogger2 = _interopRequireDefault(_koaLogger);
 
-var _koaSession = __webpack_require__(25);
+var _koaSession = __webpack_require__(26);
 
 var _koaSession2 = _interopRequireDefault(_koaSession);
 
-var _cors = __webpack_require__(26);
+var _cors = __webpack_require__(27);
 
 var _cors2 = _interopRequireDefault(_cors);
 
-var _koaStatic = __webpack_require__(27);
+var _koaStatic = __webpack_require__(28);
 
 var _koaStatic2 = _interopRequireDefault(_koaStatic);
 
@@ -745,37 +751,37 @@ var addSession = exports.addSession = function addSession(app) {
 /* WEBPACK VAR INJECTION */}.call(exports, "server/middleware"))
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports) {
 
 module.exports = require("koa-bodyparser");
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports) {
 
 module.exports = require("koa-logger");
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports) {
 
 module.exports = require("koa-session");
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports) {
 
 module.exports = require("@koa/cors");
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports) {
 
 module.exports = require("koa-static");
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -794,7 +800,7 @@ var _asyncToGenerator2 = __webpack_require__(1);
 
 var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
-var _fs = __webpack_require__(29);
+var _fs = __webpack_require__(30);
 
 var _fs2 = _interopRequireDefault(_fs);
 
@@ -815,7 +821,7 @@ var _ramda2 = _interopRequireDefault(_ramda);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // loading mogoose "meta" plugins
-_mongoose2.default.plugin(__webpack_require__(30));
+_mongoose2.default.plugin(__webpack_require__(31));
 
 var modelDir = (0, _path.resolve)(__dirname, '../database/schema');
 
@@ -824,7 +830,7 @@ var modelDir = (0, _path.resolve)(__dirname, '../database/schema');
 //   .filter(file => ~file.search(/\.js$/))    // only .js file
 //   .forEach(file => require(resolve(modelDir, file)))
 
-var context = __webpack_require__(31);
+var context = __webpack_require__(32);
 context.keys().forEach(function (key) {
   return context(key);
 });
@@ -862,13 +868,13 @@ var database = exports.database = function database(app) {
 /* WEBPACK VAR INJECTION */}.call(exports, "server/middleware"))
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports) {
 
 module.exports = require("fs");
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -889,12 +895,12 @@ module.exports = exports = function MetaPlugin(schema, options) {
 };
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
-	"./article.js": 32,
-	"./articleCategory.js": 33
+	"./article.js": 33,
+	"./articleCategory.js": 34
 };
 function webpackContext(req) {
 	return __webpack_require__(webpackContextResolve(req));
@@ -910,10 +916,10 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
-webpackContext.id = 31;
+webpackContext.id = 32;
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -942,7 +948,7 @@ var ArticleSchema = new Schema({
 mongoose.model('Article', ArticleSchema);
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -961,7 +967,7 @@ var ArticleCategorySchema = new Schema({
 mongoose.model('ArticleCateory', ArticleCategorySchema);
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -978,11 +984,8 @@ mongoose.model('ArticleCateory', ArticleCategorySchema);
 
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
 
 module.exports = {
   /*

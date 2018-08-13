@@ -25,7 +25,6 @@ class Server {
   constructor() {
     this.app = new Koa()
     useMiddlewares(this.app)
-    console.log('来了吗？？')
   }
 
   async start(host, port) {
@@ -60,7 +59,7 @@ class Server {
         })
       })
     })
-    console.log('来了吗？？')
+
     this.app.listen(port, host)
     console.log('Server listening on ' + host + ':' + port) // eslint-disable-line no-console
   }
