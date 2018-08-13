@@ -31,7 +31,7 @@ export const database = app => {
   })
 
   mongoose.connection.on('open', async () => {
-    console.log('Connected to MongoDB ', config.db)
+    console.info('Connected to MongoDB ', config.db)
 
     // TODO
   })

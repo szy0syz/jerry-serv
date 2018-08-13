@@ -8,6 +8,9 @@ import R from 'ramda'
 const host = process.env.HOST || '127.0.0.1'
 const port = process.env.PORT || 3000
 
+// Todo
+// const MIDDLEWARES = ['database', 'common']
+
 // 自动遍历 ./middleware/*.js 导出对象后再逐个遍历初始化koa中间件
 const useMiddlewares = (app) => {
   const context = require.context('./middleware/', false, /\.js$/)

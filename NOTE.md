@@ -3,6 +3,9 @@
 ## 2018-08-12
 
 * 🚀Feat    新增 `user-schema`: 使用bcrypt内置实例方法comparePassword和incLoginAttempts等
+* ☀️Update  新增 mongoose-meta 插件
+* ☀️Update  新增 koa-database 插件 & 系统配置加载
+* ☀️Update  新增 article & artcileCategory schema
 
 ## 2018-08-11
 
