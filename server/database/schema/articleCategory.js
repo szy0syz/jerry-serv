@@ -1,11 +1,11 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-const ArticleSchema = new Schema({
+const ArticleCategorySchema = new Schema({
   name: {
     type: String,
     required: true 
   }
 })
 
-mongoose.model('Article', ArticleSchema)
+mongoose.model('ArticleCateory', ArticleCategorySchema)

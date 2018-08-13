@@ -43,6 +43,8 @@
     "koa-session": "^5.8.2",
     "koa-session2": "^2.2.6",
     "koa-static": "^5.0.0",
+    "lodash": "^4.17.10",
+    "mongoose": "^5.2.7",
     "nuxt": "latest",
     "ramda": "^0.25.0",
     "rasterizehtml": "^1.2.4",
