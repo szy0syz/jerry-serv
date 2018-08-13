@@ -20,7 +20,7 @@ context.keys().forEach(key => context(key))
 export const database = app => {
   mongoose.set('debug', true)
 
-  mongoose.connect(config.db)
+  mongoose.connect(config.db, { useNewUrlParser: true })
 
   mongoose.connection.on('disconnected', () => {
     mongoose.connect(config.db)
