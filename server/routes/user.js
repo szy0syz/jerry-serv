@@ -7,7 +7,7 @@ export class adminController {
     ctx.body = {
       ret: 200,
       msg: '获取成功',
-      data: { token: token }
+      data: { username: 'jerry' }
     }
   }
 

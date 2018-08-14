@@ -123,11 +123,8 @@ export const auth = convert(async (ctx, next) => {
 
 export const admin = roleExpected => convert(async (ctx, next) => {
   const { role } = ctx.session.user
-  console.log('进来admin装饰器了咩？')
-  // const rules = {
-  //   admin: [1, 4, 5],
-  //   superAdmin: [1, 2, 3, 4]
-  // }
+
+  //Todo: casbin
 
   if (!roel || role !== roleExpected) {
     return (ctx.body = {

@@ -62,14 +62,14 @@ module.exports =
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 7);
+/******/ 	return __webpack_require__(__webpack_require__.s = 11);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(8);
+module.exports = __webpack_require__(12);
 
 
 /***/ }),
@@ -82,43 +82,19 @@ module.exports = require("babel-runtime/helpers/asyncToGenerator");
 /* 2 */
 /***/ (function(module, exports) {
 
-module.exports = require("mongoose");
+module.exports = require("babel-runtime/helpers/classCallCheck");
 
 /***/ }),
 /* 3 */
 /***/ (function(module, exports) {
 
-module.exports = require("koa-router");
+module.exports = require("babel-runtime/helpers/createClass");
 
 /***/ }),
 /* 4 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _lodash = __webpack_require__(17);
-
-var _lodash2 = _interopRequireDefault(_lodash);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-// import { resolve } from 'path'
-
-var host = process.env.HOST || 'localhost';
-var env = "production" || 'development';
-
-// const confPath = resolve(__dirname, `./${env}.json`)
-
-// 同步加载json配置文件
-var conf = __webpack_require__(18)("./" + env + '.json');
-
-// 用lodash合并
-exports.default = _lodash2.default.assign({ env: env, host: host }, conf);
+module.exports = require("koa-router");
 
 /***/ }),
 /* 5 */
@@ -134,6 +110,409 @@ module.exports = require("path");
 
 /***/ }),
 /* 7 */
+/***/ (function(module, exports) {
+
+module.exports = require("mongoose");
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _lodash = __webpack_require__(9);
+
+var _lodash2 = _interopRequireDefault(_lodash);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// import { resolve } from 'path'
+
+var host = process.env.HOST || 'localhost';
+var env = "development" || 'development';
+
+// const confPath = resolve(__dirname, `./${env}.json`)
+
+// 同步加载json配置文件
+var conf = __webpack_require__(19)("./" + env + '.json');
+
+// 用lodash合并
+exports.default = _lodash2.default.assign({ env: env, host: host }, conf);
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports) {
+
+module.exports = require("lodash");
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.required = exports.admin = exports.auth = exports.all = exports.use = exports.del = exports.put = exports.post = exports.get = exports.controller = exports.Route = undefined;
+
+var _regenerator = __webpack_require__(0);
+
+var _regenerator2 = _interopRequireDefault(_regenerator);
+
+var _asyncToGenerator2 = __webpack_require__(1);
+
+var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
+
+var _assign = __webpack_require__(38);
+
+var _assign2 = _interopRequireDefault(_assign);
+
+var _toConsumableArray2 = __webpack_require__(39);
+
+var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
+
+var _getIterator2 = __webpack_require__(40);
+
+var _getIterator3 = _interopRequireDefault(_getIterator2);
+
+var _slicedToArray2 = __webpack_require__(41);
+
+var _slicedToArray3 = _interopRequireDefault(_slicedToArray2);
+
+var _classCallCheck2 = __webpack_require__(2);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(3);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _map = __webpack_require__(42);
+
+var _map2 = _interopRequireDefault(_map);
+
+var _symbol = __webpack_require__(43);
+
+var _symbol2 = _interopRequireDefault(_symbol);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Router = __webpack_require__(4);
+
+var _require = __webpack_require__(6),
+    resolve = _require.resolve;
+// const glob = require('glob')
+
+
+var _ = __webpack_require__(9);
+var R = __webpack_require__(5);
+
+var symbolPrefix = (0, _symbol2.default)('prefix');
+var routeMap = new _map2.default();
+
+var isArray = function isArray(c) {
+  return _.isArray(c) ? c : [c];
+};
+
+var Route = exports.Route = function () {
+  function Route(app, apiPath) {
+    (0, _classCallCheck3.default)(this, Route);
+
+    this.app = app;
+    this.apiPath = apiPath;
+    this.router = new Router();
+  }
+
+  (0, _createClass3.default)(Route, [{
+    key: 'init',
+    value: function init() {
+      // glob.sync(resolve(this.apiPath, './**/*.js')).forEach(require)
+      // Todo: 待修复require.context不支持绝对路径问题
+      var context = __webpack_require__(44);
+      context.keys().forEach(function (key) {
+        return context(key);
+      });
+
+      // 为所有中间件注册路由
+      var _iteratorNormalCompletion = true;
+      var _didIteratorError = false;
+      var _iteratorError = undefined;
+
+      try {
+        for (var _iterator = (0, _getIterator3.default)(routeMap), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+          var _router;
+
+          var _ref = _step.value;
+
+          var _ref2 = (0, _slicedToArray3.default)(_ref, 2);
+
+          var conf = _ref2[0];
+          var _controller = _ref2[1];
+
+          var controllers = isArray(_controller);
+          var prefixPath = conf.target[symbolPrefix];
+          if (prefixPath) prefixPath = normalizePath(prefixPath);
+          var routerPath = prefixPath + conf.path;
+          (_router = this.router)[conf.method].apply(_router, [routerPath].concat((0, _toConsumableArray3.default)(controllers)));
+        }
+      } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion && _iterator.return) {
+            _iterator.return();
+          }
+        } finally {
+          if (_didIteratorError) {
+            throw _iteratorError;
+          }
+        }
+      }
+
+      this.app.use(this.router.routes()).use(this.router.allowedMethods());
+    }
+  }]);
+  return Route;
+}();
+
+// 如果是根路径就直接访问，如果不是就接着访问
+
+
+var normalizePath = function normalizePath(path) {
+  return path.startsWith('/') ? path : '/' + path;
+};
+
+var router = function router(conf) {
+  return function (target, key, descriptor) {
+    conf.path = normalizePath(conf.path);
+
+    routeMap.set((0, _assign2.default)({
+      target: target
+    }, conf), target[key]);
+  };
+};
+
+// export 利用symbol创建唯一值在类的原型上
+var controller = exports.controller = function controller(path) {
+  return function (target) {
+    return target.prototype[symbolPrefix] = path;
+  };
+};
+
+var get = exports.get = function get(path) {
+  return router({
+    method: 'get',
+    path: path
+  });
+};
+
+var post = exports.post = function post(path) {
+  return router({
+    method: 'post',
+    path: path
+  });
+};
+
+var put = exports.put = function put(path) {
+  return router({
+    method: 'put',
+    path: path
+  });
+};
+
+var del = exports.del = function del(path) {
+  return router({
+    method: 'delete',
+    path: path
+  });
+};
+
+var use = exports.use = function use(path) {
+  return router({
+    method: 'use',
+    path: path
+  });
+};
+
+var all = exports.all = function all(path) {
+  return router({
+    method: 'all',
+    path: path
+  });
+};
+
+var decorate = function decorate(args, middleware) {
+  var _args = (0, _slicedToArray3.default)(args, 3),
+      target = _args[0],
+      key = _args[1],
+      descriptor = _args[2];
+
+  target[key] = isArray(target[key]);
+  target[key].unshift(middleware);
+
+  return descriptor;
+};
+
+var convert = function convert(middleware) {
+  return function () {
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return decorate(args, middleware);
+  };
+};
+
+// const changeToArr = R.unless(
+//   R.is(isArray),
+//   R.of
+// )
+
+// const convert = middleware => (target, key, descriptor) => {
+//   return (target, key, descriptor) => {
+//     target[key] = R.compose(
+//       R.concat(
+//         changeToArr(middleware)
+//       ),
+//       changeToArr
+//     )(target[key])
+//   }
+// }
+
+var auth = exports.auth = convert(function () {
+  var _ref3 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(ctx, next) {
+    return _regenerator2.default.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            console.log('进来auth装饰器了咩？');
+
+            if (!(!!!ctx.session || !ctx.session.user)) {
+              _context.next = 3;
+              break;
+            }
+
+            return _context.abrupt('return', ctx.body = {
+              success: false,
+              code: 401,
+              err: '登录失效，重新登录'
+            });
+
+          case 3:
+            _context.next = 5;
+            return next();
+
+          case 5:
+          case 'end':
+            return _context.stop();
+        }
+      }
+    }, _callee, undefined);
+  }));
+
+  return function (_x, _x2) {
+    return _ref3.apply(this, arguments);
+  };
+}());
+
+var admin = exports.admin = function admin(roleExpected) {
+  return convert(function () {
+    var _ref4 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2(ctx, next) {
+      var role;
+      return _regenerator2.default.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              role = ctx.session.user.role;
+
+              //Todo: casbin
+
+              if (!(!roel || role !== roleExpected)) {
+                _context2.next = 3;
+                break;
+              }
+
+              return _context2.abrupt('return', ctx.body = {
+                success: false,
+                code: 403,
+                err: '无权限'
+              });
+
+            case 3:
+              _context2.next = 5;
+              return next();
+
+            case 5:
+            case 'end':
+              return _context2.stop();
+          }
+        }
+      }, _callee2, undefined);
+    }));
+
+    return function (_x3, _x4) {
+      return _ref4.apply(this, arguments);
+    };
+  }());
+};
+
+var required = exports.required = function required(rules) {
+  return convert(function () {
+    var _ref5 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee3(ctx, next) {
+      var errors, checkRules;
+      return _regenerator2.default.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              errors = [];
+              checkRules = R.forEachObjIndexed(function (value, key) {
+                errors = R.filter(function (i) {
+                  return !R.has(i)(ctx.request[key]);
+                })(value);
+              });
+
+
+              checkRules(rules);
+
+              if (!errors.length) {
+                _context3.next = 5;
+                break;
+              }
+
+              return _context3.abrupt('return', ctx.body = {
+                success: false,
+                code: 412,
+                err: errors.join(',') + ' is required'
+              });
+
+            case 5:
+              _context3.next = 7;
+              return next();
+
+            case 7:
+            case 'end':
+              return _context3.stop();
+          }
+        }
+      }, _callee3, undefined);
+    }));
+
+    return function (_x5, _x6) {
+      return _ref5.apply(this, arguments);
+    };
+  }());
+};
+
+/***/ }),
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -143,7 +522,7 @@ var _regenerator = __webpack_require__(0);
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
-var _promise = __webpack_require__(9);
+var _promise = __webpack_require__(13);
 
 var _promise2 = _interopRequireDefault(_promise);
 
@@ -151,25 +530,25 @@ var _asyncToGenerator2 = __webpack_require__(1);
 
 var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
-var _classCallCheck2 = __webpack_require__(10);
+var _classCallCheck2 = __webpack_require__(2);
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
 
-var _createClass2 = __webpack_require__(11);
+var _createClass2 = __webpack_require__(3);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _koa = __webpack_require__(12);
+var _koa = __webpack_require__(14);
 
 var _koa2 = _interopRequireDefault(_koa);
 
-var _nuxt = __webpack_require__(13);
+var _nuxt = __webpack_require__(15);
 
-var _koaRouter = __webpack_require__(3);
+var _koaRouter = __webpack_require__(4);
 
 var _koaRouter2 = _interopRequireDefault(_koaRouter);
 
-var _routers = __webpack_require__(14);
+var _routers = __webpack_require__(16);
 
 var _routers2 = _interopRequireDefault(_routers);
 
@@ -177,7 +556,7 @@ var _ramda = __webpack_require__(5);
 
 var _ramda2 = _interopRequireDefault(_ramda);
 
-var _utils = __webpack_require__(22);
+var _utils = __webpack_require__(23);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -188,7 +567,7 @@ var MIDDLEWARES = ['database', 'common', 'router'];
 
 // 自动遍历 ./middleware/*.js 导出对象后再逐个遍历初始化koa中间件
 var useMiddlewares = function useMiddlewares(app) {
-  var context = __webpack_require__(23);
+  var context = __webpack_require__(24);
 
   // R.map(
   //   R.compose(
@@ -238,9 +617,9 @@ var Server = function () {
                 this.app.use(router.routes()).use(router.allowedMethods());
 
                 // Import and Set Nuxt.js options
-                config = __webpack_require__(37);
+                config = __webpack_require__(47);
 
-                config.dev = !("production" === 'production');
+                config.dev = !("development" === 'production');
                 // console.log('env === ', app.env, env, process.env.COOKIE_DOMAIN, process.env.APP_ENV, config.dev)
 
                 // Instantiate nuxt.js
@@ -322,43 +701,31 @@ try {
 }
 
 /***/ }),
-/* 8 */
+/* 12 */
 /***/ (function(module, exports) {
 
 module.exports = require("regenerator-runtime");
 
 /***/ }),
-/* 9 */
+/* 13 */
 /***/ (function(module, exports) {
 
 module.exports = require("babel-runtime/core-js/promise");
 
 /***/ }),
-/* 10 */
-/***/ (function(module, exports) {
-
-module.exports = require("babel-runtime/helpers/classCallCheck");
-
-/***/ }),
-/* 11 */
-/***/ (function(module, exports) {
-
-module.exports = require("babel-runtime/helpers/createClass");
-
-/***/ }),
-/* 12 */
+/* 14 */
 /***/ (function(module, exports) {
 
 module.exports = require("koa");
 
 /***/ }),
-/* 13 */
+/* 15 */
 /***/ (function(module, exports) {
 
 module.exports = require("nuxt");
 
 /***/ }),
-/* 14 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -368,11 +735,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _koaRouter = __webpack_require__(3);
+var _koaRouter = __webpack_require__(4);
 
 var _koaRouter2 = _interopRequireDefault(_koaRouter);
 
-var _user = __webpack_require__(15);
+var _user = __webpack_require__(17);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -383,10 +750,14 @@ router.post('/api/login', _user.login);
 router.post('/api/logout', _user.logout);
 router.get('/api/logout', _user.logout);
 
+router.get('/api/test', function (ctx) {
+  return ctx.body = 'jerry';
+});
+
 exports.default = router;
 
 /***/ }),
-/* 15 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -405,15 +776,15 @@ var _asyncToGenerator2 = __webpack_require__(1);
 
 var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
-var _axios = __webpack_require__(16);
+var _axios = __webpack_require__(18);
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _config = __webpack_require__(4);
+var _config = __webpack_require__(8);
 
 var _config2 = _interopRequireDefault(_config);
 
-var _axiosMockAdapter = __webpack_require__(21);
+var _axiosMockAdapter = __webpack_require__(22);
 
 var _axiosMockAdapter2 = _interopRequireDefault(_axiosMockAdapter);
 
@@ -621,24 +992,18 @@ var logout = exports.logout = function () {
 }();
 
 /***/ }),
-/* 16 */
+/* 18 */
 /***/ (function(module, exports) {
 
 module.exports = require("axios");
 
 /***/ }),
-/* 17 */
-/***/ (function(module, exports) {
-
-module.exports = require("lodash");
-
-/***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
-	"./development.json": 19,
-	"./production.json": 20
+	"./development.json": 20,
+	"./production.json": 21
 };
 function webpackContext(req) {
 	return __webpack_require__(webpackContextResolve(req));
@@ -654,28 +1019,28 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
-webpackContext.id = 18;
-
-/***/ }),
-/* 19 */
-/***/ (function(module, exports) {
-
-module.exports = {"db":"mongodb://localhost:27017/jerryServ","SITE_ROOT_URL":"http://jj.jerryshi.com"}
+webpackContext.id = 19;
 
 /***/ }),
 /* 20 */
 /***/ (function(module, exports) {
 
-module.exports = {"db":"mongodb://localhost/jerryServ","SITE_ROOT_URL":"http://jj.jerryshi.com"}
+module.exports = {"db":"mongodb://localhost:27017/jerryServ","SITE_ROOT_URL":"http://jj.jerryshi.com"}
 
 /***/ }),
 /* 21 */
 /***/ (function(module, exports) {
 
-module.exports = require("axios-mock-adapter");
+module.exports = {"db":"mongodb://localhost/jerryServ","SITE_ROOT_URL":"http://jj.jerryshi.com"}
 
 /***/ }),
 /* 22 */
+/***/ (function(module, exports) {
+
+module.exports = require("axios-mock-adapter");
+
+/***/ }),
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -691,13 +1056,13 @@ var getFilename = exports.getFilename = function getFilename(path) {
 };
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
-	"./common.js": 24,
-	"./database.js": 30,
-	"./router.js": 36
+	"./common.js": 25,
+	"./database.js": 31,
+	"./router.js": 37
 };
 function webpackContext(req) {
 	return __webpack_require__(webpackContextResolve(req));
@@ -713,10 +1078,10 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
-webpackContext.id = 23;
+webpackContext.id = 24;
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -727,23 +1092,23 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.addSession = exports.addBody = exports.addCORS = exports.addStatic = exports.addLogger = undefined;
 
-var _koaBodyparser = __webpack_require__(25);
+var _koaBodyparser = __webpack_require__(26);
 
 var _koaBodyparser2 = _interopRequireDefault(_koaBodyparser);
 
-var _koaLogger = __webpack_require__(26);
+var _koaLogger = __webpack_require__(27);
 
 var _koaLogger2 = _interopRequireDefault(_koaLogger);
 
-var _koaSession = __webpack_require__(27);
+var _koaSession = __webpack_require__(28);
 
 var _koaSession2 = _interopRequireDefault(_koaSession);
 
-var _cors = __webpack_require__(28);
+var _cors = __webpack_require__(29);
 
 var _cors2 = _interopRequireDefault(_cors);
 
-var _koaStatic = __webpack_require__(29);
+var _koaStatic = __webpack_require__(30);
 
 var _koaStatic2 = _interopRequireDefault(_koaStatic);
 
@@ -785,37 +1150,37 @@ var addSession = exports.addSession = function addSession(app) {
 /* WEBPACK VAR INJECTION */}.call(exports, "server/middleware"))
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports) {
 
 module.exports = require("koa-bodyparser");
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports) {
 
 module.exports = require("koa-logger");
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports) {
 
 module.exports = require("koa-session");
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports) {
 
 module.exports = require("@koa/cors");
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports) {
 
 module.exports = require("koa-static");
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -834,17 +1199,17 @@ var _asyncToGenerator2 = __webpack_require__(1);
 
 var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
-var _fs = __webpack_require__(31);
+var _fs = __webpack_require__(32);
 
 var _fs2 = _interopRequireDefault(_fs);
 
 var _path = __webpack_require__(6);
 
-var _mongoose = __webpack_require__(2);
+var _mongoose = __webpack_require__(7);
 
 var _mongoose2 = _interopRequireDefault(_mongoose);
 
-var _config = __webpack_require__(4);
+var _config = __webpack_require__(8);
 
 var _config2 = _interopRequireDefault(_config);
 
@@ -855,7 +1220,7 @@ var _ramda2 = _interopRequireDefault(_ramda);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // loading mogoose "meta" plugins
-_mongoose2.default.plugin(__webpack_require__(32));
+_mongoose2.default.plugin(__webpack_require__(33));
 
 var modelDir = (0, _path.resolve)(__dirname, '../database/schema');
 
@@ -864,7 +1229,7 @@ var modelDir = (0, _path.resolve)(__dirname, '../database/schema');
 //   .filter(file => ~file.search(/\.js$/))    // only .js file
 //   .forEach(file => require(resolve(modelDir, file)))
 
-var context = __webpack_require__(33);
+var context = __webpack_require__(34);
 context.keys().forEach(function (key) {
   return context(key);
 });
@@ -902,13 +1267,13 @@ var database = exports.database = function database(app) {
 /* WEBPACK VAR INJECTION */}.call(exports, "server/middleware"))
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports) {
 
 module.exports = require("fs");
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -929,12 +1294,12 @@ module.exports = exports = function MetaPlugin(schema, options) {
 };
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
-	"./article.js": 34,
-	"./articleCategory.js": 35
+	"./article.js": 35,
+	"./articleCategory.js": 36
 };
 function webpackContext(req) {
 	return __webpack_require__(webpackContextResolve(req));
@@ -950,16 +1315,16 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
-webpackContext.id = 33;
+webpackContext.id = 34;
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var mongoose = __webpack_require__(2);
+var mongoose = __webpack_require__(7);
 var Schema = mongoose.Schema;
 var _Schema$Types = Schema.Types,
     Mixed = _Schema$Types.Mixed,
@@ -982,13 +1347,13 @@ var ArticleSchema = new Schema({
 mongoose.model('Article', ArticleSchema);
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var mongoose = __webpack_require__(2);
+var mongoose = __webpack_require__(7);
 var Schema = mongoose.Schema;
 
 var ArticleCategorySchema = new Schema({
@@ -1001,24 +1366,236 @@ var ArticleCategorySchema = new Schema({
 mongoose.model('ArticleCateory', ArticleCategorySchema);
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-// const { Route } = require('../lib/decorator')
-// // const { resolve } = require('path')
-// // 只要执行此中间件，就等于执行了整个路由中间层
-// export const router = app => {
-//   // const apiPath = resolve(__dirname, '../routes')
-//   // Todo: 待修复，现在智能传相对路径，且字符串
-//   const router = new Route(app, '../routes')
 
-//   router.init()
-// }
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _require = __webpack_require__(10),
+    Route = _require.Route;
+// const { resolve } = require('path')
+// 只要执行此中间件，就等于执行了整个路由中间层
+
+
+var router = exports.router = function router(app) {
+  // const apiPath = resolve(__dirname, '../routes')
+  // Todo: 待修复，现在智能传相对路径，且字符串
+  var router = new Route(app, '../routes');
+
+  router.init();
+};
 
 /***/ }),
-/* 37 */
+/* 38 */
+/***/ (function(module, exports) {
+
+module.exports = require("babel-runtime/core-js/object/assign");
+
+/***/ }),
+/* 39 */
+/***/ (function(module, exports) {
+
+module.exports = require("babel-runtime/helpers/toConsumableArray");
+
+/***/ }),
+/* 40 */
+/***/ (function(module, exports) {
+
+module.exports = require("babel-runtime/core-js/get-iterator");
+
+/***/ }),
+/* 41 */
+/***/ (function(module, exports) {
+
+module.exports = require("babel-runtime/helpers/slicedToArray");
+
+/***/ }),
+/* 42 */
+/***/ (function(module, exports) {
+
+module.exports = require("babel-runtime/core-js/map");
+
+/***/ }),
+/* 43 */
+/***/ (function(module, exports) {
+
+module.exports = require("babel-runtime/core-js/symbol");
+
+/***/ }),
+/* 44 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var map = {
+	"./user.js": 45
+};
+function webpackContext(req) {
+	return __webpack_require__(webpackContextResolve(req));
+};
+function webpackContextResolve(req) {
+	var id = map[req];
+	if(!(id + 1)) // check for number or string
+		throw new Error("Cannot find module '" + req + "'.");
+	return id;
+};
+webpackContext.keys = function webpackContextKeys() {
+	return Object.keys(map);
+};
+webpackContext.resolve = webpackContextResolve;
+module.exports = webpackContext;
+webpackContext.id = 44;
+
+/***/ }),
+/* 45 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.adminController = undefined;
+
+var _getOwnPropertyDescriptor = __webpack_require__(46);
+
+var _getOwnPropertyDescriptor2 = _interopRequireDefault(_getOwnPropertyDescriptor);
+
+var _regenerator = __webpack_require__(0);
+
+var _regenerator2 = _interopRequireDefault(_regenerator);
+
+var _asyncToGenerator2 = __webpack_require__(1);
+
+var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
+
+var _classCallCheck2 = __webpack_require__(2);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(3);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _dec, _dec2, _dec3, _class, _desc, _value, _class2;
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) {
+  var desc = {};
+  Object['ke' + 'ys'](descriptor).forEach(function (key) {
+    desc[key] = descriptor[key];
+  });
+  desc.enumerable = !!desc.enumerable;
+  desc.configurable = !!desc.configurable;
+
+  if ('value' in desc || desc.initializer) {
+    desc.writable = true;
+  }
+
+  desc = decorators.slice().reverse().reduce(function (desc, decorator) {
+    return decorator(target, property, desc) || desc;
+  }, desc);
+
+  if (context && desc.initializer !== void 0) {
+    desc.value = desc.initializer ? desc.initializer.call(context) : void 0;
+    desc.initializer = undefined;
+  }
+
+  if (desc.initializer === void 0) {
+    Object['define' + 'Property'](target, property, desc);
+    desc = null;
+  }
+
+  return desc;
+}
+
+var _require = __webpack_require__(10),
+    controller = _require.controller,
+    get = _require.get,
+    del = _require.del,
+    post = _require.post,
+    auth = _require.auth,
+    admin = _require.admin,
+    required = _require.required;
+
+var adminController = exports.adminController = (_dec = controller('/api/admin'), _dec2 = get('/user'), _dec3 = post('/login'), _dec(_class = (_class2 = function () {
+  function adminController() {
+    (0, _classCallCheck3.default)(this, adminController);
+  }
+
+  (0, _createClass3.default)(adminController, [{
+    key: 'getUser',
+    value: function () {
+      var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(ctx, next) {
+        return _regenerator2.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                ctx.body = {
+                  ret: 200,
+                  msg: '获取成功',
+                  data: { username: 'jerry' }
+                };
+
+              case 1:
+              case 'end':
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function getUser(_x, _x2) {
+        return _ref.apply(this, arguments);
+      }
+
+      return getUser;
+    }()
+  }, {
+    key: 'login',
+    value: function () {
+      var _ref2 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2(ctx, next) {
+        return _regenerator2.default.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                ctx.session = null;
+
+                ctx.body = {
+                  success: true
+                };
+
+              case 2:
+              case 'end':
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function login(_x3, _x4) {
+        return _ref2.apply(this, arguments);
+      }
+
+      return login;
+    }()
+  }]);
+  return adminController;
+}(), (_applyDecoratedDescriptor(_class2.prototype, 'getUser', [_dec2], (0, _getOwnPropertyDescriptor2.default)(_class2.prototype, 'getUser'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'login', [_dec3], (0, _getOwnPropertyDescriptor2.default)(_class2.prototype, 'login'), _class2.prototype)), _class2)) || _class);
+
+/***/ }),
+/* 46 */
+/***/ (function(module, exports) {
+
+module.exports = require("babel-runtime/core-js/object/get-own-property-descriptor");
+
+/***/ }),
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = {
@@ -1036,7 +1613,7 @@ module.exports = {
   plugins: [{ src: '~plugins/flexible.js', ssr: false }, { src: '~plugins/iview.js', ssr: true }, { src: '~/plugins/quillEditor.js', ssr: false }],
   loading: './components/loading.vue',
   env: {
-    NODE_ENV: "production"
+    NODE_ENV: "development"
   },
   cache: {
     max: 1000,

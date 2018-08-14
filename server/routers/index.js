@@ -7,4 +7,6 @@ router.post('/api/login', login)
 router.post('/api/logout', logout)
 router.get('/api/logout', logout)
 
+router.get('/api/test', ctx => ctx.body = 'jerry')
+
 export default router
