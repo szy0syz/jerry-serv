@@ -110,7 +110,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // import { resolve } from 'path'
 
 var host = process.env.HOST || 'localhost';
-var env = "development" || 'development';
+var env = "production" || 'development';
 
 // const confPath = resolve(__dirname, `./${env}.json`)
 
@@ -240,7 +240,7 @@ var Server = function () {
                 // Import and Set Nuxt.js options
                 config = __webpack_require__(37);
 
-                config.dev = !("development" === 'production');
+                config.dev = !("production" === 'production');
                 // console.log('env === ', app.env, env, process.env.COOKIE_DOMAIN, process.env.APP_ENV, config.dev)
 
                 // Instantiate nuxt.js
@@ -1036,7 +1036,7 @@ module.exports = {
   plugins: [{ src: '~plugins/flexible.js', ssr: false }, { src: '~plugins/iview.js', ssr: true }, { src: '~/plugins/quillEditor.js', ssr: false }],
   loading: './components/loading.vue',
   env: {
-    NODE_ENV: "development"
+    NODE_ENV: "production"
   },
   cache: {
     max: 1000,

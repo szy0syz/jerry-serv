@@ -1,7 +1,7 @@
 module.exports = {
   apps: [
     {
-      name: 'nuxt-iview',
+      name: 'jerry-serv',
       script: 'build/main.js',
       watch: true,
       env: {
