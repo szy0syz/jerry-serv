@@ -4,25 +4,29 @@ import Router from 'koa-router'
 import route from './routers'
 import R from 'ramda'
 
-
 const host = process.env.HOST || '127.0.0.1'
 const port = process.env.PORT || 3000
 
-const reg = /\/(\w+).js$/
-const isValid = filaname => reg.exec(filaname)
+const getFilename = path => {
+  const reg = /\/(\w+).js$/
+  const res = reg.exec(path)
+  return res && res[1]
+}
 const MIDDLEWARES = ['database', 'common', 'router']
 
 // 自动遍历 ./middleware/*.js 导出对象后再逐个遍历初始化koa中间件
-const useMiddlewares = (app) => {
+const useMiddlewares = app => {
   const context = require.context('./middleware/', false, /\.js$/)
   context.keys().forEach(key => {
-    const filename = reg.exec(key)[1]
-    const res = MIDDLEWARES.includes(filename)
-    if(res) {
-      console.log('匹配成功', filename)
-      R.forEachObjIndexed(
-        initWith => initWith(app)
-      )(context(key))
+    const filename = getFilename(key)
+    const isValid = MIDDLEWARES.includes(filename)
+    if (isValid) {
+      console.log('成功加载系统中间件:', filename)
+      try {
+        R.forEachObjIndexed(initWith => initWith(app))(context(key))
+      } catch (err) {
+        console.error(err)
+      }
     }
   })
 }
@@ -74,7 +78,6 @@ class Server {
 try {
   const app = new Server()
   app.start(host, port)
-} catch (err) { 
+} catch (err) {
   console.error(err)
 }
-

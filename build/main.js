@@ -182,23 +182,29 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var host = process.env.HOST || '127.0.0.1';
 var port = process.env.PORT || 3000;
 
-var reg = /\/(\w+).js$/;
-var isValid = function isValid(filaname) {
-  return reg.exec(filaname);
+var getFilename = function getFilename(path) {
+  var reg = /\/(\w+).js$/;
+  var res = reg.exec(path);
+  return res && res[1];
 };
 var MIDDLEWARES = ['database', 'common', 'router'];
 
 // 自动遍历 ./middleware/*.js 导出对象后再逐个遍历初始化koa中间件
 var useMiddlewares = function useMiddlewares(app) {
   var context = __webpack_require__(22);
+  console.log(context.keys());
   context.keys().forEach(function (key) {
-    var filename = reg.exec(key)[1];
-    var res = MIDDLEWARES.includes(filename);
-    if (res) {
-      console.log('匹配成功', filename);
-      _ramda2.default.forEachObjIndexed(function (initWith) {
-        return initWith(app);
-      })(context(key));
+    var filename = getFilename(key);
+    var isValid = MIDDLEWARES.includes(filename);
+    if (isValid) {
+      console.log('成功加载系统中间件:', filename);
+      try {
+        _ramda2.default.forEachObjIndexed(function (initWith) {
+          return initWith(app);
+        })(context(key));
+      } catch (err) {
+        console.error(err);
+      }
     }
   });
 };
