@@ -79,13 +79,10 @@ class Server {
   }
 }
 
-// try {
-//   const app = new Server()
-//   console.log('new Server')
-//   app.start(host, port)
-// } catch (err) {
-//   console.error(err)
-// }
-const app = new Server()
-console.log('new Server')
-app.start(host, port)
+try {
+  const app = new Server()
+  console.log('new Server')
+  app.start(host, port)
+} catch (err) {
+  console.error(err)
+}
