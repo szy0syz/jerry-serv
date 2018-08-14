@@ -12,6 +12,16 @@ const ArticleSchema = new Schema({
   category: {
     type: ObjectId,
     ref: 'Category'
+  },
+  meta: {
+    createdAt: {
+      type: Date,
+      default: Date.now()
+    },
+    updatedAt: {
+      type: Date,
+      default: Date.now()
+    }
   }
 })
 

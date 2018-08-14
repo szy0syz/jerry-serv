@@ -82,40 +82,46 @@ module.exports = require("babel-runtime/helpers/asyncToGenerator");
 /* 2 */
 /***/ (function(module, exports) {
 
-module.exports = require("babel-runtime/helpers/classCallCheck");
+module.exports = require("mongoose");
 
 /***/ }),
 /* 3 */
 /***/ (function(module, exports) {
 
-module.exports = require("babel-runtime/helpers/createClass");
+module.exports = require("koa-router");
 
 /***/ }),
 /* 4 */
 /***/ (function(module, exports) {
 
-module.exports = require("koa-router");
+module.exports = require("ramda");
 
 /***/ }),
 /* 5 */
 /***/ (function(module, exports) {
 
-module.exports = require("ramda");
+module.exports = require("path");
 
 /***/ }),
 /* 6 */
 /***/ (function(module, exports) {
 
-module.exports = require("path");
+module.exports = require("babel-runtime/core-js/promise");
 
 /***/ }),
 /* 7 */
 /***/ (function(module, exports) {
 
-module.exports = require("mongoose");
+module.exports = require("babel-runtime/helpers/classCallCheck");
 
 /***/ }),
 /* 8 */
+/***/ (function(module, exports) {
+
+module.exports = require("babel-runtime/helpers/createClass");
+
+/***/ }),
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -125,7 +131,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _lodash = __webpack_require__(9);
+var _lodash = __webpack_require__(10);
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
@@ -139,19 +145,1054 @@ var env = "development" || 'development';
 // const confPath = resolve(__dirname, `./${env}.json`)
 
 // 同步加载json配置文件
-var conf = __webpack_require__(19)("./" + env + '.json');
+var conf = __webpack_require__(18)("./" + env + '.json');
 
 // 用lodash合并
 exports.default = _lodash2.default.assign({ env: env, host: host }, conf);
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports) {
 
 module.exports = require("lodash");
 
 /***/ }),
-/* 10 */
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _regenerator = __webpack_require__(0);
+
+var _regenerator2 = _interopRequireDefault(_regenerator);
+
+var _promise = __webpack_require__(6);
+
+var _promise2 = _interopRequireDefault(_promise);
+
+var _asyncToGenerator2 = __webpack_require__(1);
+
+var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
+
+var _classCallCheck2 = __webpack_require__(7);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(8);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _koa = __webpack_require__(13);
+
+var _koa2 = _interopRequireDefault(_koa);
+
+var _nuxt = __webpack_require__(14);
+
+var _koaRouter = __webpack_require__(3);
+
+var _koaRouter2 = _interopRequireDefault(_koaRouter);
+
+var _routers = __webpack_require__(15);
+
+var _routers2 = _interopRequireDefault(_routers);
+
+var _ramda = __webpack_require__(4);
+
+var _ramda2 = _interopRequireDefault(_ramda);
+
+var _utils = __webpack_require__(22);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var host = process.env.HOST || '127.0.0.1';
+var port = process.env.PORT || 3000;
+
+var MIDDLEWARES = ['database', 'common', 'router'];
+
+// 自动遍历 ./middleware/*.js 导出对象后再逐个遍历初始化koa中间件
+var useMiddlewares = function useMiddlewares(app) {
+  var context = __webpack_require__(23);
+  console.log('!~~~~~~~~~执行useMiddlewares');
+  // R.map(
+  //   R.compose(
+  //     filename => MIDDLEWARES.includes(filename),
+  //     key => getFilename(key)
+  //   )
+  // )(context.keys())
+
+  context.keys().forEach(function (key) {
+    var filename = (0, _utils.getFilename)(key);
+    var isValid = MIDDLEWARES.includes(filename);
+    if (isValid) {
+      console.log('成功加载系统中间件:', filename);
+      try {
+        _ramda2.default.forEachObjIndexed(function (initWith) {
+          return initWith(app);
+        })(context(key));
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  });
+};
+
+var Server = function () {
+  function Server() {
+    (0, _classCallCheck3.default)(this, Server);
+
+    this.app = new _koa2.default();
+    useMiddlewares(this.app);
+  }
+
+  (0, _createClass3.default)(Server, [{
+    key: 'start',
+    value: function () {
+      var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2(host, port) {
+        var _this = this;
+
+        var router, config, nuxt, builder;
+        return _regenerator2.default.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                router = new _koaRouter2.default();
+
+                router.use('', _routers2.default.routes());
+                this.app.use(router.routes()).use(router.allowedMethods());
+
+                // Import and Set Nuxt.js options
+                config = __webpack_require__(48);
+
+                config.dev = !("development" === 'production');
+                // console.log('env === ', app.env, env, process.env.COOKIE_DOMAIN, process.env.APP_ENV, config.dev)
+
+                // Instantiate nuxt.js
+                nuxt = new _nuxt.Nuxt(config);
+
+                // Build in development
+
+                if (!config.dev) {
+                  _context2.next = 10;
+                  break;
+                }
+
+                builder = new _nuxt.Builder(nuxt);
+                _context2.next = 10;
+                return builder.build();
+
+              case 10:
+
+                this.app.use(function () {
+                  var _ref2 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(ctx, next) {
+                    return _regenerator2.default.wrap(function _callee$(_context) {
+                      while (1) {
+                        switch (_context.prev = _context.next) {
+                          case 0:
+                            _context.next = 2;
+                            return next();
+
+                          case 2:
+                            ctx.status = 200; // koa defaults to 404 when it sees that status is unset
+                            ctx.req.session = ctx.session; // 必须将session添加进request中，否则nuxt的req获取不到session
+                            return _context.abrupt('return', new _promise2.default(function (resolve, reject) {
+                              ctx.res.on('close', resolve);
+                              ctx.res.on('finish', resolve);
+                              nuxt.render(ctx.req, ctx.res, function (promise) {
+                                // nuxt.render passes a rejected promise into callback on error.
+                                promise.then(resolve).catch(reject);
+                              });
+                            }));
+
+                          case 5:
+                          case 'end':
+                            return _context.stop();
+                        }
+                      }
+                    }, _callee, _this);
+                  }));
+
+                  return function (_x3, _x4) {
+                    return _ref2.apply(this, arguments);
+                  };
+                }());
+
+                this.app.listen(port, host);
+                console.log('Server listening on http://' + host + ':' + port); // eslint-disable-line no-console
+
+              case 13:
+              case 'end':
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function start(_x, _x2) {
+        return _ref.apply(this, arguments);
+      }
+
+      return start;
+    }()
+  }]);
+  return Server;
+}();
+
+// try {
+//   const app = new Server()
+//   console.log('new Server')
+//   app.start(host, port)
+// } catch (err) {
+//   console.error(err)
+// }
+
+
+var app = new Server();
+console.log('new Server');
+app.start(host, port);
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports) {
+
+module.exports = require("regenerator-runtime");
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports) {
+
+module.exports = require("koa");
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports) {
+
+module.exports = require("nuxt");
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _koaRouter = __webpack_require__(3);
+
+var _koaRouter2 = _interopRequireDefault(_koaRouter);
+
+var _user = __webpack_require__(16);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var router = new _koaRouter2.default();
+
+router.get('/api/user', _user.userinfo);
+router.post('/api/login', _user.login);
+router.post('/api/logout', _user.logout);
+router.get('/api/logout', _user.logout);
+
+router.get('/api/test', function (ctx) {
+  return ctx.body = 'jerry';
+});
+
+exports.default = router;
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.logout = exports.login = exports.userinfo = undefined;
+
+var _regenerator = __webpack_require__(0);
+
+var _regenerator2 = _interopRequireDefault(_regenerator);
+
+var _asyncToGenerator2 = __webpack_require__(1);
+
+var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
+
+var _axios = __webpack_require__(17);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+var _config = __webpack_require__(9);
+
+var _config2 = _interopRequireDefault(_config);
+
+var _axiosMockAdapter = __webpack_require__(21);
+
+var _axiosMockAdapter2 = _interopRequireDefault(_axiosMockAdapter);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mock = new _axiosMockAdapter2.default(_axios2.default);
+mock.onPost(_config2.default.base_url + '/api/v1.user/login').reply(function (config) {
+  // console.log(JSON.parse(config.data).mobile)
+  return [200, { 'ret': 200, 'msg': '请求成功', 'data': { 'code': 0, 'message': '登录成功', 'token': 'PhU0Sd9zwUSwOQgXnJpj7pgSwdA7YD80', 'id': 1, 'mobile': '13770267077', 'name': JSON.parse(config.data).mobile, 'sex': 1, 'status': 1, 'role_id': 1, 'depart_id': 1, 'leader_id': 0 } }];
+});
+
+var userinfo = exports.userinfo = function () {
+  var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(ctx, next) {
+    var token;
+    return _regenerator2.default.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            token = ctx.session.user.token || '';
+            return _context.abrupt('return', ctx.body = {
+              ret: 200,
+              msg: '获取成功',
+              data: { token: token }
+            });
+
+          case 2:
+          case 'end':
+            return _context.stop();
+        }
+      }
+    }, _callee, undefined);
+  }));
+
+  return function userinfo(_x, _x2) {
+    return _ref.apply(this, arguments);
+  };
+}();
+
+var login = exports.login = function () {
+  var _ref2 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2(ctx, next) {
+    var _ctx$request$body, mobile, psd, _url, req, ret, msg, code, message, token, signkey, info, session;
+
+    return _regenerator2.default.wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            _ctx$request$body = ctx.request.body, mobile = _ctx$request$body.mobile, psd = _ctx$request$body.psd;
+
+            if (!(!mobile || !psd)) {
+              _context2.next = 3;
+              break;
+            }
+
+            return _context2.abrupt('return', ctx.body = {
+              ret: 303,
+              msg: '缺少请求参数',
+              data: {}
+            });
+
+          case 3:
+
+            // 发起请求
+            _url = _config2.default.base_url + '/api/v1.user/login';
+            _context2.next = 6;
+            return _axios2.default.post(_url, {
+              mobile: mobile,
+              psd: psd,
+              sign: ''
+            });
+
+          case 6:
+            req = _context2.sent;
+
+            if (!(req.status !== 200)) {
+              _context2.next = 9;
+              break;
+            }
+
+            return _context2.abrupt('return', ctx.body = {
+              ret: 400,
+              msg: '网络通讯异常',
+              data: {}
+            });
+
+          case 9:
+            if (!(req.data.ret !== 200)) {
+              _context2.next = 13;
+              break;
+            }
+
+            ret = req.data.ret || 400;
+            msg = req.data.msg || '失败';
+            return _context2.abrupt('return', ctx.body = {
+              ret: ret,
+              msg: msg,
+              data: {}
+            });
+
+          case 13:
+            if (!(req.data.data.code !== 0)) {
+              _context2.next = 17;
+              break;
+            }
+
+            code = req.data.data.code || -1;
+            message = req.data.data.message || '登录失败';
+            return _context2.abrupt('return', ctx.body = {
+              ret: 200,
+              msg: '请求成功',
+              data: {
+                code: code,
+                message: message
+              }
+            });
+
+          case 17:
+
+            // 登陆成功
+            token = req.data.data.token;
+            signkey = _config2.default.sign_key;
+            info = {
+              id: req.data.data.id,
+              mobile: req.data.data.mobile,
+              name: req.data.data.name,
+              sex: req.data.data.sex,
+              status: req.data.data.status,
+              role_id: req.data.data.role_id,
+              depart_id: req.data.data.depart_id,
+              deader_id: req.data.data.deader_id
+            };
+            session = ctx.session;
+
+            session.user = {
+              token: token,
+              sign_key: signkey,
+              info: info
+            };
+            ctx.session = session;
+
+            return _context2.abrupt('return', ctx.body = {
+              ret: 200,
+              msg: '请求成功',
+              data: {
+                code: 0,
+                message: '登录成功',
+                token: token,
+                info: info
+              }
+            });
+
+          case 24:
+          case 'end':
+            return _context2.stop();
+        }
+      }
+    }, _callee2, undefined);
+  }));
+
+  return function login(_x3, _x4) {
+    return _ref2.apply(this, arguments);
+  };
+}();
+
+var logout = exports.logout = function () {
+  var _ref3 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee3(ctx, next) {
+    return _regenerator2.default.wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            _context3.prev = 0;
+
+            ctx.session.user = null;
+            return _context3.abrupt('return', ctx.body = {
+              ret: 200,
+              msg: '请求成功',
+              data: {
+                code: 0,
+                message: '退出成功'
+              }
+            });
+
+          case 5:
+            _context3.prev = 5;
+            _context3.t0 = _context3['catch'](0);
+            return _context3.abrupt('return', ctx.body = {
+              ret: 200,
+              msg: '请求成功',
+              data: {
+                code: -1,
+                message: '退出失败'
+              }
+            });
+
+          case 8:
+          case 'end':
+            return _context3.stop();
+        }
+      }
+    }, _callee3, undefined, [[0, 5]]);
+  }));
+
+  return function logout(_x5, _x6) {
+    return _ref3.apply(this, arguments);
+  };
+}();
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports) {
+
+module.exports = require("axios");
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var map = {
+	"./development.json": 19,
+	"./production.json": 20
+};
+function webpackContext(req) {
+	return __webpack_require__(webpackContextResolve(req));
+};
+function webpackContextResolve(req) {
+	var id = map[req];
+	if(!(id + 1)) // check for number or string
+		throw new Error("Cannot find module '" + req + "'.");
+	return id;
+};
+webpackContext.keys = function webpackContextKeys() {
+	return Object.keys(map);
+};
+webpackContext.resolve = webpackContextResolve;
+module.exports = webpackContext;
+webpackContext.id = 18;
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports) {
+
+module.exports = {"db":"mongodb://localhost:27017/jerryServ","SITE_ROOT_URL":"http://jj.jerryshi.com"}
+
+/***/ }),
+/* 20 */
+/***/ (function(module, exports) {
+
+module.exports = {"db":"mongodb://localhost/jerryServ","SITE_ROOT_URL":"http://jj.jerryshi.com"}
+
+/***/ }),
+/* 21 */
+/***/ (function(module, exports) {
+
+module.exports = require("axios-mock-adapter");
+
+/***/ }),
+/* 22 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var getFilename = exports.getFilename = function getFilename(path) {
+  var reg = /\/(\w+).js$/;
+  var res = reg.exec(path);
+  return res && res[1];
+};
+
+/***/ }),
+/* 23 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var map = {
+	"./common.js": 24,
+	"./database.js": 30,
+	"./router.js": 38
+};
+function webpackContext(req) {
+	return __webpack_require__(webpackContextResolve(req));
+};
+function webpackContextResolve(req) {
+	var id = map[req];
+	if(!(id + 1)) // check for number or string
+		throw new Error("Cannot find module '" + req + "'.");
+	return id;
+};
+webpackContext.keys = function webpackContextKeys() {
+	return Object.keys(map);
+};
+webpackContext.resolve = webpackContextResolve;
+module.exports = webpackContext;
+webpackContext.id = 23;
+
+/***/ }),
+/* 24 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(__dirname) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.addSession = exports.addBody = exports.addCORS = exports.addStatic = exports.addLogger = undefined;
+
+var _koaBodyparser = __webpack_require__(25);
+
+var _koaBodyparser2 = _interopRequireDefault(_koaBodyparser);
+
+var _koaLogger = __webpack_require__(26);
+
+var _koaLogger2 = _interopRequireDefault(_koaLogger);
+
+var _koaSession = __webpack_require__(27);
+
+var _koaSession2 = _interopRequireDefault(_koaSession);
+
+var _cors = __webpack_require__(28);
+
+var _cors2 = _interopRequireDefault(_cors);
+
+var _koaStatic = __webpack_require__(29);
+
+var _koaStatic2 = _interopRequireDefault(_koaStatic);
+
+var _path = __webpack_require__(5);
+
+var _path2 = _interopRequireDefault(_path);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var addLogger = exports.addLogger = function addLogger(app) {
+  app.use((0, _koaLogger2.default)());
+};
+
+var addStatic = exports.addStatic = function addStatic(app) {
+  // 配置静态资源加载中间件
+  app.use((0, _koaStatic2.default)(_path2.default.join(__dirname, '../static')));
+};
+
+var addCORS = exports.addCORS = function addCORS(app) {
+  app.use((0, _cors2.default)());
+};
+
+var addBody = exports.addBody = function addBody(app) {
+  app.use((0, _koaBodyparser2.default)());
+};
+
+var addSession = exports.addSession = function addSession(app) {
+  app.keys = ['ice'];
+
+  var CONFIG = {
+    key: 'koa:sess',
+    maxAge: 86400000,
+    overwrite: true,
+    signed: true,
+    rolling: false
+  };
+  app.use((0, _koaSession2.default)(CONFIG, app));
+};
+/* WEBPACK VAR INJECTION */}.call(exports, "server/middleware"))
+
+/***/ }),
+/* 25 */
+/***/ (function(module, exports) {
+
+module.exports = require("koa-bodyparser");
+
+/***/ }),
+/* 26 */
+/***/ (function(module, exports) {
+
+module.exports = require("koa-logger");
+
+/***/ }),
+/* 27 */
+/***/ (function(module, exports) {
+
+module.exports = require("koa-session");
+
+/***/ }),
+/* 28 */
+/***/ (function(module, exports) {
+
+module.exports = require("@koa/cors");
+
+/***/ }),
+/* 29 */
+/***/ (function(module, exports) {
+
+module.exports = require("koa-static");
+
+/***/ }),
+/* 30 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(__dirname) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.database = undefined;
+
+var _regenerator = __webpack_require__(0);
+
+var _regenerator2 = _interopRequireDefault(_regenerator);
+
+var _asyncToGenerator2 = __webpack_require__(1);
+
+var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
+
+var _fs = __webpack_require__(31);
+
+var _fs2 = _interopRequireDefault(_fs);
+
+var _path = __webpack_require__(5);
+
+var _mongoose = __webpack_require__(2);
+
+var _mongoose2 = _interopRequireDefault(_mongoose);
+
+var _config = __webpack_require__(9);
+
+var _config2 = _interopRequireDefault(_config);
+
+var _ramda = __webpack_require__(4);
+
+var _ramda2 = _interopRequireDefault(_ramda);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// loading mogoose "meta" plugins
+_mongoose2.default.plugin(__webpack_require__(32));
+
+var modelDir = (0, _path.resolve)(__dirname, '../database/schema');
+
+// fs
+//   .readdirSync(modelDir)
+//   .filter(file => ~file.search(/\.js$/))    // only .js file
+//   .forEach(file => require(resolve(modelDir, file)))
+
+var context = __webpack_require__(33);
+context.keys().forEach(function (key) {
+  return context(key);
+});
+
+var database = exports.database = function database(app) {
+  _mongoose2.default.set('debug', true);
+
+  _mongoose2.default.connect(_config2.default.db, { useNewUrlParser: true });
+
+  _mongoose2.default.connection.on('disconnected', function () {
+    _mongoose2.default.connect(_config2.default.db);
+  });
+
+  _mongoose2.default.connection.on('error', function (err) {
+    console.error(err);
+  });
+
+  _mongoose2.default.connection.on('open', (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+    return _regenerator2.default.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            console.info('Connected to MongoDB ', _config2.default.db);
+
+            // TODO
+
+          case 1:
+          case 'end':
+            return _context.stop();
+        }
+      }
+    }, _callee, undefined);
+  })));
+};
+/* WEBPACK VAR INJECTION */}.call(exports, "server/middleware"))
+
+/***/ }),
+/* 31 */
+/***/ (function(module, exports) {
+
+module.exports = require("fs");
+
+/***/ }),
+/* 32 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = exports = function MetaPlugin(schema, options) {
+
+  schema.pre('save', function (next) {
+    if (this.isNew) {
+      this.meta = {}; // 不能给访问undefined的属性
+      this.meta.createdAt = this.meta.updatedAt = Date.now();
+    } else {
+      this.meta.updatedAt = Date.now();
+    }
+
+    next();
+  });
+};
+
+/***/ }),
+/* 33 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var map = {
+	"./article.js": 34,
+	"./articleCategory.js": 35,
+	"./user.js": 36
+};
+function webpackContext(req) {
+	return __webpack_require__(webpackContextResolve(req));
+};
+function webpackContextResolve(req) {
+	var id = map[req];
+	if(!(id + 1)) // check for number or string
+		throw new Error("Cannot find module '" + req + "'.");
+	return id;
+};
+webpackContext.keys = function webpackContextKeys() {
+	return Object.keys(map);
+};
+webpackContext.resolve = webpackContextResolve;
+module.exports = webpackContext;
+webpackContext.id = 33;
+
+/***/ }),
+/* 34 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var mongoose = __webpack_require__(2);
+var Schema = mongoose.Schema;
+var _Schema$Types = Schema.Types,
+    Mixed = _Schema$Types.Mixed,
+    ObjectId = _Schema$Types.ObjectId;
+
+
+var ArticleSchema = new Schema({
+  title: {
+    type: String,
+    required: true
+  },
+  cover: String,
+  pubdate: Date,
+  category: {
+    type: ObjectId,
+    ref: 'Category'
+  },
+  meta: {
+    createdAt: {
+      type: Date,
+      default: Date.now()
+    },
+    updatedAt: {
+      type: Date,
+      default: Date.now()
+    }
+  }
+});
+
+mongoose.model('Article', ArticleSchema);
+
+/***/ }),
+/* 35 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var mongoose = __webpack_require__(2);
+var Schema = mongoose.Schema;
+
+var ArticleCategorySchema = new Schema({
+  name: {
+    type: String,
+    required: true
+  },
+  meta: {
+    createdAt: {
+      type: Date,
+      default: Date.now()
+    },
+    updatedAt: {
+      type: Date,
+      default: Date.now()
+    }
+  }
+});
+
+mongoose.model('ArticleCateory', ArticleCategorySchema);
+
+/***/ }),
+/* 36 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _promise = __webpack_require__(6);
+
+var _promise2 = _interopRequireDefault(_promise);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mongoose = __webpack_require__(2);
+var bcrypt = __webpack_require__(37);
+var Schema = mongoose.Schema;
+
+var SALT_WORK_FACTOR = 10;
+var MAX_LOGIN_ATTEMPTS = 5;
+var LOCK_TIME = 2 * 60 * 60 * 1000;
+
+var UserSchema = new Schema({
+  username: {
+    unique: true,
+    required: true,
+    type: String
+  },
+  email: {
+    unique: true,
+    required: true,
+    type: String
+  },
+  password: {
+    type: String,
+    required: true
+  },
+  role: {
+    type: String,
+    default: 'user'
+  },
+  lockUntil: Number,
+  loginAttempts: {
+    type: Number,
+    required: true,
+    default: 0
+  },
+  meta: {
+    createdAt: {
+      type: Date,
+      default: Date.now()
+    },
+    updatedAt: {
+      type: Date,
+      default: Date.now()
+    }
+  }
+});
+
+UserSchema.virtual('isLocked').get(function () {
+  return !!(this.lockUntil && this.lockUntil > Date.now()); // 取两次反转boolean
+});
+
+UserSchema.pre('save', function (next) {
+  var _this = this;
+
+  if (!this.isModified('password')) return next();
+
+  // 使用第三方库构建盐
+  bcrypt.genSalt(SALT_WORK_FACTOR, function (err, salt) {
+    // 如果构建盐失败返回
+    if (err) return next(err);
+    // 尝试用盐加密
+    bcrypt.hash(_this.password, salt, function (error, hash) {
+      // 加密失败抛出去
+      if (error) return next(err);
+
+      _this.password = hash;
+      // 交出控制权
+      next();
+    });
+  });
+});
+
+UserSchema.methods = {
+  // _password为网站提交来的明文password，第二个就是数据库中加盐后的hash密码
+  comparePassword: function comparePassword(_password, password) {
+    return new _promise2.default(function (resolve, reject) {
+      bcrypt.compare(_password, password, function (err, isMatch) {
+        if (!err) resolve(isMatch);else reject(err);
+      });
+    });
+  },
+
+  incLoginAttempts: function incLoginAttempts(user) {
+    return new _promise2.default(function (resolve, reject) {
+      if (undefined.lockUntil && undefined.lockUntil < Date.now()) {
+        undefined.update({
+          $set: { // 原来mongoose的$set+$unset就是个原子操作
+            loginAttempts: 1
+          },
+          $unset: {
+            lockUntil: 1
+          }
+        }, function (err) {
+          if (!err) resolve(true);else reject(err);
+        });
+      } else {
+        var updates = {
+          $inc: {
+            loginAttempts: 1
+          }
+        };
+
+        if (undefined.loginAttempts + 1 >= MAX_LOGIN_ATTEMPTS && !undefined.isLockde) {
+          updates.$set = {
+            lockUntil: Date.now() + LOCK_TIME
+          };
+        }
+
+        undefined.update(updates, function (err) {
+          if (!err) resolve(true);else reject(err);
+        });
+      }
+    });
+  }
+};
+
+mongoose.model('User', UserSchema);
+
+/***/ }),
+/* 37 */
+/***/ (function(module, exports) {
+
+module.exports = require("bcrypt");
+
+/***/ }),
+/* 38 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _require = __webpack_require__(39),
+    Route = _require.Route;
+// const { resolve } = require('path')
+// 只要执行此中间件，就等于执行了整个路由中间层
+
+
+var router = exports.router = function router(app) {
+  // const apiPath = resolve(__dirname, '../routes')
+  // Todo: 待修复，现在智能传相对路径，且字符串
+  var router = new Route(app, '../routes');
+
+  router.init();
+};
+
+/***/ }),
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -170,49 +1211,49 @@ var _asyncToGenerator2 = __webpack_require__(1);
 
 var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
-var _assign = __webpack_require__(38);
+var _assign = __webpack_require__(40);
 
 var _assign2 = _interopRequireDefault(_assign);
 
-var _toConsumableArray2 = __webpack_require__(39);
+var _toConsumableArray2 = __webpack_require__(41);
 
 var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
 
-var _getIterator2 = __webpack_require__(40);
+var _getIterator2 = __webpack_require__(42);
 
 var _getIterator3 = _interopRequireDefault(_getIterator2);
 
-var _slicedToArray2 = __webpack_require__(41);
+var _slicedToArray2 = __webpack_require__(43);
 
 var _slicedToArray3 = _interopRequireDefault(_slicedToArray2);
 
-var _classCallCheck2 = __webpack_require__(2);
+var _classCallCheck2 = __webpack_require__(7);
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
 
-var _createClass2 = __webpack_require__(3);
+var _createClass2 = __webpack_require__(8);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _map = __webpack_require__(42);
+var _map = __webpack_require__(44);
 
 var _map2 = _interopRequireDefault(_map);
 
-var _symbol = __webpack_require__(43);
+var _symbol = __webpack_require__(45);
 
 var _symbol2 = _interopRequireDefault(_symbol);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Router = __webpack_require__(4);
+var Router = __webpack_require__(3);
 
-var _require = __webpack_require__(6),
+var _require = __webpack_require__(5),
     resolve = _require.resolve;
 // const glob = require('glob')
 
 
-var _ = __webpack_require__(9);
-var R = __webpack_require__(5);
+var _ = __webpack_require__(10);
+var R = __webpack_require__(4);
 
 var symbolPrefix = (0, _symbol2.default)('prefix');
 var routeMap = new _map2.default();
@@ -235,7 +1276,7 @@ var Route = exports.Route = function () {
     value: function init() {
       // glob.sync(resolve(this.apiPath, './**/*.js')).forEach(require)
       // Todo: 待修复require.context不支持绝对路径问题
-      var context = __webpack_require__(44);
+      var context = __webpack_require__(46);
       context.keys().forEach(function (key) {
         return context(key);
       });
@@ -512,926 +1553,47 @@ var required = exports.required = function required(rules) {
 };
 
 /***/ }),
-/* 11 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _regenerator = __webpack_require__(0);
-
-var _regenerator2 = _interopRequireDefault(_regenerator);
-
-var _promise = __webpack_require__(13);
-
-var _promise2 = _interopRequireDefault(_promise);
-
-var _asyncToGenerator2 = __webpack_require__(1);
-
-var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
-
-var _classCallCheck2 = __webpack_require__(2);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(3);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _koa = __webpack_require__(14);
-
-var _koa2 = _interopRequireDefault(_koa);
-
-var _nuxt = __webpack_require__(15);
-
-var _koaRouter = __webpack_require__(4);
-
-var _koaRouter2 = _interopRequireDefault(_koaRouter);
-
-var _routers = __webpack_require__(16);
-
-var _routers2 = _interopRequireDefault(_routers);
-
-var _ramda = __webpack_require__(5);
-
-var _ramda2 = _interopRequireDefault(_ramda);
-
-var _utils = __webpack_require__(23);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var host = process.env.HOST || '127.0.0.1';
-var port = process.env.PORT || 3000;
-
-var MIDDLEWARES = ['database', 'common', 'router'];
-
-// 自动遍历 ./middleware/*.js 导出对象后再逐个遍历初始化koa中间件
-var useMiddlewares = function useMiddlewares(app) {
-  var context = __webpack_require__(24);
-
-  // R.map(
-  //   R.compose(
-  //     filename => MIDDLEWARES.includes(filename),
-  //     key => getFilename(key)
-  //   )
-  // )(context.keys())
-
-  context.keys().forEach(function (key) {
-    var filename = (0, _utils.getFilename)(key);
-    var isValid = MIDDLEWARES.includes(filename);
-    if (isValid) {
-      console.log('成功加载系统中间件:', filename);
-      try {
-        _ramda2.default.forEachObjIndexed(function (initWith) {
-          return initWith(app);
-        })(context(key));
-      } catch (err) {
-        console.error(err);
-      }
-    }
-  });
-};
-
-var Server = function () {
-  function Server() {
-    (0, _classCallCheck3.default)(this, Server);
-
-    this.app = new _koa2.default();
-    useMiddlewares(this.app);
-  }
-
-  (0, _createClass3.default)(Server, [{
-    key: 'start',
-    value: function () {
-      var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2(host, port) {
-        var _this = this;
-
-        var router, config, nuxt, builder;
-        return _regenerator2.default.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                router = new _koaRouter2.default();
-
-                router.use('', _routers2.default.routes());
-                this.app.use(router.routes()).use(router.allowedMethods());
-
-                // Import and Set Nuxt.js options
-                config = __webpack_require__(47);
-
-                config.dev = !("development" === 'production');
-                // console.log('env === ', app.env, env, process.env.COOKIE_DOMAIN, process.env.APP_ENV, config.dev)
-
-                // Instantiate nuxt.js
-                nuxt = new _nuxt.Nuxt(config);
-
-                // Build in development
-
-                if (!config.dev) {
-                  _context2.next = 10;
-                  break;
-                }
-
-                builder = new _nuxt.Builder(nuxt);
-                _context2.next = 10;
-                return builder.build();
-
-              case 10:
-
-                this.app.use(function () {
-                  var _ref2 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(ctx, next) {
-                    return _regenerator2.default.wrap(function _callee$(_context) {
-                      while (1) {
-                        switch (_context.prev = _context.next) {
-                          case 0:
-                            _context.next = 2;
-                            return next();
-
-                          case 2:
-                            ctx.status = 200; // koa defaults to 404 when it sees that status is unset
-                            ctx.req.session = ctx.session; // 必须将session添加进request中，否则nuxt的req获取不到session
-                            return _context.abrupt('return', new _promise2.default(function (resolve, reject) {
-                              ctx.res.on('close', resolve);
-                              ctx.res.on('finish', resolve);
-                              nuxt.render(ctx.req, ctx.res, function (promise) {
-                                // nuxt.render passes a rejected promise into callback on error.
-                                promise.then(resolve).catch(reject);
-                              });
-                            }));
-
-                          case 5:
-                          case 'end':
-                            return _context.stop();
-                        }
-                      }
-                    }, _callee, _this);
-                  }));
-
-                  return function (_x3, _x4) {
-                    return _ref2.apply(this, arguments);
-                  };
-                }());
-
-                this.app.listen(port, host);
-                console.log('Server listening on ' + host + ':' + port); // eslint-disable-line no-console
-
-              case 13:
-              case 'end':
-                return _context2.stop();
-            }
-          }
-        }, _callee2, this);
-      }));
-
-      function start(_x, _x2) {
-        return _ref.apply(this, arguments);
-      }
-
-      return start;
-    }()
-  }]);
-  return Server;
-}();
-
-try {
-  var app = new Server();
-  app.start(host, port);
-} catch (err) {
-  console.error(err);
-}
-
-/***/ }),
-/* 12 */
-/***/ (function(module, exports) {
-
-module.exports = require("regenerator-runtime");
-
-/***/ }),
-/* 13 */
-/***/ (function(module, exports) {
-
-module.exports = require("babel-runtime/core-js/promise");
-
-/***/ }),
-/* 14 */
-/***/ (function(module, exports) {
-
-module.exports = require("koa");
-
-/***/ }),
-/* 15 */
-/***/ (function(module, exports) {
-
-module.exports = require("nuxt");
-
-/***/ }),
-/* 16 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _koaRouter = __webpack_require__(4);
-
-var _koaRouter2 = _interopRequireDefault(_koaRouter);
-
-var _user = __webpack_require__(17);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var router = new _koaRouter2.default();
-
-router.get('/api/user', _user.userinfo);
-router.post('/api/login', _user.login);
-router.post('/api/logout', _user.logout);
-router.get('/api/logout', _user.logout);
-
-router.get('/api/test', function (ctx) {
-  return ctx.body = 'jerry';
-});
-
-exports.default = router;
-
-/***/ }),
-/* 17 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.logout = exports.login = exports.userinfo = undefined;
-
-var _regenerator = __webpack_require__(0);
-
-var _regenerator2 = _interopRequireDefault(_regenerator);
-
-var _asyncToGenerator2 = __webpack_require__(1);
-
-var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
-
-var _axios = __webpack_require__(18);
-
-var _axios2 = _interopRequireDefault(_axios);
-
-var _config = __webpack_require__(8);
-
-var _config2 = _interopRequireDefault(_config);
-
-var _axiosMockAdapter = __webpack_require__(22);
-
-var _axiosMockAdapter2 = _interopRequireDefault(_axiosMockAdapter);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var mock = new _axiosMockAdapter2.default(_axios2.default);
-mock.onPost(_config2.default.base_url + '/api/v1.user/login').reply(function (config) {
-  // console.log(JSON.parse(config.data).mobile)
-  return [200, { 'ret': 200, 'msg': '请求成功', 'data': { 'code': 0, 'message': '登录成功', 'token': 'PhU0Sd9zwUSwOQgXnJpj7pgSwdA7YD80', 'id': 1, 'mobile': '13770267077', 'name': JSON.parse(config.data).mobile, 'sex': 1, 'status': 1, 'role_id': 1, 'depart_id': 1, 'leader_id': 0 } }];
-});
-
-var userinfo = exports.userinfo = function () {
-  var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(ctx, next) {
-    var token;
-    return _regenerator2.default.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            token = ctx.session.user.token || '';
-            return _context.abrupt('return', ctx.body = {
-              ret: 200,
-              msg: '获取成功',
-              data: { token: token }
-            });
-
-          case 2:
-          case 'end':
-            return _context.stop();
-        }
-      }
-    }, _callee, undefined);
-  }));
-
-  return function userinfo(_x, _x2) {
-    return _ref.apply(this, arguments);
-  };
-}();
-
-var login = exports.login = function () {
-  var _ref2 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2(ctx, next) {
-    var _ctx$request$body, mobile, psd, _url, req, ret, msg, code, message, token, signkey, info, session;
-
-    return _regenerator2.default.wrap(function _callee2$(_context2) {
-      while (1) {
-        switch (_context2.prev = _context2.next) {
-          case 0:
-            _ctx$request$body = ctx.request.body, mobile = _ctx$request$body.mobile, psd = _ctx$request$body.psd;
-
-            if (!(!mobile || !psd)) {
-              _context2.next = 3;
-              break;
-            }
-
-            return _context2.abrupt('return', ctx.body = {
-              ret: 303,
-              msg: '缺少请求参数',
-              data: {}
-            });
-
-          case 3:
-
-            // 发起请求
-            _url = _config2.default.base_url + '/api/v1.user/login';
-            _context2.next = 6;
-            return _axios2.default.post(_url, {
-              mobile: mobile,
-              psd: psd,
-              sign: ''
-            });
-
-          case 6:
-            req = _context2.sent;
-
-            if (!(req.status !== 200)) {
-              _context2.next = 9;
-              break;
-            }
-
-            return _context2.abrupt('return', ctx.body = {
-              ret: 400,
-              msg: '网络通讯异常',
-              data: {}
-            });
-
-          case 9:
-            if (!(req.data.ret !== 200)) {
-              _context2.next = 13;
-              break;
-            }
-
-            ret = req.data.ret || 400;
-            msg = req.data.msg || '失败';
-            return _context2.abrupt('return', ctx.body = {
-              ret: ret,
-              msg: msg,
-              data: {}
-            });
-
-          case 13:
-            if (!(req.data.data.code !== 0)) {
-              _context2.next = 17;
-              break;
-            }
-
-            code = req.data.data.code || -1;
-            message = req.data.data.message || '登录失败';
-            return _context2.abrupt('return', ctx.body = {
-              ret: 200,
-              msg: '请求成功',
-              data: {
-                code: code,
-                message: message
-              }
-            });
-
-          case 17:
-
-            // 登陆成功
-            token = req.data.data.token;
-            signkey = _config2.default.sign_key;
-            info = {
-              id: req.data.data.id,
-              mobile: req.data.data.mobile,
-              name: req.data.data.name,
-              sex: req.data.data.sex,
-              status: req.data.data.status,
-              role_id: req.data.data.role_id,
-              depart_id: req.data.data.depart_id,
-              deader_id: req.data.data.deader_id
-            };
-            session = ctx.session;
-
-            session.user = {
-              token: token,
-              sign_key: signkey,
-              info: info
-            };
-            ctx.session = session;
-
-            return _context2.abrupt('return', ctx.body = {
-              ret: 200,
-              msg: '请求成功',
-              data: {
-                code: 0,
-                message: '登录成功',
-                token: token,
-                info: info
-              }
-            });
-
-          case 24:
-          case 'end':
-            return _context2.stop();
-        }
-      }
-    }, _callee2, undefined);
-  }));
-
-  return function login(_x3, _x4) {
-    return _ref2.apply(this, arguments);
-  };
-}();
-
-var logout = exports.logout = function () {
-  var _ref3 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee3(ctx, next) {
-    return _regenerator2.default.wrap(function _callee3$(_context3) {
-      while (1) {
-        switch (_context3.prev = _context3.next) {
-          case 0:
-            _context3.prev = 0;
-
-            ctx.session.user = null;
-            return _context3.abrupt('return', ctx.body = {
-              ret: 200,
-              msg: '请求成功',
-              data: {
-                code: 0,
-                message: '退出成功'
-              }
-            });
-
-          case 5:
-            _context3.prev = 5;
-            _context3.t0 = _context3['catch'](0);
-            return _context3.abrupt('return', ctx.body = {
-              ret: 200,
-              msg: '请求成功',
-              data: {
-                code: -1,
-                message: '退出失败'
-              }
-            });
-
-          case 8:
-          case 'end':
-            return _context3.stop();
-        }
-      }
-    }, _callee3, undefined, [[0, 5]]);
-  }));
-
-  return function logout(_x5, _x6) {
-    return _ref3.apply(this, arguments);
-  };
-}();
-
-/***/ }),
-/* 18 */
-/***/ (function(module, exports) {
-
-module.exports = require("axios");
-
-/***/ }),
-/* 19 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var map = {
-	"./development.json": 20,
-	"./production.json": 21
-};
-function webpackContext(req) {
-	return __webpack_require__(webpackContextResolve(req));
-};
-function webpackContextResolve(req) {
-	var id = map[req];
-	if(!(id + 1)) // check for number or string
-		throw new Error("Cannot find module '" + req + "'.");
-	return id;
-};
-webpackContext.keys = function webpackContextKeys() {
-	return Object.keys(map);
-};
-webpackContext.resolve = webpackContextResolve;
-module.exports = webpackContext;
-webpackContext.id = 19;
-
-/***/ }),
-/* 20 */
-/***/ (function(module, exports) {
-
-module.exports = {"db":"mongodb://localhost:27017/jerryServ","SITE_ROOT_URL":"http://jj.jerryshi.com"}
-
-/***/ }),
-/* 21 */
-/***/ (function(module, exports) {
-
-module.exports = {"db":"mongodb://localhost/jerryServ","SITE_ROOT_URL":"http://jj.jerryshi.com"}
-
-/***/ }),
-/* 22 */
-/***/ (function(module, exports) {
-
-module.exports = require("axios-mock-adapter");
-
-/***/ }),
-/* 23 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var getFilename = exports.getFilename = function getFilename(path) {
-  var reg = /\/(\w+).js$/;
-  var res = reg.exec(path);
-  return res && res[1];
-};
-
-/***/ }),
-/* 24 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var map = {
-	"./common.js": 25,
-	"./database.js": 31,
-	"./router.js": 37
-};
-function webpackContext(req) {
-	return __webpack_require__(webpackContextResolve(req));
-};
-function webpackContextResolve(req) {
-	var id = map[req];
-	if(!(id + 1)) // check for number or string
-		throw new Error("Cannot find module '" + req + "'.");
-	return id;
-};
-webpackContext.keys = function webpackContextKeys() {
-	return Object.keys(map);
-};
-webpackContext.resolve = webpackContextResolve;
-module.exports = webpackContext;
-webpackContext.id = 24;
-
-/***/ }),
-/* 25 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(__dirname) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.addSession = exports.addBody = exports.addCORS = exports.addStatic = exports.addLogger = undefined;
-
-var _koaBodyparser = __webpack_require__(26);
-
-var _koaBodyparser2 = _interopRequireDefault(_koaBodyparser);
-
-var _koaLogger = __webpack_require__(27);
-
-var _koaLogger2 = _interopRequireDefault(_koaLogger);
-
-var _koaSession = __webpack_require__(28);
-
-var _koaSession2 = _interopRequireDefault(_koaSession);
-
-var _cors = __webpack_require__(29);
-
-var _cors2 = _interopRequireDefault(_cors);
-
-var _koaStatic = __webpack_require__(30);
-
-var _koaStatic2 = _interopRequireDefault(_koaStatic);
-
-var _path = __webpack_require__(6);
-
-var _path2 = _interopRequireDefault(_path);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var addLogger = exports.addLogger = function addLogger(app) {
-  app.use((0, _koaLogger2.default)());
-};
-
-var addStatic = exports.addStatic = function addStatic(app) {
-  // 配置静态资源加载中间件
-  app.use((0, _koaStatic2.default)(_path2.default.join(__dirname, '../static')));
-};
-
-var addCORS = exports.addCORS = function addCORS(app) {
-  app.use((0, _cors2.default)());
-};
-
-var addBody = exports.addBody = function addBody(app) {
-  app.use((0, _koaBodyparser2.default)());
-};
-
-var addSession = exports.addSession = function addSession(app) {
-  app.keys = ['ice'];
-
-  var CONFIG = {
-    key: 'koa:sess',
-    maxAge: 86400000,
-    overwrite: true,
-    signed: true,
-    rolling: false
-  };
-  app.use((0, _koaSession2.default)(CONFIG, app));
-};
-/* WEBPACK VAR INJECTION */}.call(exports, "server/middleware"))
-
-/***/ }),
-/* 26 */
-/***/ (function(module, exports) {
-
-module.exports = require("koa-bodyparser");
-
-/***/ }),
-/* 27 */
-/***/ (function(module, exports) {
-
-module.exports = require("koa-logger");
-
-/***/ }),
-/* 28 */
-/***/ (function(module, exports) {
-
-module.exports = require("koa-session");
-
-/***/ }),
-/* 29 */
-/***/ (function(module, exports) {
-
-module.exports = require("@koa/cors");
-
-/***/ }),
-/* 30 */
-/***/ (function(module, exports) {
-
-module.exports = require("koa-static");
-
-/***/ }),
-/* 31 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(__dirname) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.database = undefined;
-
-var _regenerator = __webpack_require__(0);
-
-var _regenerator2 = _interopRequireDefault(_regenerator);
-
-var _asyncToGenerator2 = __webpack_require__(1);
-
-var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
-
-var _fs = __webpack_require__(32);
-
-var _fs2 = _interopRequireDefault(_fs);
-
-var _path = __webpack_require__(6);
-
-var _mongoose = __webpack_require__(7);
-
-var _mongoose2 = _interopRequireDefault(_mongoose);
-
-var _config = __webpack_require__(8);
-
-var _config2 = _interopRequireDefault(_config);
-
-var _ramda = __webpack_require__(5);
-
-var _ramda2 = _interopRequireDefault(_ramda);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-// loading mogoose "meta" plugins
-_mongoose2.default.plugin(__webpack_require__(33));
-
-var modelDir = (0, _path.resolve)(__dirname, '../database/schema');
-
-// fs
-//   .readdirSync(modelDir)
-//   .filter(file => ~file.search(/\.js$/))    // only .js file
-//   .forEach(file => require(resolve(modelDir, file)))
-
-var context = __webpack_require__(34);
-context.keys().forEach(function (key) {
-  return context(key);
-});
-
-var database = exports.database = function database(app) {
-  _mongoose2.default.set('debug', true);
-
-  _mongoose2.default.connect(_config2.default.db, { useNewUrlParser: true });
-
-  _mongoose2.default.connection.on('disconnected', function () {
-    _mongoose2.default.connect(_config2.default.db);
-  });
-
-  _mongoose2.default.connection.on('error', function (err) {
-    console.error(err);
-  });
-
-  _mongoose2.default.connection.on('open', (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
-    return _regenerator2.default.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            console.info('Connected to MongoDB ', _config2.default.db);
-
-            // TODO
-
-          case 1:
-          case 'end':
-            return _context.stop();
-        }
-      }
-    }, _callee, undefined);
-  })));
-};
-/* WEBPACK VAR INJECTION */}.call(exports, "server/middleware"))
-
-/***/ }),
-/* 32 */
-/***/ (function(module, exports) {
-
-module.exports = require("fs");
-
-/***/ }),
-/* 33 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = exports = function MetaPlugin(schema, options) {
-
-  schema.pre('save', function (next) {
-    if (this.isNew) {
-      this.meta = {}; // 不能给访问undefined的属性
-      this.meta.createdAt = this.meta.updatedAt = Date.now();
-    } else {
-      this.meta.updatedAt = Date.now();
-    }
-
-    next();
-  });
-};
-
-/***/ }),
-/* 34 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var map = {
-	"./article.js": 35,
-	"./articleCategory.js": 36
-};
-function webpackContext(req) {
-	return __webpack_require__(webpackContextResolve(req));
-};
-function webpackContextResolve(req) {
-	var id = map[req];
-	if(!(id + 1)) // check for number or string
-		throw new Error("Cannot find module '" + req + "'.");
-	return id;
-};
-webpackContext.keys = function webpackContextKeys() {
-	return Object.keys(map);
-};
-webpackContext.resolve = webpackContextResolve;
-module.exports = webpackContext;
-webpackContext.id = 34;
-
-/***/ }),
-/* 35 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var mongoose = __webpack_require__(7);
-var Schema = mongoose.Schema;
-var _Schema$Types = Schema.Types,
-    Mixed = _Schema$Types.Mixed,
-    ObjectId = _Schema$Types.ObjectId;
-
-
-var ArticleSchema = new Schema({
-  title: {
-    type: String,
-    required: true
-  },
-  cover: String,
-  pubdate: Date,
-  category: {
-    type: ObjectId,
-    ref: 'Category'
-  }
-});
-
-mongoose.model('Article', ArticleSchema);
-
-/***/ }),
-/* 36 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var mongoose = __webpack_require__(7);
-var Schema = mongoose.Schema;
-
-var ArticleCategorySchema = new Schema({
-  name: {
-    type: String,
-    required: true
-  }
-});
-
-mongoose.model('ArticleCateory', ArticleCategorySchema);
-
-/***/ }),
-/* 37 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _require = __webpack_require__(10),
-    Route = _require.Route;
-// const { resolve } = require('path')
-// 只要执行此中间件，就等于执行了整个路由中间层
-
-
-var router = exports.router = function router(app) {
-  // const apiPath = resolve(__dirname, '../routes')
-  // Todo: 待修复，现在智能传相对路径，且字符串
-  var router = new Route(app, '../routes');
-
-  router.init();
-};
-
-/***/ }),
-/* 38 */
+/* 40 */
 /***/ (function(module, exports) {
 
 module.exports = require("babel-runtime/core-js/object/assign");
 
 /***/ }),
-/* 39 */
+/* 41 */
 /***/ (function(module, exports) {
 
 module.exports = require("babel-runtime/helpers/toConsumableArray");
 
 /***/ }),
-/* 40 */
+/* 42 */
 /***/ (function(module, exports) {
 
 module.exports = require("babel-runtime/core-js/get-iterator");
 
 /***/ }),
-/* 41 */
+/* 43 */
 /***/ (function(module, exports) {
 
 module.exports = require("babel-runtime/helpers/slicedToArray");
 
 /***/ }),
-/* 42 */
+/* 44 */
 /***/ (function(module, exports) {
 
 module.exports = require("babel-runtime/core-js/map");
 
 /***/ }),
-/* 43 */
+/* 45 */
 /***/ (function(module, exports) {
 
 module.exports = require("babel-runtime/core-js/symbol");
 
 /***/ }),
-/* 44 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
-	"./user.js": 45
+	"./admin.js": 47
 };
 function webpackContext(req) {
 	return __webpack_require__(webpackContextResolve(req));
@@ -1447,155 +1609,16 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
-webpackContext.id = 44;
-
-/***/ }),
-/* 45 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.adminController = undefined;
-
-var _getOwnPropertyDescriptor = __webpack_require__(46);
-
-var _getOwnPropertyDescriptor2 = _interopRequireDefault(_getOwnPropertyDescriptor);
-
-var _regenerator = __webpack_require__(0);
-
-var _regenerator2 = _interopRequireDefault(_regenerator);
-
-var _asyncToGenerator2 = __webpack_require__(1);
-
-var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
-
-var _classCallCheck2 = __webpack_require__(2);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(3);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _dec, _dec2, _dec3, _class, _desc, _value, _class2;
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) {
-  var desc = {};
-  Object['ke' + 'ys'](descriptor).forEach(function (key) {
-    desc[key] = descriptor[key];
-  });
-  desc.enumerable = !!desc.enumerable;
-  desc.configurable = !!desc.configurable;
-
-  if ('value' in desc || desc.initializer) {
-    desc.writable = true;
-  }
-
-  desc = decorators.slice().reverse().reduce(function (desc, decorator) {
-    return decorator(target, property, desc) || desc;
-  }, desc);
-
-  if (context && desc.initializer !== void 0) {
-    desc.value = desc.initializer ? desc.initializer.call(context) : void 0;
-    desc.initializer = undefined;
-  }
-
-  if (desc.initializer === void 0) {
-    Object['define' + 'Property'](target, property, desc);
-    desc = null;
-  }
-
-  return desc;
-}
-
-var _require = __webpack_require__(10),
-    controller = _require.controller,
-    get = _require.get,
-    del = _require.del,
-    post = _require.post,
-    auth = _require.auth,
-    admin = _require.admin,
-    required = _require.required;
-
-var adminController = exports.adminController = (_dec = controller('/api/admin'), _dec2 = get('/user'), _dec3 = post('/login'), _dec(_class = (_class2 = function () {
-  function adminController() {
-    (0, _classCallCheck3.default)(this, adminController);
-  }
-
-  (0, _createClass3.default)(adminController, [{
-    key: 'getUser',
-    value: function () {
-      var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(ctx, next) {
-        return _regenerator2.default.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                ctx.body = {
-                  ret: 200,
-                  msg: '获取成功',
-                  data: { username: 'jerry' }
-                };
-
-              case 1:
-              case 'end':
-                return _context.stop();
-            }
-          }
-        }, _callee, this);
-      }));
-
-      function getUser(_x, _x2) {
-        return _ref.apply(this, arguments);
-      }
-
-      return getUser;
-    }()
-  }, {
-    key: 'login',
-    value: function () {
-      var _ref2 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2(ctx, next) {
-        return _regenerator2.default.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                ctx.session = null;
-
-                ctx.body = {
-                  success: true
-                };
-
-              case 2:
-              case 'end':
-                return _context2.stop();
-            }
-          }
-        }, _callee2, this);
-      }));
-
-      function login(_x3, _x4) {
-        return _ref2.apply(this, arguments);
-      }
-
-      return login;
-    }()
-  }]);
-  return adminController;
-}(), (_applyDecoratedDescriptor(_class2.prototype, 'getUser', [_dec2], (0, _getOwnPropertyDescriptor2.default)(_class2.prototype, 'getUser'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'login', [_dec3], (0, _getOwnPropertyDescriptor2.default)(_class2.prototype, 'login'), _class2.prototype)), _class2)) || _class);
-
-/***/ }),
-/* 46 */
-/***/ (function(module, exports) {
-
-module.exports = require("babel-runtime/core-js/object/get-own-property-descriptor");
+webpackContext.id = 46;
 
 /***/ }),
 /* 47 */
+/***/ (function(module, exports) {
+
+throw new Error("Module build failed: SyntaxError: Method has decorators, put the decorator plugin before the classes one.\n\n\u001b[0m \u001b[90m 4 | \u001b[39m\u001b[36mexport\u001b[39m \u001b[36mclass\u001b[39m adminController {\n \u001b[90m 5 | \u001b[39m  \u001b[37m\u001b[41m\u001b[1m@\u001b[22m\u001b[49m\u001b[39mget(\u001b[32m'/user'\u001b[39m)\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 6 | \u001b[39m  async getUser(ctx\u001b[33m,\u001b[39m next) {\n \u001b[90m   | \u001b[39m  \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 7 | \u001b[39m    ctx\u001b[33m.\u001b[39mbody \u001b[33m=\u001b[39m {\n \u001b[90m 8 | \u001b[39m      ret\u001b[33m:\u001b[39m \u001b[35m200\u001b[39m\u001b[33m,\u001b[39m\n \u001b[90m 9 | \u001b[39m      msg\u001b[33m:\u001b[39m \u001b[32m'获取成功'\u001b[39m\u001b[33m,\u001b[39m\u001b[0m\n");
+
+/***/ }),
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = {

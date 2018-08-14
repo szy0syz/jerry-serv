@@ -13,14 +13,14 @@ const MIDDLEWARES = ['database', 'common', 'router']
 // 自动遍历 ./middleware/*.js 导出对象后再逐个遍历初始化koa中间件
 const useMiddlewares = app => {
   const context = require.context('./middleware/', false, /\.js$/)
-  
+  console.log('!~~~~~~~~~执行useMiddlewares')
   // R.map(
   //   R.compose(
   //     filename => MIDDLEWARES.includes(filename),
   //     key => getFilename(key)
   //   )
   // )(context.keys())
-  
+
   context.keys().forEach(key => {
     const filename = getFilename(key)
     const isValid = MIDDLEWARES.includes(filename)
@@ -75,13 +75,17 @@ class Server {
     })
 
     this.app.listen(port, host)
-    console.log('Server listening on ' + host + ':' + port) // eslint-disable-line no-console
+    console.log('Server listening on http://' + host + ':' + port) // eslint-disable-line no-console
   }
 }
 
-try {
-  const app = new Server()
-  app.start(host, port)
-} catch (err) {
-  console.error(err)
-}
+// try {
+//   const app = new Server()
+//   console.log('new Server')
+//   app.start(host, port)
+// } catch (err) {
+//   console.error(err)
+// }
+const app = new Server()
+console.log('new Server')
+app.start(host, port)
