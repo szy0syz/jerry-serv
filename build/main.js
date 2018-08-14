@@ -177,21 +177,18 @@ var _ramda = __webpack_require__(5);
 
 var _ramda2 = _interopRequireDefault(_ramda);
 
+var _utils = __webpack_require__(22);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var host = process.env.HOST || '127.0.0.1';
 var port = process.env.PORT || 3000;
 
-var getFilename = function getFilename(path) {
-  var reg = /\/(\w+).js$/;
-  var res = reg.exec(path);
-  return res && res[1];
-};
 var MIDDLEWARES = ['database', 'common', 'router'];
 
 // 自动遍历 ./middleware/*.js 导出对象后再逐个遍历初始化koa中间件
 var useMiddlewares = function useMiddlewares(app) {
-  var context = __webpack_require__(22);
+  var context = __webpack_require__(23);
 
   // R.map(
   //   R.compose(
@@ -201,7 +198,7 @@ var useMiddlewares = function useMiddlewares(app) {
   // )(context.keys())
 
   context.keys().forEach(function (key) {
-    var filename = getFilename(key);
+    var filename = (0, _utils.getFilename)(key);
     var isValid = MIDDLEWARES.includes(filename);
     if (isValid) {
       console.log('成功加载系统中间件:', filename);
@@ -241,7 +238,7 @@ var Server = function () {
                 this.app.use(router.routes()).use(router.allowedMethods());
 
                 // Import and Set Nuxt.js options
-                config = __webpack_require__(36);
+                config = __webpack_require__(37);
 
                 config.dev = !("development" === 'production');
                 // console.log('env === ', app.env, env, process.env.COOKIE_DOMAIN, process.env.APP_ENV, config.dev)
@@ -681,10 +678,26 @@ module.exports = require("axios-mock-adapter");
 /* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var getFilename = exports.getFilename = function getFilename(path) {
+  var reg = /\/(\w+).js$/;
+  var res = reg.exec(path);
+  return res && res[1];
+};
+
+/***/ }),
+/* 23 */
+/***/ (function(module, exports, __webpack_require__) {
+
 var map = {
-	"./common.js": 23,
-	"./database.js": 29,
-	"./router.js": 35
+	"./common.js": 24,
+	"./database.js": 30,
+	"./router.js": 36
 };
 function webpackContext(req) {
 	return __webpack_require__(webpackContextResolve(req));
@@ -700,10 +713,10 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
-webpackContext.id = 22;
+webpackContext.id = 23;
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -714,23 +727,23 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.addSession = exports.addBody = exports.addCORS = exports.addStatic = exports.addLogger = undefined;
 
-var _koaBodyparser = __webpack_require__(24);
+var _koaBodyparser = __webpack_require__(25);
 
 var _koaBodyparser2 = _interopRequireDefault(_koaBodyparser);
 
-var _koaLogger = __webpack_require__(25);
+var _koaLogger = __webpack_require__(26);
 
 var _koaLogger2 = _interopRequireDefault(_koaLogger);
 
-var _koaSession = __webpack_require__(26);
+var _koaSession = __webpack_require__(27);
 
 var _koaSession2 = _interopRequireDefault(_koaSession);
 
-var _cors = __webpack_require__(27);
+var _cors = __webpack_require__(28);
 
 var _cors2 = _interopRequireDefault(_cors);
 
-var _koaStatic = __webpack_require__(28);
+var _koaStatic = __webpack_require__(29);
 
 var _koaStatic2 = _interopRequireDefault(_koaStatic);
 
@@ -772,37 +785,37 @@ var addSession = exports.addSession = function addSession(app) {
 /* WEBPACK VAR INJECTION */}.call(exports, "server/middleware"))
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports) {
 
 module.exports = require("koa-bodyparser");
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports) {
 
 module.exports = require("koa-logger");
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports) {
 
 module.exports = require("koa-session");
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports) {
 
 module.exports = require("@koa/cors");
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports) {
 
 module.exports = require("koa-static");
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -821,7 +834,7 @@ var _asyncToGenerator2 = __webpack_require__(1);
 
 var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
-var _fs = __webpack_require__(30);
+var _fs = __webpack_require__(31);
 
 var _fs2 = _interopRequireDefault(_fs);
 
@@ -842,7 +855,7 @@ var _ramda2 = _interopRequireDefault(_ramda);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // loading mogoose "meta" plugins
-_mongoose2.default.plugin(__webpack_require__(31));
+_mongoose2.default.plugin(__webpack_require__(32));
 
 var modelDir = (0, _path.resolve)(__dirname, '../database/schema');
 
@@ -851,7 +864,7 @@ var modelDir = (0, _path.resolve)(__dirname, '../database/schema');
 //   .filter(file => ~file.search(/\.js$/))    // only .js file
 //   .forEach(file => require(resolve(modelDir, file)))
 
-var context = __webpack_require__(32);
+var context = __webpack_require__(33);
 context.keys().forEach(function (key) {
   return context(key);
 });
@@ -889,13 +902,13 @@ var database = exports.database = function database(app) {
 /* WEBPACK VAR INJECTION */}.call(exports, "server/middleware"))
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports) {
 
 module.exports = require("fs");
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -916,12 +929,12 @@ module.exports = exports = function MetaPlugin(schema, options) {
 };
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
-	"./article.js": 33,
-	"./articleCategory.js": 34
+	"./article.js": 34,
+	"./articleCategory.js": 35
 };
 function webpackContext(req) {
 	return __webpack_require__(webpackContextResolve(req));
@@ -937,10 +950,10 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
-webpackContext.id = 32;
+webpackContext.id = 33;
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -969,7 +982,7 @@ var ArticleSchema = new Schema({
 mongoose.model('Article', ArticleSchema);
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -988,7 +1001,7 @@ var ArticleCategorySchema = new Schema({
 mongoose.model('ArticleCateory', ArticleCategorySchema);
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1005,7 +1018,7 @@ mongoose.model('ArticleCateory', ArticleCategorySchema);
 
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = {

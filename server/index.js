@@ -3,15 +3,11 @@ import { Nuxt, Builder } from 'nuxt'
 import Router from 'koa-router'
 import route from './routers'
 import R from 'ramda'
+import { getFilename } from './utils'
 
 const host = process.env.HOST || '127.0.0.1'
 const port = process.env.PORT || 3000
 
-const getFilename = path => {
-  const reg = /\/(\w+).js$/
-  const res = reg.exec(path)
-  return res && res[1]
-}
 const MIDDLEWARES = ['database', 'common', 'router']
 
 // 自动遍历 ./middleware/*.js 导出对象后再逐个遍历初始化koa中间件
