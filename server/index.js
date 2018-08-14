@@ -8,16 +8,22 @@ import R from 'ramda'
 const host = process.env.HOST || '127.0.0.1'
 const port = process.env.PORT || 3000
 
-// Todo
-// const MIDDLEWARES = ['database', 'common']
+const reg = /\/(\w+).js$/
+const isValid = filaname => reg.exec(filaname)
+const MIDDLEWARES = ['database', 'common', 'router']
 
 // 自动遍历 ./middleware/*.js 导出对象后再逐个遍历初始化koa中间件
 const useMiddlewares = (app) => {
   const context = require.context('./middleware/', false, /\.js$/)
   context.keys().forEach(key => {
-    R.forEachObjIndexed(
-      initWith => initWith(app)
-    )(context(key))
+    const filename = reg.exec(key)[1]
+    const res = MIDDLEWARES.includes(filename)
+    if(res) {
+      console.log('匹配成功', filename)
+      R.forEachObjIndexed(
+        initWith => initWith(app)
+      )(context(key))
+    }
   })
 }
 
