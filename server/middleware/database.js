@@ -2,7 +2,6 @@ import fs from 'fs'
 import { resolve } from 'path'
 import mongoose from 'mongoose'
 import config from '../config'
-import R from 'ramda'
 
 // loading mogoose "meta" plugins
 mongoose.plugin(require('../database/plugins/meta'))
@@ -34,5 +33,20 @@ export const database = app => {
     console.info('Connected to MongoDB ', config.db)
 
     // TODO
+    const User = mongoose.model('User')
+    let user = await User.findOne({
+      username: 'admin'
+    }).exec()
+
+    if (!user) {
+      user = new User({
+        username: 'admin',
+        password: 'admin888',
+        email: 'admin@126.com'
+      })
+      console.info('[Info] 写入初始化管理员数据')
+    }
+
+    await user.save()
   })
 }
