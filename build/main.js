@@ -192,7 +192,14 @@ var MIDDLEWARES = ['database', 'common', 'router'];
 // 自动遍历 ./middleware/*.js 导出对象后再逐个遍历初始化koa中间件
 var useMiddlewares = function useMiddlewares(app) {
   var context = __webpack_require__(22);
-  console.log(context.keys());
+
+  // R.map(
+  //   R.compose(
+  //     filename => MIDDLEWARES.includes(filename),
+  //     key => getFilename(key)
+  //   )
+  // )(context.keys())
+
   context.keys().forEach(function (key) {
     var filename = getFilename(key);
     var isValid = MIDDLEWARES.includes(filename);

@@ -17,6 +17,14 @@ const MIDDLEWARES = ['database', 'common', 'router']
 // 自动遍历 ./middleware/*.js 导出对象后再逐个遍历初始化koa中间件
 const useMiddlewares = app => {
   const context = require.context('./middleware/', false, /\.js$/)
+  
+  // R.map(
+  //   R.compose(
+  //     filename => MIDDLEWARES.includes(filename),
+  //     key => getFilename(key)
+  //   )
+  // )(context.keys())
+  
   context.keys().forEach(key => {
     const filename = getFilename(key)
     const isValid = MIDDLEWARES.includes(filename)
