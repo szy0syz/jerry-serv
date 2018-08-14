@@ -29,6 +29,7 @@
     "area-data": "^5.0.6",
     "axios": "^0.17.1",
     "bcrypt": "^3.0.0",
+    "casbin": "^1.0.7",
     "clipboard": "^1.7.1",
     "countup": "^1.8.2",
     "cropperjs": "^1.2.2",
