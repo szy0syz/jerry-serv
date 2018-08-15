@@ -5,6 +5,7 @@ module.exports = exports = function MetaPlugin(schema, options) {
       this.meta = {} // 不能给访问undefined的属性
       this.meta.createdAt = this.meta.updatedAt = Date.now()
     } else {
+      // find 也会执行
       this.meta.updatedAt = Date.now()
     }
 

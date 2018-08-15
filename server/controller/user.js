@@ -12,11 +12,11 @@ mock.onPost(config.base_url + '/api/v1.user/login').reply(function (config) {
 })
 
 export const userinfo = async (ctx, next) => {
-  let token = ctx.session.user.token || ''
+  let token = ctx.session.user && ctx.session.user.token || ''
   return (ctx.body = {
     ret: 200,
     msg: '获取成功',
-    data: { token: token }
+    data: { token: token || null }
   })
 }
 

@@ -15,7 +15,7 @@ export class adminController {
   @required({
     body: ['username', 'password']
   })
-  async login(ctx, next) {
+  async login(ctx) {
     const { username, password } = ctx.request.body
     const matchData = await checkPassword(username, password)
 
