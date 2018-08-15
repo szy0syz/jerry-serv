@@ -1401,6 +1401,7 @@ var ArticleSchema = new Schema({
   },
   cover: String,
   pubdate: Date,
+  content: String,
   category: {
     type: ObjectId,
     ref: 'Category'
