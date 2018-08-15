@@ -5,7 +5,7 @@ const { Mixed, ObjectId } = Schema.Types
 const ArticleSchema = new Schema({
   title: {
     type: String,
-    required: true 
+    required: true
   },
   cover: String,
   pubdate: Date,

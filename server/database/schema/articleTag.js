@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-const ArticleTypeSchema = new Schema({
+const ArticleTagSchema = new Schema({
   name: {
     type: String,
     required: true 
@@ -19,4 +19,4 @@ const ArticleTypeSchema = new Schema({
   }
 })
 
-mongoose.model('ArticleType', ArticleTypeSchema)
+mongoose.model('ArticleTag', ArticleTagSchema)
