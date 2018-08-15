@@ -1,10 +1,10 @@
 import xss from 'xss'
 
-const {  articleType: Model } = require('../service')
+const { articleTag: Model } = require('../service')
 
 const { controller, get, del, post } = require('../lib/decorator')
 
-@controller('/api/articleType')
+@controller('/api/articleTag')
 export class articleController {
   @get('/')
   async get(ctx) {
