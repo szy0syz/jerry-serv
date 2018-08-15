@@ -21,7 +21,17 @@ function skipMid(ctx, next, str) {
   return false
 }
 
-router.get('/:tab', rest.get)
+router
+  .get('/:tab', rest.get)
+  .post('/:tab', rest.post)
+
+// router.get('/:tab', (ctx, next) => {
+//   if (skipMid(ctx, next, 'GET')) {
+//     return
+//   }
+//   console.log('进来了', skipMid(ctx, next, 'GET'))
+//   rest.get(ctx, next)
+// })
 
 // router.use('/:tab').get(function(ctx, next) {
 //   if (skipMid(ctx, next, 'GET')) {

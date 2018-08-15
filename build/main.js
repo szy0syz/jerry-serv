@@ -1588,8 +1588,9 @@ var addRestful = function addRestful(app) {
 
 /***/ }),
 /* 38 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
 var Router = __webpack_require__(2);
 var rest = __webpack_require__(39);
 
@@ -1613,7 +1614,15 @@ function skipMid(ctx, next, str) {
   return false;
 }
 
-router.get('/:tab', rest.get);
+router.get('/:tab', rest.get).post('/:tab', rest.post);
+
+// router.get('/:tab', (ctx, next) => {
+//   if (skipMid(ctx, next, 'GET')) {
+//     return
+//   }
+//   console.log('进来了', skipMid(ctx, next, 'GET'))
+//   rest.get(ctx, next)
+// })
 
 // router.use('/:tab').get(function(ctx, next) {
 //   if (skipMid(ctx, next, 'GET')) {
@@ -1635,6 +1644,7 @@ module.exports = router;
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "get", function() { return get; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "post", function() { return post; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator__);
 
@@ -1657,7 +1667,7 @@ var getModel = function getModel(tab) {
 };
 
 var get = function () {
-  var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.mark(function _callee(ctx) {
+  var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.mark(function _callee(ctx, next) {
     var where, sort, skip, limit, populate, key, data;
     return __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
       while (1) {
@@ -1719,8 +1729,42 @@ var get = function () {
     }, _callee, _this);
   }));
 
-  return function get(_x) {
+  return function get(_x, _x2) {
     return _ref.apply(this, arguments);
+  };
+}();
+
+var post = function () {
+  var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.mark(function _callee2(ctx, next) {
+    var Model, doc, entity, data;
+    return __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            Model = getModel(req.params.tab);
+            doc = ctx.request.body;
+            entity = new Model(doc);
+            _context2.next = 5;
+            return entity.save();
+
+          case 5:
+            data = _context2.sent;
+
+            ctx.body = {
+              success: true,
+              data: data
+            };
+
+          case 7:
+          case 'end':
+            return _context2.stop();
+        }
+      }
+    }, _callee2, this);
+  }));
+
+  return function post(_x3, _x4) {
+    return _ref2.apply(this, arguments);
   };
 }();
 

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-const getModel = function(tab) {
+const getModel = function (tab) {
   let model
   try {
     model = mongoose.model(tab)
@@ -11,7 +11,7 @@ const getModel = function(tab) {
   return model
 }
 
-export const get = async (ctx) => {
+export const get = async (ctx, next) => {
   let where = ctx.query._where
   const sort = ctx.query._sort || {}
   const skip = parseInt(ctx.query._skip, 10) || 0
@@ -54,9 +54,20 @@ export const get = async (ctx) => {
     .limit(limit)
     .populate(populate)
     .exec()
-  
-    ctx.body = {
-      success: 'true',
-      data
-    }
+
+  ctx.body = ({
+    success: 'true',
+    data
+  })
+}
+
+export const post = async function (ctx, next) {
+  const Model = getModel(req.params.tab)
+  const doc = ctx.request.body
+  const entity = new Model(doc)
+  const data = await entity.save()
+  ctx.body = {
+    success: true,
+    data
+  }
 }
