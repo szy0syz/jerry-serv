@@ -3,8 +3,13 @@
 ## 技术栈
 
 * nuxt
-* iview
+* vue/vuex/vue-router
+* axios
 * mongoose
+* casbin
+* ramda
+* backpack
+* echarts
 
 ## 安装
 ```bash
