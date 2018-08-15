@@ -1,6 +1,6 @@
 import xss from 'xss'
 
-const { fetchList, create } = require('../service/article')
+const { Article } = require('../service')
 
 const { controller, get, del, post, required } = require('../lib/decorator')
 
@@ -9,7 +9,7 @@ export class articleController {
   @get('/')
   async get(ctx) {
     const { page, size } = ctx.query
-    const data = await fetchList(page, size)
+    const data = await Article.fetchList(page, size)
     ctx.body = {
       success: true,
       data
@@ -28,7 +28,7 @@ export class articleController {
     }
 
     try {
-      data = await create(data)
+      data = await Article.create(data)
       ctx.body = {
         data,
         success: true
