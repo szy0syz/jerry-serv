@@ -89,7 +89,6 @@ util.setCurrentPath = function(vm, name) {
       }
     ]
   } else if (
-    console.log('%%%%%%%%%%%',name)
     (name.indexOf('_index') >= 0 || isOtherRouter) &&
     name !== 'home_index'
   ) {

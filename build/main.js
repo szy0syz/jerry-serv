@@ -76,13 +76,13 @@ module.exports = __webpack_require__(9);
 /* 1 */
 /***/ (function(module, exports) {
 
-module.exports = require("koa-router");
+module.exports = require("mongoose");
 
 /***/ }),
 /* 2 */
 /***/ (function(module, exports) {
 
-module.exports = require("mongoose");
+module.exports = require("koa-router");
 
 /***/ }),
 /* 3 */
@@ -156,7 +156,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Router = __webpack_require__(1);
+var Router = __webpack_require__(2);
 
 var _require = __webpack_require__(3),
     resolve = _require.resolve;
@@ -474,7 +474,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_koa___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_koa__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_nuxt__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_nuxt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_nuxt__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_koa_router__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_koa_router__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_koa_router___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_koa_router__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__routers__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_ramda__ = __webpack_require__(6);
@@ -660,7 +660,7 @@ module.exports = require("nuxt");
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa_router__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa_router__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa_router___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_koa_router__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__controller_user__ = __webpack_require__(13);
 
@@ -1250,7 +1250,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_fs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_fs__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_path__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_path___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_path__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_mongoose__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_mongoose__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_mongoose___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_mongoose__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__config__ = __webpack_require__(4);
 
@@ -1387,7 +1387,7 @@ webpackContext.id = 32;
 /* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var mongoose = __webpack_require__(2);
+var mongoose = __webpack_require__(1);
 var Schema = mongoose.Schema;
 var _Schema$Types = Schema.Types,
     Mixed = _Schema$Types.Mixed,
@@ -1423,7 +1423,7 @@ mongoose.model('Article', ArticleSchema);
 /* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var mongoose = __webpack_require__(2);
+var mongoose = __webpack_require__(1);
 var Schema = mongoose.Schema;
 
 var ArticleTypeSchema = new Schema({
@@ -1451,7 +1451,7 @@ mongoose.model('ArticleType', ArticleTypeSchema);
 
 var _this2 = this;
 
-var mongoose = __webpack_require__(2);
+var mongoose = __webpack_require__(1);
 var bcrypt = __webpack_require__(36);
 var Schema = mongoose.Schema;
 
@@ -1590,7 +1590,7 @@ var addRestful = function addRestful(app) {
 /* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Router = __webpack_require__(1);
+var Router = __webpack_require__(2);
 var rest = __webpack_require__(39);
 
 var router = new Router({ prefix: '/autoapi' });
@@ -1643,7 +1643,7 @@ var _this = this;
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
-var mongoose = __webpack_require__(2);
+var mongoose = __webpack_require__(1);
 var Schema = mongoose.Schema;
 
 var getModel = function getModel(tab) {
