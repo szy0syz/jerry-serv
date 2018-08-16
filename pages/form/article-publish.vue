@@ -113,8 +113,8 @@
             <Col span="18">
             <Card>
                 <Form :label-width="80">
-                    <FormItem label="文章标题" :error="articleError">
-                        <Input v-model="articleTitle" @on-blur="handleArticletitleBlur" icon="android-list" />
+                    <FormItem label="文章标题">
+                        <Input v-model="article.title" @on-blur="handleArticletitleBlur" icon="android-list" />
                     </FormItem>
                     <div class="article-link-con">
                         <transition name="fixed-link">
@@ -132,9 +132,8 @@
                     </div>
                 </Form>
                 <div class="margin-top-20">
-                  <!-- <textarea id="articleEditor"></textarea> -->
                   <div class="quill-editor" 
-                    v-model="content"
+                    v-model="article.content"
                     v-quill:myQuillEditor="editorOption">
                   </div>
                 </div>
@@ -272,6 +271,12 @@ export default {
   data() {
     return {
       content: '',
+      article: {
+        title: '',
+        desc: '',
+        content: '',
+        error: '',
+      },
       editorOption: {
         modules: {
           toolbar: [
@@ -296,7 +301,6 @@ export default {
         }
       },
       articleTitle: '',
-      articleError: '',
       showLink: false,
       fixedLink: '',
       articlePath: '',
@@ -326,9 +330,8 @@ export default {
   },
   methods: {
     handleArticletitleBlur() {
-      if (this.articleTitle.length !== 0) {
-        // this.articleError = '';
-        localStorage.articleTitle = this.articleTitle // 本地存储文章标题
+      if (this.article.title.length !== 0) {
+        localStorage.articleTitle = this.article.title // 本地存储文章标题
         if (!this.articlePathHasEdited) {
           let date = new Date()
           let year = date.getFullYear()
@@ -336,12 +339,11 @@ export default {
           let day = date.getDate()
           this.fixedLink =
             window.location.host + '/' + year + '/' + month + '/' + day + '/'
-          this.articlePath = this.articleTitle
+          this.articlePath = this.article.title
           this.articlePathHasEdited = true
           this.showLink = true
         }
       } else {
-        // this.articleError = '文章标题不可为空哦';
         this.$Message.error('文章标题不可为空哦')
       }
     },
@@ -407,7 +409,7 @@ export default {
       this.addingNewTag = false
     },
     canPublish() {
-      if (this.articleTitle.length === 0) {
+      if (this.article.title.length === 0) {
         this.$Message.error('请输入文章标题')
         return false
       } else {
@@ -453,13 +455,14 @@ export default {
     handlePublish() {
       if (this.canPublish()) {
         this.publishLoading = true
+        console.log(this.content)
         setTimeout(() => {
           this.publishLoading = false
           this.$Notice.success({
             title: '保存成功',
-            desc: '文章《' + this.articleTitle + '》保存成功'
+            desc: '文章《' + this.article.title + '》保存成功'
           })
-        }, 1000)
+        }, 3000)
       }
     },
     handleSelectTag() {

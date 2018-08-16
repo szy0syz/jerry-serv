@@ -10,8 +10,8 @@ const env = process.env.NODE_ENV || 'development'
 
 let baseUrl = {
   development: 'http://127.0.0.1:3000',
-  test: 'https://crmfront.tiaoweilian.com',
-  production: 'https://crm.youjiangliao.com'
+  test: 'http://127.0.0.1:3000',
+  production: 'http://127.0.0.1:3000'
 }
 
 let options = {
