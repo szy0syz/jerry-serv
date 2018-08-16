@@ -243,8 +243,8 @@
                     </p>
                     <Row>
                         <Col span="18">
-                        <Select v-model="articleTagSelected" multiple @on-change="handleSelectTag" placeholder="请选择文章标签">
-                            <Option v-for="item in articleTagList" :value="item.value" :key="item.value">{{ item.value }}</Option>
+                        <Select v-model="article.tags" multiple @on-change="handleSelectTag" placeholder="请选择文章标签">
+                            <Option v-for="item in articleTagList" :value="item._id" :key="item.name">{{ item.name }}</Option>
                         </Select>
                         </Col>
                         <Col span="6" class="padding-left-10">
@@ -283,6 +283,8 @@ export default {
         title: '',
         cover: '',
         desc: '',
+        tags: [],
+        type: String,
         content: '',
         status: '',
         openness: '',
@@ -406,15 +408,17 @@ export default {
     },
     async createNewTag() {
       if (this.newTagName.length !== 0) {
-        let req = await axios.post('/api/articleTag', { name: this.newTagName })
-        console.log('~~~~~~')
-        console.log(req)
-        console.log('######')
-        this.articleTagList.push({ value: this.newTagName })
-        this.addingNewTag = false
-        setTimeout(() => {
-          this.newTagName = ''
-        }, 200)
+        let res = await axios.post('/api/articleTag', { name: this.newTagName })
+        console.log(res)
+        if (res.data.success === true) {
+          this.articleTagList.push({ name: this.newTagName, _id: res.data.data._id })
+          this.addingNewTag = false
+          setTimeout(() => {
+            this.newTagName = ''
+          }, 200)
+        } else {
+          this.$Message.error('添加标签失败')
+        }
       } else {
         this.$Message.error('请输入标签名')
       }
@@ -482,6 +486,7 @@ export default {
       }
     },
     handleSelectTag() {
+      // TODO: 本地化缓存文章tag
       // localStorage.tagsList = JSON.stringify(this.articleTagSelected) // 本地存储文章标签列表
     }
   },
@@ -492,15 +497,12 @@ export default {
       return finalUrl
     }
   },
-  mounted() {
-    this.articleTagList = [
-      { value: 'vue' },
-      { value: 'iview' },
-      { value: 'ES6' },
-      { value: 'webpack' },
-      { value: 'babel' },
-      { value: 'eslint' }
-    ]
+  async mounted() {
+    // -------init ArticleTag--------
+    let res = await axios.get('/api/articleTag?size=99')
+    this.articleTagList = res.data.data
+    // --------↑↑↑↑↑↑↑↑↑↑↑↑↑---------
+
     this.classificationList = [
       {
         title: 'Vue实例',
