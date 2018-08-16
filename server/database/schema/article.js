@@ -10,10 +10,16 @@ const ArticleSchema = new Schema({
   cover: String,
   pubdate: Date,
   content: String,
-  category: {
+  type: {
     type: ObjectId,
-    ref: 'Category'
+    ref: 'ArticleType'
   },
+  tags: [
+    {
+      type: ObjectId,
+      ref: 'ArticleTag'
+    }
+  ],
   meta: {
     createdAt: {
       type: Date,

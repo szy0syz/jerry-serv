@@ -1,6 +1,6 @@
 import xss from 'xss'
 
-const { Article } = require('../service')
+const { article: Article } = require('../service')
 
 const { controller, get, del, post, required } = require('../lib/decorator')
 

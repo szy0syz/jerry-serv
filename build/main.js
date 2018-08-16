@@ -1430,10 +1430,14 @@ var ArticleSchema = new Schema({
   cover: String,
   pubdate: Date,
   content: String,
-  category: {
+  type: {
     type: ObjectId,
-    ref: 'Category'
+    ref: 'ArticleType'
   },
+  tags: [{
+    type: ObjectId,
+    ref: 'ArticleTag'
+  }],
   meta: {
     createdAt: {
       type: Date,
@@ -2084,7 +2088,7 @@ function _applyDecoratedDescriptor(target, property, decorators, descriptor, con
 
 
 var _require = __webpack_require__(6),
-    Article = _require.Article;
+    Article = _require.article;
 
 var _require2 = __webpack_require__(2),
     controller = _require2.controller,
