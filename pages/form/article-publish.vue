@@ -218,18 +218,18 @@
                         分类目录
                     </p>
                     <Tabs type="card">
-                        <TabPane label="所有分类目录">
+                        <!-- <TabPane label="所有分类目录">
                             <div class="classification-con">
                                 <Tree :data="classificationList" @on-check-change="setClassificationInAll" show-checkbox></Tree>
                             </div>
-                        </TabPane>
-                        <TabPane label="常用目录">
+                        </TabPane> -->
+                        <TabPane label="所有分类目录">
                             <div class="classification-con">
-                                <CheckboxGroup v-model="offenUsedClassSelected" @on-change="setClassificationInOffen">
-                                    <p v-for="item in offenUsedClass" :key="item.title">
-                                        <Checkbox :label="item.title">{{ item.title }}</Checkbox>
-                                    </p>
-                                </CheckboxGroup>
+                                <RadioGroup v-model="article.type" vertical>
+                                    <Radio v-for="item in articleTypeList" :key="item._id" :label="item._id">
+                                        <span>{{item.name}}</span>
+                                    </Radio>
+                                </RadioGroup>
                             </div>
                         </TabPane>
                     </Tabs>
@@ -278,18 +278,20 @@ export default {
   name: 'artical-publish',
   data() {
     return {
+      vertical: '',
       content: '',
       article: {
         title: '',
         cover: '',
         desc: '',
         tags: [],
-        type: String,
+        type: '',
         content: '',
         status: '',
         openness: '',
         isTop: false
       },
+      articleTypeList: [],
       editorOption: {
         modules: {
           toolbar: [
@@ -475,14 +477,14 @@ export default {
     handlePublish() {
       if (this.canPublish()) {
         this.publishLoading = true
-        console.log(this.content)
+        console.log(this.article)
         setTimeout(() => {
           this.publishLoading = false
           this.$Notice.success({
             title: '保存成功',
             desc: '文章《' + this.article.title + '》保存成功'
           })
-        }, 3000)
+        }, 1000)
       }
     },
     handleSelectTag() {
@@ -499,89 +501,38 @@ export default {
   },
   async mounted() {
     // -------init ArticleTag--------
-    let res = await axios.get('/api/articleTag?size=99')
-    this.articleTagList = res.data.data
+    let tagRes = await axios.get('/api/articleTag?size=99')
+    this.articleTagList = tagRes.data.data
     // --------↑↑↑↑↑↑↑↑↑↑↑↑↑---------
 
-    this.classificationList = [
+    // -------init ArticleType--------
+    let typeRes = await axios.get('/api/articleType?size=99')
+    console.log(typeRes)
+    // --------↑↑↑↑↑↑↑↑↑↑↑↑↑---------
+
+    this.articleTypeList = [
       {
-        title: 'Vue实例',
-        expand: true,
-        children: [
-          {
-            title: '数据与方法',
-            expand: true
-          },
-          {
-            title: '生命周期',
-            expand: true
-          }
-        ]
+        name: '产业职教',
+        _id: '111',
+        desc: '描述2'
       },
       {
-        title: 'Class与Style绑定',
-        expand: true,
-        children: [
-          {
-            title: '绑定HTML class',
-            expand: true,
-            children: [
-              {
-                title: '对象语法',
-                expand: true
-              },
-              {
-                title: '数组语法',
-                expand: true
-              },
-              {
-                title: '用在组件上',
-                expand: true
-              }
-            ]
-          },
-          {
-            title: '生命周期',
-            expand: true
-          }
-        ]
+        name: '校企合作',
+        _id: '222',
+        desc: '描述3'
       },
       {
-        title: '模板语法',
-        expand: true,
-        children: [
-          {
-            title: '插值',
-            expand: true
-          },
-          {
-            title: '指令',
-            expand: true
-          },
-          {
-            title: '缩写',
-            expand: true
-          }
-        ]
-      }
+        name: '校园安全',
+        _id: '333',
+        desc: '描述4'
+      },
+      {
+        name: '资源干货',
+        _id: '444',
+        desc: '描述5'
+      },
     ]
-    this.offenUsedClass = [
-      {
-        title: 'vue实例'
-      },
-      {
-        title: '生命周期'
-      },
-      {
-        title: '模板语法'
-      },
-      {
-        title: '插值'
-      },
-      {
-        title: '缩写'
-      }
-    ]
+
 
     // tinymce.init({
     //   selector: '#articleEditor',
