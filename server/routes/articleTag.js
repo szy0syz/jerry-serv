@@ -21,10 +21,7 @@ export class articleController {
     let data = ctx.request.body
 
     data = {
-      title: xss(data.title),
-      cover: xss(data.title),
-      pubdate: xss(data.pubdate),
-      content: xss(data.content)
+      name: xss(data.name)
     }
 
     try {
@@ -33,9 +30,9 @@ export class articleController {
         data,
         success: true
       }
-    } catch (err) {
+    } catch (error) {
       ctx.body = {
-        err,
+        error,
         success: false
       }
     }

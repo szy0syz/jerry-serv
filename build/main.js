@@ -2905,10 +2905,7 @@ var articleController = (_dec = controller('/api/articleTag'), _dec2 = get('/'),
 
 
                 data = {
-                  title: __WEBPACK_IMPORTED_MODULE_1_xss___default()(data.title),
-                  cover: __WEBPACK_IMPORTED_MODULE_1_xss___default()(data.title),
-                  pubdate: __WEBPACK_IMPORTED_MODULE_1_xss___default()(data.pubdate),
-                  content: __WEBPACK_IMPORTED_MODULE_1_xss___default()(data.content)
+                  name: __WEBPACK_IMPORTED_MODULE_1_xss___default()(data.name)
                 };
 
                 _context2.prev = 2;
@@ -2930,7 +2927,7 @@ var articleController = (_dec = controller('/api/articleTag'), _dec2 = get('/'),
                 _context2.t0 = _context2['catch'](2);
 
                 ctx.body = {
-                  err: _context2.t0,
+                  error: _context2.t0,
                   success: false
                 };
 

@@ -272,7 +272,8 @@
 </template>
 
 <script>
-//import tinymce from 'tinymce'
+import axios from '~/plugins/axios2'
+
 export default {
   name: 'artical-publish',
   data() {
@@ -403,8 +404,12 @@ export default {
     handleAddNewTag() {
       this.addingNewTag = !this.addingNewTag
     },
-    createNewTag() {
+    async createNewTag() {
       if (this.newTagName.length !== 0) {
+        let req = await axios.post('/api/articleTag', { name: this.newTagName })
+        console.log('~~~~~~')
+        console.log(req)
+        console.log('######')
         this.articleTagList.push({ value: this.newTagName })
         this.addingNewTag = false
         setTimeout(() => {
