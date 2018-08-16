@@ -278,7 +278,6 @@ export default {
   name: 'artical-publish',
   data() {
     return {
-      vertical: '',
       content: '',
       article: {
         title: '',
