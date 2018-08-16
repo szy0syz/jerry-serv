@@ -1,7 +1,7 @@
 import * as qiniu from '../lib/qiniu'
 import { controller, get } from '../lib/decorator'
 
-@controller('/qiniu')
+@controller('/api/qiniu')
 export class QiniuController {
   @get('/token')
   async qiniuToken(ctx) {

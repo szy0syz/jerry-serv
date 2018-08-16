@@ -293,26 +293,37 @@ export default {
       articleTypeList: [],
       editorOption: {
         modules: {
-          toolbar: [
-            ['bold', 'italic', 'underline', 'strike'],
-            ['blockquote', 'code-block'],
-            [{ header: 1 }, { header: 2 }],
-            [{ list: 'ordered' }, { list: 'bullet' }],
-            [{ script: 'sub' }, { script: 'super' }],
-            [{ indent: '-1' }, { indent: '+1' }],
-            [{ direction: 'rtl' }],
-            [{ size: ['small', false, 'large', 'huge'] }],
-            [{ header: [1, 2, 3, 4, 5, 6, false] }],
-            [{ font: [] }],
-            [{ color: [] }, { background: [] }],
-            [{ align: [] }],
-            ['clean'],
-            ['link', 'image', 'video']
-          ],
+          toolbar: {
+            container: [
+              ['bold', 'italic', 'underline', 'strike'],
+              ['blockquote', 'code-block'],
+              [{ header: 1 }, { header: 2 }],
+              [{ list: 'ordered' }, { list: 'bullet' }],
+              [{ script: 'sub' }, { script: 'super' }],
+              [{ indent: '-1' }, { indent: '+1' }],
+              [{ direction: 'rtl' }],
+              [{ size: ['small', false, 'large', 'huge'] }],
+              [{ header: [1, 2, 3, 4, 5, 6, false] }],
+              [{ font: [] }],
+              [{ color: [] }, { background: [] }],
+              [{ align: [] }],
+              ['clean'],
+              ['link', 'image', 'video']
+            ],
+            handlers: {
+              'image': function() {
+                this.quill.format('image', false); // 禁用quill内部上传图片方法
+                console.log('自定义~~~~~~~')
+              }
+            }
+          },
           syntax: {
             highlight: text => hljs.highlightAuto(text).value
           },
           imageDrop: true
+        },
+        imageHandler: (image, callback) => {
+          console.log(image)
         }
       },
       articleTitle: '',
@@ -344,6 +355,9 @@ export default {
     }
   },
   methods: {
+    quillImageHandler(image, callback) {
+      console.log(image, callback)
+    },
     handleArticletitleBlur() {
       if (this.article.title.length !== 0) {
         localStorage.articleTitle = this.article.title // 本地存储文章标题
@@ -478,6 +492,7 @@ export default {
       if (this.canPublish()) {
         this.publishLoading = true
         console.log(this.article)
+        console.log(this)
         setTimeout(() => {
           this.publishLoading = false
           this.$Notice.success({
