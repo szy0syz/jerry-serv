@@ -1,0 +1,13 @@
+{
+    "db": "mongodb://localhost/jerryServ",
+    "SITE_ROOT_URL": "http://jj.jerryshi.com",
+    "qiniu": {
+        "AK": "",
+        "SK": "",
+        "bucket": "",
+        "qiniuURL": "",
+        "config": {
+            "useCdnDomain": true
+        }
+    }
+}
