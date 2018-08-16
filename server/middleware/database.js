@@ -32,7 +32,7 @@ export const database = app => {
   mongoose.connection.on('open', async () => {
     console.info('Connected to MongoDB ', config.db)
 
-    // TODO
+    // TODO: 
     const User = mongoose.model('User')
     let user = await User.findOne({
       username: 'admin'
@@ -44,9 +44,31 @@ export const database = app => {
         password: 'admin888',
         email: 'admin@126.com'
       })
-      console.info('[Info] 写入初始化管理员数据')
+      console.info('[Info] 写入管理员数据初始化数据')
     }
-
     await user.save()
+
+    ////////////////
+    const ArticleType = mongoose.model('ArticleType')
+    const typeLenght = await ArticleType.find().count().exec()
+
+    if (typeLenght === 0) {
+      let typeList = [
+        {
+          name: '产业职教'
+        },
+        {
+          name: '校企合作'
+        },
+        {
+          name: '校园安全'
+        },
+        {
+          name: '资源干货'
+        }
+      ]
+      await ArticleType.insertMany(typeList)
+      console.info('[Info] 写入ArticleType初始化数据')
+    }
   })
 }

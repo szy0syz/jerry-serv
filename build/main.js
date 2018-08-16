@@ -1320,14 +1320,14 @@ var database = function database(app) {
   });
 
   __WEBPACK_IMPORTED_MODULE_3_mongoose___default.a.connection.on('open', _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.mark(function _callee() {
-    var User, user;
+    var User, user, ArticleType, typeLenght, typeList;
     return __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
             console.info('Connected to MongoDB ', __WEBPACK_IMPORTED_MODULE_4__config__["a" /* default */].db);
 
-            // TODO
+            // TODO: 
             User = __WEBPACK_IMPORTED_MODULE_3_mongoose___default.a.model('User');
             _context.next = 4;
             return User.findOne({
@@ -1344,13 +1344,42 @@ var database = function database(app) {
                 password: 'admin888',
                 email: 'admin@126.com'
               });
-              console.info('[Info] 写入初始化管理员数据');
+              console.info('[Info] 写入管理员数据初始化数据');
             }
-
             _context.next = 8;
             return user.save();
 
           case 8:
+
+            ////////////////
+            ArticleType = __WEBPACK_IMPORTED_MODULE_3_mongoose___default.a.model('ArticleType');
+            _context.next = 11;
+            return ArticleType.find().count().exec();
+
+          case 11:
+            typeLenght = _context.sent;
+
+            if (!(typeLenght === 0)) {
+              _context.next = 17;
+              break;
+            }
+
+            typeList = [{
+              name: '产业职教'
+            }, {
+              name: '校企合作'
+            }, {
+              name: '校园安全'
+            }, {
+              name: '资源干货'
+            }];
+            _context.next = 16;
+            return ArticleType.insertMany(typeList);
+
+          case 16:
+            console.info('[Info] 写入ArticleType初始化数据');
+
+          case 17:
           case 'end':
             return _context.stop();
         }
