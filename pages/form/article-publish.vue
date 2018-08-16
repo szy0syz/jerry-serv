@@ -128,7 +128,10 @@
                         <Input v-model="article.title" @on-blur="handleArticletitleBlur" placeholder="请输入标题..." icon="android-list" />
                     </FormItem>
                     <FormItem label="文章摘要">
-                        <Input v-model="article.desc" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="请输入摘要..." icon="android-list" />
+                        <Input v-model="article.desc" type="textarea" :autosize="{minRows: 2,maxRows: 3}" placeholder="请输入摘要..." icon="android-list" />
+                    </FormItem>
+                    <FormItem label="文章封面">
+                        <qiniuImgUpload @handleSuccess = "(url) => this.article.cover = url"></qiniuImgUpload>
                     </FormItem>
                     <!-- <div class="article-link-con">
                         <transition name="fixed-link">
@@ -285,6 +288,8 @@ import * as qiniu from 'qiniu-js'
 import randomToken from 'random-token'
 import config from '../../server/config'
 
+import qiniuImgUpload from '../../components/qiniu/qiniu-img-upload'
+
 export default {
   name: 'artical-publish',
   data() {
@@ -391,7 +396,7 @@ export default {
         complete(res) {
           let length = self.quill.getSelection().index
           // TODO: Can not access config / myConfig ?!!
-          const imgUrl = "http://cdn.jerryshi.com/" + res.key
+          const imgUrl = 'http://cdn.jerryshi.com/' + res.key
           self.quill.insertEmbed(length, 'image', imgUrl)
         }
       }
@@ -562,6 +567,9 @@ export default {
       localStorage.finalUrl = finalUrl // 本地存储完整文章路径
       return finalUrl
     }
+  },
+  components: {
+    qiniuImgUpload
   },
   async mounted() {
     // -------init ArticleTag--------

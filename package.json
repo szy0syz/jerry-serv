@@ -51,6 +51,7 @@
     "nuxt": "^1.4.2",
     "qiniu": "^7.2.1",
     "qiniu-js": "^2.4.0",
+    "qiniu-uptoken": "^1.0.8",
     "quill-image-drop-module": "^1.0.3",
     "quill-image-extend-module": "^1.1.2",
     "quill-image-resize-module": "^3.0.0",
