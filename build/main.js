@@ -1354,7 +1354,7 @@ var database = function database(app) {
             ////////////////
             ArticleType = __WEBPACK_IMPORTED_MODULE_3_mongoose___default.a.model('ArticleType');
             _context.next = 11;
-            return ArticleType.find().count().exec();
+            return ArticleType.find().collection.countDocuments();
 
           case 11:
             typeLenght = _context.sent;
