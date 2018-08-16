@@ -109,6 +109,13 @@
   margin-top: 0;
   padding: 0px 0;
 }
+
+////////////////////////
+.quill-editor {
+  min-height: 400px;
+  max-height: 500px;
+  overflow-y: auto;
+}
 </style>
 
 <template>
@@ -139,6 +146,7 @@
                     </div> -->
                 </Form>
                 <div class="margin-top-20">
+                  <input type="file" style="display:none" id="file" ref="input" @change="handleUploadImg">
                   <div class="quill-editor" 
                     v-model="article.content"
                     v-quill:myQuillEditor="editorOption">
@@ -273,10 +281,14 @@
 
 <script>
 import axios from '~/plugins/axios2'
+import * as qiniu from 'qiniu-js'
+import randomToken from 'random-token'
+import config from '../../server/config'
 
 export default {
   name: 'artical-publish',
   data() {
+    const self = this
     return {
       content: '',
       article: {
@@ -311,9 +323,10 @@ export default {
               ['link', 'image', 'video']
             ],
             handlers: {
-              'image': function() {
-                this.quill.format('image', false); // 禁用quill内部上传图片方法
-                console.log('自定义~~~~~~~')
+              image: function() {
+                this.quill.format('image', false) // 禁用quill内部上传图片方法
+                // console.log(this)
+                self.handleClickImg(this)
               }
             }
           },
@@ -321,9 +334,6 @@ export default {
             highlight: text => hljs.highlightAuto(text).value
           },
           imageDrop: true
-        },
-        imageHandler: (image, callback) => {
-          console.log(image)
         }
       },
       articleTitle: '',
@@ -355,8 +365,45 @@ export default {
     }
   },
   methods: {
-    quillImageHandler(image, callback) {
-      console.log(image, callback)
+    handleClickImg(handle) {
+      this.quill = handle.quill
+      let inputfile = document.getElementById('file')
+      inputfile.click()
+    },
+    async handleUploadImg() {
+      let files = document.getElementById('file')
+      let file = files.files[0]
+      let key = randomToken(32)
+      // key = `yncyzj/${key}.${file.name.split('.')[1]}`
+      key = `yncyzj/${key}`
+      let token = await axios.get('/api/qiniu/token')
+      token = token.data.data.token
+
+      const self = this
+      const myConfig = config
+      const observer = {
+        next(res) {
+          console.log(res.total, res)
+        },
+        error(err) {
+          console.error(err)
+        },
+        complete(res) {
+          let length = self.quill.getSelection().index
+          // TODO: Can not access config / myConfig ?!!
+          const imgUrl = "http://cdn.jerryshi.com/" + res.key
+          self.quill.insertEmbed(length, 'image', imgUrl)
+        }
+      }
+
+      const observable = qiniu.upload(
+        file,
+        key,
+        token,
+        null,
+        config.qiniu.config
+      )
+      observable.subscribe(observer) // 上传开始
     },
     handleArticletitleBlur() {
       if (this.article.title.length !== 0) {
@@ -427,7 +474,10 @@ export default {
         let res = await axios.post('/api/articleTag', { name: this.newTagName })
         console.log(res)
         if (res.data.success === true) {
-          this.articleTagList.push({ name: this.newTagName, _id: res.data.data._id })
+          this.articleTagList.push({
+            name: this.newTagName,
+            _id: res.data.data._id
+          })
           this.addingNewTag = false
           setTimeout(() => {
             this.newTagName = ''
@@ -492,7 +542,6 @@ export default {
       if (this.canPublish()) {
         this.publishLoading = true
         console.log(this.article)
-        console.log(this)
         setTimeout(() => {
           this.publishLoading = false
           this.$Notice.success({
@@ -524,7 +573,6 @@ export default {
     let typeRes = await axios.get('/api/articleType?size=99')
     this.articleTypeList = typeRes.data.data
     // --------↑↑↑↑↑↑↑↑↑↑↑↑↑---------
-
 
     // tinymce.init({
     //   selector: '#articleEditor',
