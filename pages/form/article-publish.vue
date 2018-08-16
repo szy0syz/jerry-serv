@@ -1,109 +1,113 @@
 <style lang="less">
 @import '../../assets/css/common.less';
-.article-link-con{
-    height: 32px;
-    width: 100%;
+.article-link-con {
+  height: 32px;
+  width: 100%;
 }
-.fixed-link-enter{
-    opacity: 0;
+.fixed-link-enter {
+  opacity: 0;
 }
-.fixed-link-enter-active, .fixed-link-leave-active {
-    transition: opacity .3s
+.fixed-link-enter-active,
+.fixed-link-leave-active {
+  transition: opacity 0.3s;
 }
-.fixed-link-enter-to{
-    opacity: 1
+.fixed-link-enter-to {
+  opacity: 1;
 }
-.openness-radio-con{
-    margin-left: 40px;
-    padding-left: 10px;
-    height: 130px;
-    border-left: 1px dashed #ebe9f3;
-    overflow: hidden;
+.openness-radio-con {
+  margin-left: 40px;
+  padding-left: 10px;
+  height: 130px;
+  border-left: 1px dashed #ebe9f3;
+  overflow: hidden;
 }
-.publish-time-picker-con{
-    margin-left: 40px;
-    padding-left: 10px;
-    height: 100px;
-    border-left: 1px dashed #ebe9f3;
-    overflow: hidden;
+.publish-time-picker-con {
+  margin-left: 40px;
+  padding-left: 10px;
+  height: 100px;
+  border-left: 1px dashed #ebe9f3;
+  overflow: hidden;
 }
-.openness-con-enter{
-    height: 0;
+.openness-con-enter {
+  height: 0;
 }
-.openness-con-enter-active, .openness-con-leave-active{
-    transition: height .3s;
+.openness-con-enter-active,
+.openness-con-leave-active {
+  transition: height 0.3s;
 }
-.openness-con-enter-to{
-    height: 130px;
+.openness-con-enter-to {
+  height: 130px;
 }
-.openness-con-leave{
-    height: 130px;
+.openness-con-leave {
+  height: 130px;
 }
-.openness-con-leave-to{
-    height: 0;
+.openness-con-leave-to {
+  height: 0;
 }
-.publish-button-con{
-    border-top: 1px solid #f3eff1;
-    padding-top: 14px;
+.publish-button-con {
+  border-top: 1px solid #f3eff1;
+  padding-top: 14px;
 }
-.publish-button{
-    float: right;
-    margin-left: 10px;
+.publish-button {
+  float: right;
+  margin-left: 10px;
 }
-.publish-time-enter{
-    height: 0;
+.publish-time-enter {
+  height: 0;
 }
-.publish-time-enter-active, .publish-time-leave-active{
-    transition: height .3s;
+.publish-time-enter-active,
+.publish-time-leave-active {
+  transition: height 0.3s;
 }
-.publish-time-enter-to{
-    height: 100px;
+.publish-time-enter-to {
+  height: 100px;
 }
-.publish-time-leave{
-    height: 100px;
+.publish-time-leave {
+  height: 100px;
 }
-.publish-time-leave-to{
-    height: 0;
+.publish-time-leave-to {
+  height: 0;
 }
-.classification-con{
-    height: 200px;
-    margin-top: -16px;
-    border-left: 1px solid #dddee1;
-    border-right: 1px solid #dddee1;
-    border-bottom: 1px solid #dddee1;
-    border-radius: 0 0 3px 3px;
-    padding: 10px;
-    overflow: auto;
+.classification-con {
+  height: 200px;
+  margin-top: -16px;
+  border-left: 1px solid #dddee1;
+  border-right: 1px solid #dddee1;
+  border-bottom: 1px solid #dddee1;
+  border-radius: 0 0 3px 3px;
+  padding: 10px;
+  overflow: auto;
 }
-.add-new-tag-con{
-    margin-top: 20px;
-    border-top: 1px dashed #dbdddf;
-    padding: 20px 0;
-    height: 60px;
-    overflow: hidden;
+.add-new-tag-con {
+  margin-top: 20px;
+  border-top: 1px dashed #dbdddf;
+  padding: 20px 0;
+  height: 60px;
+  overflow: hidden;
 }
-.add-new-tag-enter{
-    height: 0;
-    margin-top: 0;
-    padding: 0px 0;
+.add-new-tag-enter {
+  height: 0;
+  margin-top: 0;
+  padding: 0px 0;
 }
-.add-new-tag-enter-active, .add-new-tag-leave-active{
-    transition: all .3s;
+.add-new-tag-enter-active,
+.add-new-tag-leave-active {
+  transition: all 0.3s;
 }
-.add-new-tag-enter-to{
-    height: 60px;
-    margin-top: 20px;
-    padding: 20px 0;
+.add-new-tag-enter-to {
+  height: 60px;
+  margin-top: 20px;
+  padding: 20px 0;
 }
-.add-new-tag-leave{
-    height: 60px;
-    margin-top: 20px;
-    padding: 20px 0;
+.add-new-tag-leave {
+  height: 60px;
+  margin-top: 20px;
+  padding: 20px 0;
 }
-.add-new-tag-leave-to{
-    height: 0;
-    margin-top: 0;
-    padding: 0px 0;
+.add-new-tag-leave-to {
+  height: 0;
+  margin-top: 0;
+  padding: 0px 0;
 }
 </style>
 
@@ -114,9 +118,12 @@
             <Card>
                 <Form :label-width="80">
                     <FormItem label="文章标题">
-                        <Input v-model="article.title" @on-blur="handleArticletitleBlur" icon="android-list" />
+                        <Input v-model="article.title" @on-blur="handleArticletitleBlur" placeholder="请输入标题..." icon="android-list" />
                     </FormItem>
-                    <div class="article-link-con">
+                    <FormItem label="文章摘要">
+                        <Input v-model="article.desc" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="请输入摘要..." icon="android-list" />
+                    </FormItem>
+                    <!-- <div class="article-link-con">
                         <transition name="fixed-link">
                             <FormItem v-show="showLink" label="固定链接">
                                 <span>
@@ -129,7 +136,7 @@
                                 </span>
                             </FormItem>
                         </transition>
-                    </div>
+                    </div> -->
                 </Form>
                 <div class="margin-top-20">
                   <div class="quill-editor" 
@@ -147,7 +154,7 @@
                 </p>
                 <p class="margin-top-10">
                     <Icon type="android-time"></Icon>&nbsp;&nbsp;状&nbsp;&nbsp;&nbsp; 态：
-                    <Select size="small" style="width:90px" value="草稿">
+                    <Select size="small" style="width:90px" value="提交">
                         <Option v-for="item in articleStateList" :value="item.value" :key="item.value">{{ item.value }}</Option>
                     </Select>
                 </p>
@@ -160,7 +167,7 @@
                             <RadioGroup v-model="currentOpenness" vertical>
                                 <Radio label="公开">
                                     公开
-                                    <Checkbox v-show="currentOpenness === '公开'" v-model="topArticle">在首页置顶这篇文章</Checkbox>
+                                    <Checkbox v-show="currentOpenness === '公开'" v-model="article.isTop">在首页置顶这篇文章</Checkbox>
                                 </Radio>
                                 <Radio label="密码">
                                     密码
@@ -273,25 +280,28 @@ export default {
       content: '',
       article: {
         title: '',
+        cover: '',
         desc: '',
         content: '',
-        error: '',
+        status: '',
+        openness: '',
+        isTop: false
       },
       editorOption: {
         modules: {
           toolbar: [
             ['bold', 'italic', 'underline', 'strike'],
             ['blockquote', 'code-block'],
-            [{ 'header': 1 }, { 'header': 2 }],
-            [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-            [{ 'script': 'sub' }, { 'script': 'super' }],
-            [{ 'indent': '-1' }, { 'indent': '+1' }],
-            [{ 'direction': 'rtl' }],
-            [{ 'size': ['small', false, 'large', 'huge'] }],
-            [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-            [{ 'font': [] }],
-            [{ 'color': [] }, { 'background': [] }],
-            [{ 'align': [] }],
+            [{ header: 1 }, { header: 2 }],
+            [{ list: 'ordered' }, { list: 'bullet' }],
+            [{ script: 'sub' }, { script: 'super' }],
+            [{ indent: '-1' }, { indent: '+1' }],
+            [{ direction: 'rtl' }],
+            [{ size: ['small', false, 'large', 'huge'] }],
+            [{ header: [1, 2, 3, 4, 5, 6, false] }],
+            [{ font: [] }],
+            [{ color: [] }, { background: [] }],
+            [{ align: [] }],
             ['clean'],
             ['link', 'image', 'video']
           ],
@@ -308,7 +318,7 @@ export default {
       editLink: false,
       editPathButtonType: 'ghost',
       editPathButtonText: '编辑',
-      articleStateList: [{ value: '草稿' }, { value: '等待复审' }],
+      articleStateList: [{ value: '草稿' }, { value: '提交' }],
       editOpenness: false,
       Openness: '公开',
       currentOpenness: '公开',
@@ -418,38 +428,39 @@ export default {
     },
     handlePreview() {
       if (this.canPublish()) {
-        if (this.publishTimeType === 'immediately') {
-          let date = new Date()
-          let year = date.getFullYear()
-          let month = date.getMonth() + 1
-          let day = date.getDate()
-          let hour = date.getHours()
-          let minute = date.getMinutes()
-          let second = date.getSeconds()
-          localStorage.publishTime =
-            year +
-            ' 年 ' +
-            month +
-            ' 月 ' +
-            day +
-            ' 日 -- ' +
-            hour +
-            ' : ' +
-            minute +
-            ' : ' +
-            second
-        } else {
-          localStorage.publishTime = this.publishTime // 本地存储发布时间
-        }
-        localStorage.content = tinymcetinymce.activeEditor.getContent()
-        this.$router.push({
-          name: 'preview'
-        })
+        this.$Message.error('预览失败，请稍后再试。')
+        // if (this.publishTimeType === 'immediately') {
+        //   let date = new Date()
+        //   let year = date.getFullYear()
+        //   let month = date.getMonth() + 1
+        //   let day = date.getDate()
+        //   let hour = date.getHours()
+        //   let minute = date.getMinutes()
+        //   let second = date.getSeconds()
+        //   localStorage.publishTime =
+        //     year +
+        //     ' 年 ' +
+        //     month +
+        //     ' 月 ' +
+        //     day +
+        //     ' 日 -- ' +
+        //     hour +
+        //     ' : ' +
+        //     minute +
+        //     ' : ' +
+        //     second
+        // } else {
+        //   localStorage.publishTime = this.publishTime // 本地存储发布时间
+        // }
+        // localStorage.content = tinymcetinymce.activeEditor.getContent()
+        // this.$router.push({
+        //   name: 'preview'
+        // })
       }
     },
     handleSaveDraft() {
-      if (!this.canPublish()) {
-        //
+      if (this.canPublish()) {
+        this.$Message.error('保存草稿失败，请稍后再试。')
       }
     },
     handlePublish() {

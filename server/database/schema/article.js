@@ -8,8 +8,12 @@ const ArticleSchema = new Schema({
     required: true
   },
   cover: String,
+  desc: String,
   pubdate: Date,
   content: String,
+  status: String,
+  openness: String,
+  isTop: Boolean,
   type: {
     type: ObjectId,
     ref: 'ArticleType'
