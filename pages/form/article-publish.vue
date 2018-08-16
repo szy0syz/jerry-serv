@@ -312,7 +312,8 @@ export default {
           ],
           syntax: {
             highlight: text => hljs.highlightAuto(text).value
-          }
+          },
+          imageDrop: true
         }
       },
       articleTitle: '',
@@ -507,31 +508,8 @@ export default {
 
     // -------init ArticleType--------
     let typeRes = await axios.get('/api/articleType?size=99')
-    console.log(typeRes)
+    this.articleTypeList = typeRes.data.data
     // --------↑↑↑↑↑↑↑↑↑↑↑↑↑---------
-
-    this.articleTypeList = [
-      {
-        name: '产业职教',
-        _id: '111',
-        desc: '描述2'
-      },
-      {
-        name: '校企合作',
-        _id: '222',
-        desc: '描述3'
-      },
-      {
-        name: '校园安全',
-        _id: '333',
-        desc: '描述4'
-      },
-      {
-        name: '资源干货',
-        _id: '444',
-        desc: '描述5'
-      },
-    ]
 
 
     // tinymce.init({
