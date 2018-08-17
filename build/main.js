@@ -1474,9 +1474,10 @@ var ArticleSchema = new Schema({
   desc: String,
   pubdate: Date,
   content: String,
-  status: String,
+  status: Number,
   openness: String,
   isTop: Boolean,
+  password: String,
   type: {
     type: ObjectId,
     ref: 'ArticleType'
