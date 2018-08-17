@@ -2198,43 +2198,52 @@ var articleController = (_dec = controller('/api/article'), _dec2 = get('/'), _d
               case 0:
                 data = ctx.request.body;
 
-
+                if (!data.pubdate) {
+                  data.pubdate = Date.now();
+                }
                 data = {
                   title: __WEBPACK_IMPORTED_MODULE_1_xss___default()(data.title),
-                  cover: __WEBPACK_IMPORTED_MODULE_1_xss___default()(data.title),
+                  desc: __WEBPACK_IMPORTED_MODULE_1_xss___default()(data.desc),
+                  cover: __WEBPACK_IMPORTED_MODULE_1_xss___default()(data.cover),
                   pubdate: __WEBPACK_IMPORTED_MODULE_1_xss___default()(data.pubdate),
-                  content: __WEBPACK_IMPORTED_MODULE_1_xss___default()(data.content)
+                  content: __WEBPACK_IMPORTED_MODULE_1_xss___default()(data.content),
+                  type: __WEBPACK_IMPORTED_MODULE_1_xss___default()(data.type),
+                  status: __WEBPACK_IMPORTED_MODULE_1_xss___default()(data.status),
+                  openness: __WEBPACK_IMPORTED_MODULE_1_xss___default()(data.openness),
+                  password: __WEBPACK_IMPORTED_MODULE_1_xss___default()(data.password),
+                  isTop: Boolean(data.isTop),
+                  tags: data.tags
                 };
 
-                _context2.prev = 2;
-                _context2.next = 5;
+                _context2.prev = 3;
+                _context2.next = 6;
                 return Article.create(data);
 
-              case 5:
+              case 6:
                 data = _context2.sent;
 
                 ctx.body = {
                   data: data,
                   success: true
                 };
-                _context2.next = 12;
+                _context2.next = 13;
                 break;
 
-              case 9:
-                _context2.prev = 9;
-                _context2.t0 = _context2['catch'](2);
+              case 10:
+                _context2.prev = 10;
+                _context2.t0 = _context2['catch'](3);
 
                 ctx.body = {
                   err: _context2.t0,
                   success: false
                 };
 
-              case 12:
+              case 13:
               case 'end':
                 return _context2.stop();
             }
           }
-        }, _callee2, this, [[2, 9]]);
+        }, _callee2, this, [[3, 10]]);
       }));
 
       function post(_x2) {

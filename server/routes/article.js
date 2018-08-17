@@ -19,12 +19,21 @@ export class articleController {
   @post('/')
   async post(ctx) {
     let data = ctx.request.body
-
+    if(!data.pubdate) {
+      data.pubdate = Date.now()
+    }
     data = {
       title: xss(data.title),
-      cover: xss(data.title),
+      desc: xss(data.desc),
+      cover: xss(data.cover),
       pubdate: xss(data.pubdate),
-      content: xss(data.content)
+      content: xss(data.content),
+      type: xss(data.type),
+      status: xss(data.status),
+      openness: xss(data.openness),
+      password: xss(data.password),
+      isTop: Boolean(data.isTop),
+      tags: data.tags
     }
 
     try {

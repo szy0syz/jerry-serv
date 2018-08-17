@@ -479,7 +479,6 @@ export default {
     async createNewTag() {
       if (this.newTagName.length !== 0) {
         let res = await axios.post('/api/articleTag', { name: this.newTagName })
-        console.log(res)
         if (res.data.success === true) {
           this.articleTagList.push({
             name: this.newTagName,
@@ -545,18 +544,21 @@ export default {
         this.$Message.error('保存草稿失败，请稍后再试。')
       }
     },
-    handlePublish() {
+    async handlePublish() {
       if (this.canPublish()) {
-        this.publishLoading = true
+        // this.publishLoading = true
         console.log(this.article)
-        console.log(this.currentOpenness)
-        setTimeout(() => {
-          this.publishLoading = false
-          this.$Notice.success({
-            title: '保存成功',
-            desc: '文章《' + this.article.title + '》保存成功'
-          })
-        }, 1000)
+
+        let res = await axios.post('/api/article', this.article)
+        console.log(res)
+
+        // setTimeout(() => {
+        //   this.publishLoading = false
+        //   this.$Notice.success({
+        //     title: '保存成功',
+        //     desc: '文章《' + this.article.title + '》保存成功'
+        //   })
+        // }, 1000)
       }
     },
     handleSelectTag() {
