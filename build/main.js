@@ -2198,9 +2198,18 @@ var articleController = (_dec = controller('/api/article'), _dec2 = get('/'), _d
               case 0:
                 data = ctx.request.body;
 
+
                 if (!data.pubdate) {
                   data.pubdate = Date.now();
                 }
+
+                // TODO: 修正业务逻辑-根据不同角色用户改变status
+
+                // 默认提交则自动审核
+                if (data.status === 1) {
+                  data.status = 9;
+                }
+
                 data = {
                   title: __WEBPACK_IMPORTED_MODULE_1_xss___default()(data.title),
                   desc: __WEBPACK_IMPORTED_MODULE_1_xss___default()(data.desc),
@@ -2215,35 +2224,35 @@ var articleController = (_dec = controller('/api/article'), _dec2 = get('/'), _d
                   tags: data.tags
                 };
 
-                _context2.prev = 3;
-                _context2.next = 6;
+                _context2.prev = 4;
+                _context2.next = 7;
                 return Article.create(data);
 
-              case 6:
+              case 7:
                 data = _context2.sent;
 
                 ctx.body = {
                   data: data,
                   success: true
                 };
-                _context2.next = 13;
+                _context2.next = 14;
                 break;
 
-              case 10:
-                _context2.prev = 10;
-                _context2.t0 = _context2['catch'](3);
+              case 11:
+                _context2.prev = 11;
+                _context2.t0 = _context2['catch'](4);
 
                 ctx.body = {
                   err: _context2.t0,
                   success: false
                 };
 
-              case 13:
+              case 14:
               case 'end':
                 return _context2.stop();
             }
           }
-        }, _callee2, this, [[3, 10]]);
+        }, _callee2, this, [[4, 11]]);
       }));
 
       function post(_x2) {
@@ -2351,7 +2360,7 @@ var fetchList = function () {
         switch (_context.prev = _context.next) {
           case 0:
             _context.next = 2;
-            return Article.find().skip((page - 1) * size).limit(Number(size)).sort({ '_id': -1 }).exec();
+            return Article.find().skip((page - 1) * size).limit(Number(size)).sort({ '_id': -1 }).populate('type tags').exec();
 
           case 2:
             data = _context.sent;

@@ -176,9 +176,9 @@
                     <transition name="openness-con">
                         <div v-show="editOpenness" class="openness-radio-con">
                             <RadioGroup v-model="article.openness" vertical>
-                                <Radio label="publuc">
+                                <Radio label="public">
                                     公开
-                                    <Checkbox v-show="article.openness === 'publuc'" v-model="article.isTop">在首页置顶这篇文章</Checkbox>
+                                    <Checkbox v-show="article.openness === 'public'" v-model="article.isTop">在首页置顶这篇文章</Checkbox>
                                 </Radio>
                                 <Radio label="protected">
                                     密码
@@ -304,7 +304,7 @@ export default {
         type: '',
         content: '',
         status: 1,
-        openness: '',
+        openness: 'public',
         isTop: false,
         password: ''
       },

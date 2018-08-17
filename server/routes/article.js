@@ -19,9 +19,18 @@ export class articleController {
   @post('/')
   async post(ctx) {
     let data = ctx.request.body
+
     if(!data.pubdate) {
       data.pubdate = Date.now()
     }
+
+    // TODO: 修正业务逻辑-根据不同角色用户改变status
+
+    // 默认提交则自动审核
+    if (data.status === 1) {
+      data.status = 9
+    }
+
     data = {
       title: xss(data.title),
       desc: xss(data.desc),
