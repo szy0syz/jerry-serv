@@ -2,14 +2,17 @@
 
 ## 技术栈
 
-* nuxt
-* vue/vuex/vue-router
-* axios
-* mongoose
-* casbin
-* ramda
-* backpack
-* echarts
+* `nuxt`          服务端渲染
+* `vue/vuex`      vue
+* `axios`         Promise http client
+* `mongoose`      MongoDB-ORM
+* `casbin`        RBAC权限管理
+* `ramda`         functional编程
+* `backpack`      nodejs build
+* `echarts`       数据可视化
+* `Puppeteer`     爬虫-无头浏览器
+* `quill-editor`  富文本编辑器
+* `JWT`           无状态token鉴权
 
 ## 安装
 ```bash
