@@ -164,9 +164,9 @@
                     发布
                 </p>
                 <p class="margin-top-10">
-                    <Icon type="android-time"></Icon>&nbsp;&nbsp;状&nbsp;&nbsp;&nbsp; 态：
-                    <Select size="small" style="width:90px" value="提交">
-                        <Option v-for="item in articleStateList" :value="item.value" :key="item.value">{{ item.value }}</Option>
+                    <Icon type="android-time"></Icon>&nbsp;&nbsp;状&nbsp;&nbsp;&nbsp;态：
+                    <Select size="small" style="width:90px" :value="article.status">
+                        <Option v-for="item in articleStateList" :value="item.value" :key="item.value">{{ item.name }}</Option>
                     </Select>
                 </p>
                 <p class="margin-top-10">
@@ -175,16 +175,16 @@
                     <Button v-show="!editOpenness" size="small" @click="handleEditOpenness" type="text">修改</Button>
                     <transition name="openness-con">
                         <div v-show="editOpenness" class="openness-radio-con">
-                            <RadioGroup v-model="currentOpenness" vertical>
-                                <Radio label="公开">
+                            <RadioGroup v-model="article.openness" vertical>
+                                <Radio label="publuc">
                                     公开
-                                    <Checkbox v-show="currentOpenness === '公开'" v-model="article.isTop">在首页置顶这篇文章</Checkbox>
+                                    <Checkbox v-show="article.openness === 'publuc'" v-model="article.isTop">在首页置顶这篇文章</Checkbox>
                                 </Radio>
-                                <Radio label="密码">
+                                <Radio label="protected">
                                     密码
-                                    <Input v-show="currentOpenness === '密码'" style="width:120px" size="small" placeholder="请输入密码" />
+                                    <Input v-show="article.openness === 'protected'" v-model="article.password" style="width:120px" size="small" placeholder="请输入密码" />
                                 </Radio>
-                                <Radio label="私密"></Radio>
+                                <Radio label="private">私密</Radio>
                             </RadioGroup>
                             <div>
                                 <Button type="primary" @click="handleSaveOpenness">确认</Button>
@@ -194,8 +194,8 @@
                     </transition>
                 </p>
                 <p class="margin-top-10">
-                    <Icon type="ios-calendar-outline"></Icon>&nbsp;&nbsp;
-                    <span v-if="publishTimeType === 'immediately'">立即发布</span>
+                    <Icon type="ios-calendar-outline"></Icon>&nbsp;
+                    <span v-if="publishTimeType === 'immediately'">立即发布:</span>
                     <span v-else>定时：{{ publishTime }}</span>
                     <Button v-show="!editPublishTime" size="small" @click="handleEditPublishTime" type="text">修改</Button>
                     <transition name="publish-time">
@@ -303,9 +303,10 @@ export default {
         tags: [],
         type: '',
         content: '',
-        status: '',
+        status: 1,
         openness: '',
-        isTop: false
+        isTop: false,
+        password: ''
       },
       articleTypeList: [],
       editorOption: {
@@ -349,9 +350,10 @@ export default {
       editLink: false,
       editPathButtonType: 'ghost',
       editPathButtonText: '编辑',
-      articleStateList: [{ value: '草稿' }, { value: '提交' }],
+      articleStateList: [],
       editOpenness: false,
       Openness: '公开',
+      OpennessObj: {},
       currentOpenness: '公开',
       topArticle: false,
       publishTime: '',
@@ -439,7 +441,7 @@ export default {
       this.editOpenness = !this.editOpenness
     },
     handleSaveOpenness() {
-      this.Openness = this.currentOpenness
+      this.Openness = this.OpennessObj[this.article.openness]
       this.editOpenness = false
     },
     cancelEditOpenness() {
@@ -547,6 +549,7 @@ export default {
       if (this.canPublish()) {
         this.publishLoading = true
         console.log(this.article)
+        console.log(this.currentOpenness)
         setTimeout(() => {
           this.publishLoading = false
           this.$Notice.success({
@@ -581,6 +584,23 @@ export default {
     let typeRes = await axios.get('/api/articleType?size=99')
     this.articleTypeList = typeRes.data.data
     // --------↑↑↑↑↑↑↑↑↑↑↑↑↑---------
+
+    this.articleStateList = [
+      {
+        name: '保存',
+        value: 0
+      },
+      {
+        name: '提交',
+        value: 1
+      }
+    ]
+
+    this.OpennessObj = {
+      public: '公开',
+      protected: '密码',
+      private: '私密'
+    }
 
     // tinymce.init({
     //   selector: '#articleEditor',
