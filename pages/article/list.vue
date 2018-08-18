@@ -130,15 +130,18 @@ export default {
         },
         {
           title: '点击量',
-          key: 'clickNum'
+          key: 'clickNum',
+          width: 90,
         },
         {
           title: '点赞数',
-          key: 'likeNum'
+          key: 'likeNum',
+          width: 90,
         },
         {
           title: '评论数',
-          key: 'commentNum'
+          key: 'commentNum',
+          width: 90,
         },
         {
           title: '作者',
