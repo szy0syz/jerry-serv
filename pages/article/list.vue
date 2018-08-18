@@ -82,6 +82,18 @@
 </template>
 
 <script>
+import dayjs from 'dayjs'
+const artStatus = {
+  0: '保存',
+  1: '提交',
+  9: '审核'
+}
+const artOpenness = {
+  public: '公开',
+  protected: '密码保护',
+  private: '私密'
+}
+
 export default {
   name: 'unitReg',
   data() {
@@ -114,19 +126,29 @@ export default {
         },
         {
           title: '标题',
-          key: 'title'
-        },
-        {
-          title: '创建时间',
-          render: (h, params) => {
-            return h('span', params.row.meta.createdAt)
-          }
+          key: 'title',
+          width: 400,
         },
         {
           title: '文档类别',
           render: (h, params) => {
             return h('span', params.row.type.name)
-          }
+          },
+          width: 100,
+        },
+        {
+          title: '文档状态',
+          render: (h, params) => {
+            return h('span', artStatus[params.row.status])
+          },
+          width: 100,
+        },
+        {
+          title: '公开度',
+          render: (h, params) => {
+            return h('span', artOpenness[params.row.openness])
+          },
+          width: 90,
         },
         {
           title: '点击量',
@@ -146,7 +168,13 @@ export default {
         {
           title: '作者',
           render: (h, params) => {
-            return h('span', params.row.meta.createdAt)
+            return h('span', params.row.author.username)
+          }
+        },
+        {
+          title: '创建时间',
+          render: (h, params) => {
+            return h('span', dayjs(params.row.meta.createdAt).format('YYYY-MM-DD'))
           }
         }
       ]
@@ -154,7 +182,6 @@ export default {
   },
   computed: {
     articleList() {
-      console.log('list---', this.$store.state.article.articles)
       return this.$store.state.article.articles
     }
   },

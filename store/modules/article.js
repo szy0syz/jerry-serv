@@ -16,7 +16,7 @@ const article = {
       const res = await Service.getArticles(conds)
 
       state.articles = res.data.data
-      console.log('~~~!!!~~~',res.data.data)
+      
       return res
     },
 

@@ -63,3 +63,8 @@ server/config/development.json
 server/config/production.json
 pages/.DS_Store
 pages/article/.DS_Store
+
+# backpack
+build/
+build/main.map
+build/main.js

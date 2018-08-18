@@ -1472,7 +1472,10 @@ var ArticleSchema = new Schema({
   },
   cover: String,
   desc: String,
-  pubdate: Date,
+  pubdate: {
+    type: Date,
+    default: Date.now()
+  },
   content: String,
   status: Number,
   openness: String,
@@ -2257,8 +2260,9 @@ var articleController = (_dec = controller('/api/article'), _dec2 = get('/'), _d
                   password: __WEBPACK_IMPORTED_MODULE_1_xss___default()(data.password),
                   isTop: Boolean(data.isTop),
                   tags: data.tags,
+                  author: '5b72ff427b1fd01b980e0f84'
                   // to test
-                  likeList: data.likeList
+                  // likeList: data.likeList
                 };
 
                 _context2.prev = 4;
@@ -2397,7 +2401,7 @@ var fetchList = function () {
         switch (_context.prev = _context.next) {
           case 0:
             _context.next = 2;
-            return Article.find({}, { __v: 0, password: 0 }).skip((page - 1) * size).limit(Number(size)).sort({ '_id': -1 }).populate('type tags').exec();
+            return Article.find({}, { __v: 0, password: 0 }).skip((page - 1) * size).limit(Number(size)).sort({ '_id': -1 }).populate({ path: 'type', select: 'name' }).populate({ path: 'tags', select: 'name' }).populate({ path: 'author', select: 'username' }).exec();
 
           case 2:
             data = _context.sent;

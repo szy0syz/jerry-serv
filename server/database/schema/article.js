@@ -9,7 +9,10 @@ const ArticleSchema = new Schema({
   },
   cover: String,
   desc: String,
-  pubdate: Date,
+  pubdate: {
+    type: Date,
+    default: Date.now()
+  },
   content: String,
   status: Number,
   openness: String,
