@@ -2,7 +2,8 @@ import Service from '../../services/article'
 
 const article = {
   state: {
-    articles: []
+    articles: [],
+    curtArticle: null
   },
   getters: {
     // TODO: 节省时间，后续再补上
@@ -17,6 +18,14 @@ const article = {
 
       state.articles = res.data.data
       
+      return res
+    },
+
+    async detailArticle({state}, _id) {
+      const res = await Service.detailArticle(_id)
+
+      state.curtArticle = res.data.data
+
       return res
     },
 

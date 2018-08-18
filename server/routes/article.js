@@ -16,6 +16,17 @@ export class articleController {
     }
   }
 
+  @get('/:_id')
+  async detail(ctx) {
+    const { _id } = ctx.params
+
+    const data = await Article.fetchDetail(_id)
+    ctx.body = {
+      success: true,
+      data
+    }
+  }
+
   @post('/')
   async post(ctx) {
     let data = ctx.request.body

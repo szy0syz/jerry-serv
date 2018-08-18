@@ -16,6 +16,10 @@ class ArticleService {
     return axios.get(`/api/article${conds ? '?' + parseConds(conds) : ''}`)
   }
 
+  detailArticle(_id) {
+    return axios.get(`/api/article/${_id}`)
+  }
+
   postArticle(model) {
     return axios.post(`/api/article`, model)
   }

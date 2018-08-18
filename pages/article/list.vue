@@ -127,43 +127,43 @@ export default {
         {
           title: '标题',
           key: 'title',
-          width: 400,
+          width: 400
         },
         {
           title: '文档类别',
           render: (h, params) => {
             return h('span', params.row.type.name)
           },
-          width: 100,
+          width: 100
         },
         {
           title: '文档状态',
           render: (h, params) => {
             return h('span', artStatus[params.row.status])
           },
-          width: 100,
+          width: 100
         },
         {
           title: '公开度',
           render: (h, params) => {
             return h('span', artOpenness[params.row.openness])
           },
-          width: 90,
+          width: 90
         },
         {
           title: '点击量',
           key: 'clickNum',
-          width: 90,
+          width: 90
         },
         {
           title: '点赞数',
           key: 'likeNum',
-          width: 90,
+          width: 90
         },
         {
           title: '评论数',
           key: 'commentNum',
-          width: 90,
+          width: 90
         },
         {
           title: '作者',
@@ -174,7 +174,10 @@ export default {
         {
           title: '创建时间',
           render: (h, params) => {
-            return h('span', dayjs(params.row.meta.createdAt).format('YYYY-MM-DD'))
+            return h(
+              'span',
+              dayjs(params.row.meta.createdAt).format('YYYY-MM-DD')
+            )
           }
         }
       ]
@@ -227,12 +230,20 @@ export default {
       //   return void 0
       // }
       // this.$store.dispatch('removeProjUnit', this.currentRow._id)
+      this.$router.push({
+        name: 'article-edit',
+        query: {_id: '0147'}
+      })
     },
     handleSearch() {
       // this.$store.dispatch('fetchProjUnit', {
       //   number: this.inpNumber,
       //   name: this.inpName
       // })
+      this.$router.push({
+        name: 'article-edit',
+        query: {_id: '444222jjjj999'}
+      })
     }
   },
   mounted() {

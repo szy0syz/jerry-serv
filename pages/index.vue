@@ -306,7 +306,7 @@ export default {
     this.checkTag(this.$route.name)
   },
   created() {
-    console.log('&&&this.$route', this.$route)
+    // console.log('&&&this.$route', this.$route)
     /**服务端渲染左侧导航条及pannel页面内容**/
     this.currentPageName = this.$route.name
     util.setCurrentPath(this, this.$route.name)

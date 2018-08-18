@@ -12,8 +12,14 @@ export const otherRouter = {
     },
     {
       path: '/article/publish',
-      title: '文档编辑',
+      title: '文档发布',
       name: 'article-publish',
+      icon: 'ios-home'
+    },
+    {
+      path: '/article/edit/:_id',
+      title: '文档编辑',
+      name: 'article-edit',
       icon: 'ios-home'
     },
     {

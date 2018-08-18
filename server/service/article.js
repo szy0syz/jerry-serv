@@ -3,7 +3,7 @@ const Article = mongoose.model('Article')
 
 export async function fetchList(page = 1, size = 20) {
   const data = await Article
-    .find({},{__v:0, password: 0})
+    .find({}, { __v: 0, password: 0 })
     .skip((page - 1) * size)
     .limit(Number(size))
     .sort({ '_id': -1 })
@@ -16,7 +16,7 @@ export async function fetchList(page = 1, size = 20) {
 }
 
 export async function fetchDetail(_id) {
-  const entity = await Article.findOne(_id).exec()
+  const entity = await Article.findOne({ _id }).exec()
 
   return entity
 }
@@ -46,7 +46,7 @@ export async function update(model) {
 }
 
 export async function remove(_id) {
-  await Article.remove({_id})
+  await Article.remove({ _id })
 
   return true
 }

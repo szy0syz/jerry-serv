@@ -218,7 +218,7 @@
                         <Button @click="handleSaveDraft">保存草稿</Button>
                     </span>
                     <span class="publish-button">
-                        <Button @click="handlePublish" :loading="publishLoading" icon="ios-checkmark" style="width:90px;" type="primary">发布</Button>
+                        <Button @click="handlePublish" :loading="publishLoading" icon="ios-checkmark" style="width:110px;" type="primary">保存修改</Button>
                     </span>
                 </Row>
             </Card>
@@ -295,6 +295,7 @@ export default {
   data() {
     const self = this
     return {
+      current_id: '',
       content: '',
       article: {
         title: '',
@@ -586,7 +587,12 @@ export default {
     qiniuImgUpload
   },
   async mounted() {
-    console.log(this.$router)
+    this.current_id = this.$route.query._id
+    this.$store.dispatch('detailArticle', this.current_id)
+    console.log('edit~~~~~~mounted')
+    const data = this.$store.state.article.curtArticle
+    this.article = data
+
     // -------init ArticleTag--------
     let tagRes = await axios.get('/api/articleTag?size=99')
     this.articleTagList = tagRes.data.data

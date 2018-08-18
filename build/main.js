@@ -2137,7 +2137,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _dec, _dec2, _dec3, _class, _desc, _value, _class2;
+var _dec, _dec2, _dec3, _dec4, _class, _desc, _value, _class2;
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
@@ -2184,7 +2184,7 @@ var _require2 = __webpack_require__(2),
     post = _require2.post,
     required = _require2.required;
 
-var articleController = (_dec = controller('/api/article'), _dec2 = get('/'), _dec3 = post('/'), _dec(_class = (_class2 = function () {
+var articleController = (_dec = controller('/api/article'), _dec2 = get('/'), _dec3 = get('/:_id'), _dec4 = post('/'), _dec(_class = (_class2 = function () {
   function articleController() {
     _classCallCheck(this, articleController);
   }
@@ -2226,13 +2226,49 @@ var articleController = (_dec = controller('/api/article'), _dec2 = get('/'), _d
       return get;
     }()
   }, {
-    key: 'post',
+    key: 'detail',
     value: function () {
       var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.mark(function _callee2(ctx) {
-        var data;
+        var _id, data;
+
         return __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
+              case 0:
+                _id = ctx.params._id;
+                _context2.next = 3;
+                return Article.fetchDetail(_id);
+
+              case 3:
+                data = _context2.sent;
+
+                ctx.body = {
+                  success: true,
+                  data: data
+                };
+
+              case 5:
+              case 'end':
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function detail(_x2) {
+        return _ref2.apply(this, arguments);
+      }
+
+      return detail;
+    }()
+  }, {
+    key: 'post',
+    value: function () {
+      var _ref3 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.mark(function _callee3(ctx) {
+        var data;
+        return __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
               case 0:
                 data = ctx.request.body;
 
@@ -2265,39 +2301,39 @@ var articleController = (_dec = controller('/api/article'), _dec2 = get('/'), _d
                   // likeList: data.likeList
                 };
 
-                _context2.prev = 4;
-                _context2.next = 7;
+                _context3.prev = 4;
+                _context3.next = 7;
                 return Article.create(data);
 
               case 7:
-                data = _context2.sent;
+                data = _context3.sent;
 
                 ctx.body = {
                   data: data,
                   success: true
                 };
-                _context2.next = 14;
+                _context3.next = 14;
                 break;
 
               case 11:
-                _context2.prev = 11;
-                _context2.t0 = _context2['catch'](4);
+                _context3.prev = 11;
+                _context3.t0 = _context3['catch'](4);
 
                 ctx.body = {
-                  err: _context2.t0,
+                  err: _context3.t0,
                   success: false
                 };
 
               case 14:
               case 'end':
-                return _context2.stop();
+                return _context3.stop();
             }
           }
-        }, _callee2, this, [[4, 11]]);
+        }, _callee3, this, [[4, 11]]);
       }));
 
-      function post(_x2) {
-        return _ref2.apply(this, arguments);
+      function post(_x3) {
+        return _ref3.apply(this, arguments);
       }
 
       return post;
@@ -2305,7 +2341,7 @@ var articleController = (_dec = controller('/api/article'), _dec2 = get('/'), _d
   }]);
 
   return articleController;
-}(), (_applyDecoratedDescriptor(_class2.prototype, 'get', [_dec2], Object.getOwnPropertyDescriptor(_class2.prototype, 'get'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'post', [_dec3], Object.getOwnPropertyDescriptor(_class2.prototype, 'post'), _class2.prototype)), _class2)) || _class);
+}(), (_applyDecoratedDescriptor(_class2.prototype, 'get', [_dec2], Object.getOwnPropertyDescriptor(_class2.prototype, 'get'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'detail', [_dec3], Object.getOwnPropertyDescriptor(_class2.prototype, 'detail'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'post', [_dec4], Object.getOwnPropertyDescriptor(_class2.prototype, 'post'), _class2.prototype)), _class2)) || _class);
 
 /***/ }),
 /* 49 */
@@ -2428,7 +2464,7 @@ var fetchDetail = function () {
         switch (_context2.prev = _context2.next) {
           case 0:
             _context2.next = 2;
-            return Article.findOne(_id).exec();
+            return Article.findOne({ _id: _id }).exec();
 
           case 2:
             entity = _context2.sent;
