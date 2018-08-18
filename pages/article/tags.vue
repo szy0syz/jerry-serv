@@ -4,7 +4,7 @@
 
 <template>
   <div>
-    <h1>article-list</h1>
+    <h1>article-tags</h1>
   </div>
 </template>
 

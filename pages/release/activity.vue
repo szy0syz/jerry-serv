@@ -4,13 +4,13 @@
 
 <template>
   <div>
-    <h1>article-list</h1>
+    <h1>活动管理</h1>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'article-list',
+  name: 'activity',
   data() {
     return {}
   },

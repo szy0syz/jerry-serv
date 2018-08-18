@@ -4,13 +4,13 @@
 
 <template>
   <div>
-    <h1>2222222</h1>
+    <h1>首页轮播管理</h1>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'workflow',
+  name: 'extended-swiper',
   data() {
     return {}
   },

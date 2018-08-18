@@ -9,6 +9,18 @@ export const otherRouter = {
       title: '主页',
       name: 'index',
       icon: 'ios-home'
+    },
+    {
+      path: '/article/publish',
+      title: '文档编辑',
+      name: 'article-publish',
+      icon: 'ios-home'
+    },
+    {
+      path: '/form/work-flow',
+      title: '工作流',
+      name: 'form-work-flow',
+      icon: 'arrow-swap'
     }
   ]
 }
@@ -16,28 +28,94 @@ export const otherRouter = {
 // 作为Main组件的子页面展示并且在左侧菜单显示的路由写在appRouter里
 export const appRouter = [
   {
-    path: '/form',
+    path: '/article',
     icon: 'android-checkbox',
-    name: 'form',
-    title: '表单编辑',
+    title: '文档管理',
+    name: 'article',
     children: [
       {
-        path: '/form/work-flow',
-        title: '工作流',
-        name: 'form-work-flow',
-        icon: 'arrow-swap'
+        path: '/article/list',
+        title: '文档管理',
+        name: 'article-list',
+        icon: 'close-circled'
       },
       {
-        path: '/form/article-publish',
-        title: '发布文章',
-        name: 'form-article-publish',
-        icon: 'ios-home'
+        path: '/article/type',
+        title: '文档类别',
+        name: 'article-type',
+        icon: 'alert-circled'
       },
       {
-        path: '/form/list',
-        title: '工作流22222',
-        name: 'form-list',
-        icon: 'ios-home'
+        path: '/article/tags',
+        title: '文档标签',
+        name: 'article-tags',
+        icon: 'alert-circled'
+      }
+    ]
+  },
+  {
+    path: '/release',
+    icon: 'android-checkbox',
+    title: '发布管理',
+    name: 'release',
+    children: [
+      {
+        path: '/release/info',
+        title: '信息管理',
+        name: 'release-info',
+        icon: 'android-checkbox'
+      },
+      {
+        path: '/release/activity',
+        title: '活动管理',
+        name: 'release-activity',
+        icon: 'android-checkbox'
+      }
+    ]
+  },
+  {
+    path: '/extended',
+    icon: 'ios-grid-view',
+    title: '扩展功能',
+    name: 'extended',
+    children: [
+      {
+        path: '/extended/nav',
+        title: '首页导航',
+        icon: 'arrow-move',
+        name: 'extended-nav'
+      },
+      {
+        path: '/extended/swiper',
+        title: '首页轮播',
+        icon: 'edit',
+        name: 'extended-swiper'
+      }
+    ]
+  },
+  {
+    path: '/system',
+    icon: 'ios-grid-view',
+    title: '系统管理',
+    name: 'system',
+    children: [
+      {
+        path: '/system/user',
+        title: '用户管理',
+        icon: 'arrow-move',
+        name: 'system-user'
+      },
+      {
+        path: '/system/role',
+        title: '角色管理',
+        icon: 'edit',
+        name: 'system-role'
+      },
+      {
+        path: '/system/log',
+        title: '系统日志',
+        icon: 'edit',
+        name: 'system-log'
       }
     ]
   },
@@ -84,26 +162,6 @@ export const appRouter = [
         title: '500错误',
         name: 'error-page-500',
         icon: 'settings'
-      }
-    ]
-  },
-  {
-    path: '/article',
-    icon: 'android-sad',
-    title: 'article222',
-    name: 'article',
-    children: [
-      {
-        path: '/article/list',
-        title: '403错误',
-        name: 'article-list',
-        icon: 'close-circled'
-      },
-      {
-        path: '/article/management',
-        title: '404错误',
-        name: 'article-management',
-        icon: 'alert-circled'
       }
     ]
   }

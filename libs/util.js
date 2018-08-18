@@ -110,7 +110,7 @@ util.setCurrentPath = function(vm, name) {
   } else {
     let currentPathObj = vm.$store.state.app.routers.filter(item => {
       if (item.children.length <= 1) {
-        console.log('item.children[0].name', name)
+        // console.log('item.children[0].name', name)
         return item.children[0].name === name
       } else {
         let i = 0
