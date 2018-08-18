@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import app from './modules/app'
 import user from './modules/user'
+import article from './modules/article'
 
 Vue.use(Vuex)
 
@@ -25,7 +26,8 @@ const store = () =>
     },
     modules: {
       app,
-      user
+      user,
+      article
     }
   })
 

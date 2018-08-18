@@ -1497,7 +1497,10 @@ var ArticleSchema = new Schema({
     id: String,
     content: String
   }],
-  clickNum: Number,
+  clickNum: {
+    type: Number,
+    default: 0
+  },
   meta: {
     createdAt: {
       type: Date,

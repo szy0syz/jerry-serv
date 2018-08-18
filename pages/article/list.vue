@@ -62,7 +62,7 @@
       </div>
       </Col>
     </Row>
-    <Table highlight-row @on-current-change="handleCurrentRow" style="margin-top:10px;" stripe border :height="700" :columns="columns" :data="unitList"></Table>
+    <Table highlight-row @on-current-change="handleCurrentRow" style="margin-top:10px;" stripe border :height="700" :columns="columns" :data="articleList"></Table>
     <Modal @on-ok="handleOpt" width="700" v-model="showForm" title="单位登记变更">
       <Card>
         <Form :model="rowModel" :label-width="90">
@@ -74,11 +74,6 @@
           </FormItem>
           <FormItem label="单位地址： ">
             <Input v-model="rowModel.address" placeholder="请输入单位地址"></Input>
-          </FormItem>
-          <FormItem label="单位地址： ">
-            <div style="width:600px;">
-              <al-selector v-model="selectedArea" data-type="code" level="2" />
-            </div>
           </FormItem>
         </Form>
       </Card>
@@ -148,16 +143,17 @@ export default {
         {
           title: '作者',
           render: (h, params) => {
-            return h('span', params.row.author.name)
+            return h('span', params.row.meta.createdAt)
           }
         }
       ]
     }
   },
   computed: {
-    // unitList() {
-    //   return this.$store.state.project.projUnits
-    // }
+    articleList() {
+      console.log('list---', this.$store.state.article.articles)
+      return this.$store.state.article.articles
+    }
   },
   methods: {
     async handleOpt() {
@@ -207,10 +203,11 @@ export default {
       //   number: this.inpNumber,
       //   name: this.inpName
       // })
+      console.log(this.$store.state.article.articles)
     }
   },
   mounted() {
-    // this.$store.dispatch('getProjUnit')
+    this.$store.dispatch('getArticles')
   }
 }
 </script>

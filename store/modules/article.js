@@ -1,0 +1,36 @@
+import Service from '../../services/article'
+
+const article = {
+  state: {
+    articles: []
+  },
+  getters: {
+    // TODO: 节省时间，后续再补上
+  },
+  mutations: {
+    // 同步操作
+  },
+  actions: {
+    // 异步操作
+    async getArticles({state}, conds) {
+      const res = await Service.getArticles(conds)
+
+      state.articles = res.data.data
+      console.log('~~~!!!~~~',res.data.data)
+      return res
+    },
+
+    async postArticle({dispatch}, model) {
+      const res = await Service.postArticle(model)
+
+      // 如果创建成功就刷新列表页数据
+      if (res.data.success) {
+        await dispatch('getArticles')
+      }
+
+      return res.data.data
+    }
+  }
+}
+
+export default article
