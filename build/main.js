@@ -1368,7 +1368,7 @@ var database = function database(app) {
             ////////////////
             ArticleType = __WEBPACK_IMPORTED_MODULE_3_mongoose___default.a.model('ArticleType');
             _context.next = 11;
-            return ArticleType.find().collection.countDocuments();
+            return ArticleType.find().countDocuments().exec();
 
           case 11:
             typeLenght = _context.sent;
@@ -1481,6 +1481,10 @@ var ArticleSchema = new Schema({
   type: {
     type: ObjectId,
     ref: 'ArticleType'
+  },
+  author: {
+    type: ObjectId,
+    ref: 'User'
   },
   tags: [{
     type: ObjectId,

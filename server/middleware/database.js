@@ -50,7 +50,7 @@ export const database = app => {
 
     ////////////////
     const ArticleType = mongoose.model('ArticleType')
-    const typeLenght = await ArticleType.find().collection.countDocuments()
+    const typeLenght = await ArticleType.find().countDocuments().exec()
 
     if (typeLenght === 0) {
       let typeList = [

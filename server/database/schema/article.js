@@ -19,6 +19,10 @@ const ArticleSchema = new Schema({
     type: ObjectId,
     ref: 'ArticleType'
   },
+  author: {
+    type: ObjectId,
+    ref: 'User'
+  },
   tags: [
     {
       type: ObjectId,
