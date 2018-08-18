@@ -16,28 +16,28 @@ export const otherRouter = {
 // 作为Main组件的子页面展示并且在左侧菜单显示的路由写在appRouter里
 export const appRouter = [
   {
-    path: '/article',
+    path: '/form',
     icon: 'android-checkbox',
-    name: 'article',
-    title: '文章管理',
+    name: 'form',
+    title: '表单编辑',
     children: [
-      {
-        path: '/article/managerment',
-        title: '文章列表',
-        name: 'managerment',
-        icon: 'arrow-swap'
-      },
-      {
-        path: '/article/publish',
-        title: '编辑文章',
-        name: 'publish',
-        icon: 'ios-home'
-      },
       {
         path: '/form/work-flow',
         title: '工作流',
         name: 'form-work-flow',
         icon: 'arrow-swap'
+      },
+      {
+        path: '/form/article-publish',
+        title: '发布文章',
+        name: 'form-article-publish',
+        icon: 'ios-home'
+      },
+      {
+        path: '/form/list',
+        title: '工作流22222',
+        name: 'form-list',
+        icon: 'ios-home'
       }
     ]
   },
@@ -84,6 +84,26 @@ export const appRouter = [
         title: '500错误',
         name: 'error-page-500',
         icon: 'settings'
+      }
+    ]
+  },
+  {
+    path: '/article',
+    icon: 'android-sad',
+    title: 'article222',
+    name: 'article',
+    children: [
+      {
+        path: '/article/list',
+        title: '403错误',
+        name: 'article-list',
+        icon: 'close-circled'
+      },
+      {
+        path: '/article/management',
+        title: '404错误',
+        name: 'article-management',
+        icon: 'alert-circled'
       }
     ]
   }

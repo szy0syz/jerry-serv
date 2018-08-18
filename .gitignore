@@ -61,3 +61,5 @@ typings/
 .nuxt/dist/
 server/config/development.json
 server/config/production.json
+pages/.DS_Store
+pages/article/.DS_Store

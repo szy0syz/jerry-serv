@@ -4,17 +4,19 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 const _665b254c = () => import('../pages/login.vue' /* webpackChunkName: "pages/login" */).then(m => m.default || m)
-const _5b3ba4bb = () => import('../pages/error-page/403.vue' /* webpackChunkName: "pages/error-page/403" */).then(m => m.default || m)
-const _e010cd0e = () => import('../pages/error-page/500.vue' /* webpackChunkName: "pages/error-page/500" */).then(m => m.default || m)
-const _023ad900 = () => import('../pages/tables/editable-table.vue' /* webpackChunkName: "pages/tables/editable-table" */).then(m => m.default || m)
-const _0a3fc6aa = () => import('../pages/tables/dragable-table.vue' /* webpackChunkName: "pages/tables/dragable-table" */).then(m => m.default || m)
-const _7ce750c8 = () => import('../pages/form/preview.vue' /* webpackChunkName: "pages/form/preview" */).then(m => m.default || m)
-const _40d3db84 = () => import('../pages/form/work-flow.vue' /* webpackChunkName: "pages/form/work-flow" */).then(m => m.default || m)
-const _b84391e8 = () => import('../pages/form/article-publish.vue' /* webpackChunkName: "pages/form/article-publish" */).then(m => m.default || m)
-const _5b49bc3c = () => import('../pages/error-page/404.vue' /* webpackChunkName: "pages/error-page/404" */).then(m => m.default || m)
-const _44dcfc40 = () => import('../pages/error-page/error-page.vue' /* webpackChunkName: "pages/error-page/error-page" */).then(m => m.default || m)
-const _66b45c5b = () => import('../pages/article/management.vue' /* webpackChunkName: "pages/article/management" */).then(m => m.default || m)
+const _083b2f36 = () => import('../pages/article/list.vue' /* webpackChunkName: "pages/article/list" */).then(m => m.default || m)
 const _8c25f5b2 = () => import('../pages/article/publish.vue' /* webpackChunkName: "pages/article/publish" */).then(m => m.default || m)
+const _023ad900 = () => import('../pages/tables/editable-table.vue' /* webpackChunkName: "pages/tables/editable-table" */).then(m => m.default || m)
+const _40d3db84 = () => import('../pages/form/work-flow.vue' /* webpackChunkName: "pages/form/work-flow" */).then(m => m.default || m)
+const _5b3ba4bb = () => import('../pages/error-page/403.vue' /* webpackChunkName: "pages/error-page/403" */).then(m => m.default || m)
+const _5b49bc3c = () => import('../pages/error-page/404.vue' /* webpackChunkName: "pages/error-page/404" */).then(m => m.default || m)
+const _e010cd0e = () => import('../pages/error-page/500.vue' /* webpackChunkName: "pages/error-page/500" */).then(m => m.default || m)
+const _7ce750c8 = () => import('../pages/form/preview.vue' /* webpackChunkName: "pages/form/preview" */).then(m => m.default || m)
+const _9b9f2f0c = () => import('../pages/form/list.vue' /* webpackChunkName: "pages/form/list" */).then(m => m.default || m)
+const _66b45c5b = () => import('../pages/article/management.vue' /* webpackChunkName: "pages/article/management" */).then(m => m.default || m)
+const _0a3fc6aa = () => import('../pages/tables/dragable-table.vue' /* webpackChunkName: "pages/tables/dragable-table" */).then(m => m.default || m)
+const _44dcfc40 = () => import('../pages/error-page/error-page.vue' /* webpackChunkName: "pages/error-page/error-page" */).then(m => m.default || m)
+const _b84391e8 = () => import('../pages/form/article-publish.vue' /* webpackChunkName: "pages/form/article-publish" */).then(m => m.default || m)
 const _032aca43 = () => import('../pages/index.vue' /* webpackChunkName: "pages/index" */).then(m => m.default || m)
 
 
@@ -81,14 +83,14 @@ export function createRouter () {
 			name: "login"
 		},
 		{
-			path: "/error-page/403",
-			component: _5b3ba4bb,
-			name: "error-page-403"
+			path: "/article/list",
+			component: _083b2f36,
+			name: "article-list"
 		},
 		{
-			path: "/error-page/500",
-			component: _e010cd0e,
-			name: "error-page-500"
+			path: "/article/publish",
+			component: _8c25f5b2,
+			name: "article-publish"
 		},
 		{
 			path: "/tables/editable-table",
@@ -96,24 +98,14 @@ export function createRouter () {
 			name: "tables-editable-table"
 		},
 		{
-			path: "/tables/dragable-table",
-			component: _0a3fc6aa,
-			name: "tables-dragable-table"
-		},
-		{
-			path: "/form/preview",
-			component: _7ce750c8,
-			name: "form-preview"
-		},
-		{
 			path: "/form/work-flow",
 			component: _40d3db84,
 			name: "form-work-flow"
 		},
 		{
-			path: "/form/article-publish",
-			component: _b84391e8,
-			name: "form-article-publish"
+			path: "/error-page/403",
+			component: _5b3ba4bb,
+			name: "error-page-403"
 		},
 		{
 			path: "/error-page/404",
@@ -121,9 +113,19 @@ export function createRouter () {
 			name: "error-page-404"
 		},
 		{
-			path: "/error-page/error-page",
-			component: _44dcfc40,
-			name: "error-page-error-page"
+			path: "/error-page/500",
+			component: _e010cd0e,
+			name: "error-page-500"
+		},
+		{
+			path: "/form/preview",
+			component: _7ce750c8,
+			name: "form-preview"
+		},
+		{
+			path: "/form/list",
+			component: _9b9f2f0c,
+			name: "form-list"
 		},
 		{
 			path: "/article/management",
@@ -131,9 +133,19 @@ export function createRouter () {
 			name: "article-management"
 		},
 		{
-			path: "/article/publish",
-			component: _8c25f5b2,
-			name: "article-publish"
+			path: "/tables/dragable-table",
+			component: _0a3fc6aa,
+			name: "tables-dragable-table"
+		},
+		{
+			path: "/error-page/error-page",
+			component: _44dcfc40,
+			name: "error-page-error-page"
+		},
+		{
+			path: "/form/article-publish",
+			component: _b84391e8,
+			name: "form-article-publish"
 		},
 		{
 			path: "/",
