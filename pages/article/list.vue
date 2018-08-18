@@ -203,7 +203,6 @@ export default {
       //   number: this.inpNumber,
       //   name: this.inpName
       // })
-      console.log(this.$store.state.article.articles)
     }
   },
   mounted() {

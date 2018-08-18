@@ -1488,7 +1488,6 @@ var ArticleSchema = new Schema({
   }],
   likeList: [{
     name: String,
-    avatar: String,
     id: String
   }],
   commentList: [{
@@ -1514,12 +1513,21 @@ var ArticleSchema = new Schema({
 });
 
 ArticleSchema.virtual('likeNum').get(function () {
-  return likeList.length || 0;
+  return this.likeList.length || 0;
 });
 
 ArticleSchema.virtual('commentNum').get(function () {
-  return commentList.length || 0;
+  return this.commentList.length || 0;
 });
+
+ArticleSchema.set('toJSON', { virtuals: true });
+ArticleSchema.set('toObject', { virtuals: true });
+
+// ArticleSchema.pre('find', function (next) {
+//   console.log('我是pre方法1')
+//   console.log(this)
+//   next()
+// })
 
 mongoose.model('Article', ArticleSchema);
 
@@ -2244,7 +2252,9 @@ var articleController = (_dec = controller('/api/article'), _dec2 = get('/'), _d
                   openness: __WEBPACK_IMPORTED_MODULE_1_xss___default()(data.openness),
                   password: __WEBPACK_IMPORTED_MODULE_1_xss___default()(data.password),
                   isTop: Boolean(data.isTop),
-                  tags: data.tags
+                  tags: data.tags,
+                  // to test
+                  likeList: data.likeList
                 };
 
                 _context2.prev = 4;
@@ -2383,7 +2393,7 @@ var fetchList = function () {
         switch (_context.prev = _context.next) {
           case 0:
             _context.next = 2;
-            return Article.find().skip((page - 1) * size).limit(Number(size)).sort({ '_id': -1 }).populate('type tags').exec();
+            return Article.find({}, { __v: 0, password: 0 }).skip((page - 1) * size).limit(Number(size)).sort({ '_id': -1 }).populate('type tags').exec();
 
           case 2:
             data = _context.sent;

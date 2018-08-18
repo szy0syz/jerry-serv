@@ -42,7 +42,9 @@ export class articleController {
       openness: xss(data.openness),
       password: xss(data.password),
       isTop: Boolean(data.isTop),
-      tags: data.tags
+      tags: data.tags,
+      // to test
+      likeList: data.likeList
     }
 
     try {

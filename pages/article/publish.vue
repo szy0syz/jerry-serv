@@ -548,7 +548,16 @@ export default {
       if (this.canPublish()) {
         // this.publishLoading = true
         console.log(this.article)
-
+        this.article.likeList = [
+          {
+            name: 'jj1',
+            id: '222'
+          },
+          {
+            name: 'jj2',
+            id: '24444'
+          }
+        ]
         let res = await axios.post('/api/article', this.article)
         console.log(res)
 

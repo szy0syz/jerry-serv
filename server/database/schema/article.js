@@ -25,14 +25,13 @@ const ArticleSchema = new Schema({
       ref: 'ArticleTag'
     }
   ],
-  likeList:[
+  likeList: [
     {
       name: String,
-      avatar: String,
       id: String
     }
   ],
-  commentList:[
+  commentList: [
     {
       name: String,
       avatar: String,
@@ -56,12 +55,21 @@ const ArticleSchema = new Schema({
   }
 })
 
-ArticleSchema.virtual('likeNum').get(function() {
-  return likeList.length || 0
+ArticleSchema.virtual('likeNum').get(function () {
+  return this.likeList.length || 0
 })
 
-ArticleSchema.virtual('commentNum').get(function() {
-  return commentList.length || 0
+ArticleSchema.virtual('commentNum').get(function () {
+  return this.commentList.length || 0
 })
+
+ArticleSchema.set('toJSON', { virtuals: true });
+ArticleSchema.set('toObject', { virtuals: true });
+
+// ArticleSchema.pre('find', function (next) {
+//   console.log('我是pre方法1')
+//   console.log(this)
+//   next()
+// })
 
 mongoose.model('Article', ArticleSchema)

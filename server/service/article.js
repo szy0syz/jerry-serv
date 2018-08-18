@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 const Article = mongoose.model('Article')
 
 export async function fetchList(page = 1, size = 20) {
-  const data = await Article.find().skip((page - 1) * size).limit(Number(size)).sort({ '_id': -1 }).populate('type tags').exec()
+  const data = await Article.find({},{__v:0, password: 0}).skip((page - 1) * size).limit(Number(size)).sort({ '_id': -1 }).populate('type tags').exec()
 
   return data
 }
