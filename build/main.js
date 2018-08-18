@@ -1486,6 +1486,18 @@ var ArticleSchema = new Schema({
     type: ObjectId,
     ref: 'ArticleTag'
   }],
+  likeList: [{
+    name: String,
+    avatar: String,
+    id: String
+  }],
+  commentList: [{
+    name: String,
+    avatar: String,
+    id: String,
+    content: String
+  }],
+  clickNum: Number,
   meta: {
     createdAt: {
       type: Date,
@@ -1496,6 +1508,14 @@ var ArticleSchema = new Schema({
       default: Date.now()
     }
   }
+});
+
+ArticleSchema.virtual('likeNum').get(function () {
+  return likeList.length || 0;
+});
+
+ArticleSchema.virtual('commentNum').get(function () {
+  return commentList.length || 0;
 });
 
 mongoose.model('Article', ArticleSchema);
