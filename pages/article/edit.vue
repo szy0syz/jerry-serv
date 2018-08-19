@@ -605,10 +605,11 @@ export default {
   },
   async mounted() {
     this.current_id = this.$route.query._id
-    this.$store.dispatch('detailArticle', this.current_id)
-    
+    await this.$store.dispatch('detailArticle', this.current_id)
+
     const data = this.$store.state.article.curtArticle
-    this.article = data
+
+    this.article = Object.assign({}, this.article, data)
 
     // -------init ArticleTag--------
     let tagRes = await axios.get('/api/articleTag?size=99')
