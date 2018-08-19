@@ -31,27 +31,23 @@
 
 ```bash
 npm install
+
+npm run dev
 ```
 
-## 开发
+## 环境
+
+> ✔️ 开发环境：Windows 10, Version 1803 + Chrome v68 + NodeJS v10.9.0
+> ✔️ 开发环境：macOS, Version 10.12.6 + Chrome v68 + NodeJS v10.9.0
 
 ```bash
+# for development
 npm run dev
 
-// GO to http://127.0.0.1:3000
-```
-
-## 测试环境
-
-```bash
-// 需要pm2，如果没有安装的先安装  npm install -g pm2
+# from test
 npm run publish:test
-```
 
-## 生产环境
-
-```bash
-// 需要pm2，如果没有安装的先安装  npm install -g pm2
+# for production
 npm run publish:prod
 ```
 
