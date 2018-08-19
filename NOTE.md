@@ -26,3 +26,5 @@
 * [ ] 再次封装axios，对错误信息预先提示
 * [ ] 修复require.context不支持绝对路径问题
 * [ ] 优化ArticleQuery查询结果，节省不必要资源缓存
+* [ ] index页中tagsRouter优化
+* [ ] index页注册快捷键操作

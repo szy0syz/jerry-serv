@@ -200,7 +200,6 @@ export default {
     },
     handleCurrentRow(curt, prev) {
       this.currentRow = curt
-      console.log(curt.title)
     },
     handleRow(type) {
       this.optType = type

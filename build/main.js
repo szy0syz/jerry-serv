@@ -2509,7 +2509,7 @@ var fetchList = function () {
         switch (_context.prev = _context.next) {
           case 0:
             _context.next = 2;
-            return Article.find({}, { __v: 0, password: 0 }).skip((page - 1) * size).limit(Number(size)).sort({ '_id': -1 }).populate({ path: 'type', select: 'name' }).populate({ path: 'tags', select: 'name' }).populate({ path: 'author', select: 'username' }).exec();
+            return Article.find({}, { __v: 0, password: 0, content: 0, desc: 0 }).skip((page - 1) * size).limit(Number(size)).sort({ '_id': -1 }).populate({ path: 'type', select: 'name' }).populate({ path: 'tags', select: 'name' }).populate({ path: 'author', select: 'username' }).exec();
 
           case 2:
             data = _context.sent;
