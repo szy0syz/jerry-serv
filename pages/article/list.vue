@@ -121,7 +121,7 @@ export default {
         {
           title: '置顶',
           key: 'isTop',
-          width: 70,
+          width: 75,
           align: 'center'
         },
         {
