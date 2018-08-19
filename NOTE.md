@@ -20,11 +20,11 @@
 
 ## TODO
 
-* [ ] 使用Vuex重构前期件
-* [ ] 重构qiniu-img-upload图片上传组件
-* [ ] 修正Article-Controller业务逻辑-根据不同角色用户改变status
-* [ ] 再次封装axios，对错误信息预先提示
-* [ ] 修复require.context不支持绝对路径问题
-* [ ] 优化ArticleQuery查询结果，节省不必要资源缓存
-* [ ] index页中tagsRouter优化
-* [ ] index页注册快捷键操作
+* [ ] [FE]使用Vuex重构前期件
+* [ ] [FE]重构qiniu-img-upload图片上传组件
+* [ ] [BE]修正Article-Controller业务逻辑-根据不同角色用户改变status
+* [ ] [FE]再次封装axios，对错误信息预先提示
+* [ ] [BE]修复require.context不支持绝对路径问题
+* [x] [BE]~~优化ArticleQuery查询结果，节省不必要资源缓存~~
+* [ ] [FE]index页中tagsRouter优化
+* [ ] [FE]index页注册快捷键操作
