@@ -38,6 +38,7 @@ npm run dev
 ## 环境
 
 > ✔️ 开发环境：Windows 10, Version 1803 + Chrome v68 + NodeJS v10.9.0
+
 > ✔️ 开发环境：macOS, Version 10.12.6 + Chrome v68 + NodeJS v10.9.0
 
 ```bash

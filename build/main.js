@@ -2230,25 +2230,27 @@ var articleController = (_dec = controller('/api/article'), _dec2 = get('/'), _d
     key: 'detail',
     value: function () {
       var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.mark(function _callee2(ctx) {
-        var _id, data;
+        var _id, _ctx$query2, username, userid, data;
 
         return __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
                 _id = ctx.params._id;
-                _context2.next = 3;
-                return Article.fetchDetail(_id);
+                _ctx$query2 = ctx.query, username = _ctx$query2.username, userid = _ctx$query2.userid;
+                _context2.next = 4;
+                return Article.fetchDetail({ _id: _id, username: username, userid: userid });
 
-              case 3:
+              case 4:
                 data = _context2.sent;
+
 
                 ctx.body = {
                   success: true,
                   data: data
                 };
 
-              case 5:
+              case 6:
               case 'end':
                 return _context2.stop();
             }
@@ -2349,11 +2351,10 @@ var articleController = (_dec = controller('/api/article'), _dec2 = get('/'), _d
             switch (_context4.prev = _context4.next) {
               case 0:
                 data = ctx.request.body;
-
-                console.log('收到的data', data);
                 // TODO: 修正业务逻辑-根据不同角色用户改变status
 
                 // 默认提交则自动审核
+
                 if (data.status === 1) {
                   data.status = 9;
                 }
@@ -2373,35 +2374,35 @@ var articleController = (_dec = controller('/api/article'), _dec2 = get('/'), _d
                   tags: data.tags
                 };
 
-                _context4.prev = 4;
-                _context4.next = 7;
+                _context4.prev = 3;
+                _context4.next = 6;
                 return Article.update(data);
 
-              case 7:
+              case 6:
                 data = _context4.sent;
 
                 ctx.body = {
                   data: data,
                   success: true
                 };
-                _context4.next = 14;
+                _context4.next = 13;
                 break;
 
-              case 11:
-                _context4.prev = 11;
-                _context4.t0 = _context4['catch'](4);
+              case 10:
+                _context4.prev = 10;
+                _context4.t0 = _context4['catch'](3);
 
                 ctx.body = {
                   error: _context4.t0,
                   success: false
                 };
 
-              case 14:
+              case 13:
               case 'end':
                 return _context4.stop();
             }
           }
-        }, _callee4, this, [[4, 11]]);
+        }, _callee4, this, [[3, 10]]);
       }));
 
       function put(_x4) {
@@ -2509,7 +2510,7 @@ var fetchList = function () {
         switch (_context.prev = _context.next) {
           case 0:
             _context.next = 2;
-            return Article.find({}, { __v: 0, password: 0, content: 0, desc: 0 }).skip((page - 1) * size).limit(Number(size)).sort({ '_id': -1 }).populate({ path: 'type', select: 'name' }).populate({ path: 'tags', select: 'name' }).populate({ path: 'author', select: 'username' }).exec();
+            return Article.find({}, { __v: 0, password: 0, content: 0 }).skip((page - 1) * size).limit(Number(size)).sort({ '_id': -1 }).populate({ path: 'type', select: 'name' }).populate({ path: 'tags', select: 'name' }).populate({ path: 'author', select: 'username' }).exec();
 
           case 2:
             data = _context.sent;
@@ -2529,20 +2530,39 @@ var fetchList = function () {
 }();
 
 var fetchDetail = function () {
-  var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.mark(function _callee2(_id) {
-    var entity;
+  var _ref3 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.mark(function _callee2(_ref2) {
+    var _id = _ref2._id,
+        username = _ref2.username,
+        userid = _ref2.userid;
+    var entity, isHas;
     return __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
             _context2.next = 2;
-            return Article.findOne({ _id: _id }).exec();
+            return Article.findOne({ _id: _id }, { __v: 0 }).lean().exec();
 
           case 2:
             entity = _context2.sent;
+
+
+            // default value （要不要节省流量不传递呢？）
+            entity.isLike = false;
+
+            // 如果 存在点赞人list 且 传了参数 再去编译，节省系统开支
+            if (entity.likeList.length > 0 && (username || userid)) {
+              isHas = entity.likeList.some(function (i) {
+                return i.name === username || i.id === userid;
+              });
+
+              if (isHas) {
+                entity.isLike = true;
+              }
+            }
+
             return _context2.abrupt('return', entity);
 
-          case 4:
+          case 6:
           case 'end':
             return _context2.stop();
         }
@@ -2551,12 +2571,12 @@ var fetchDetail = function () {
   }));
 
   return function fetchDetail(_x3) {
-    return _ref2.apply(this, arguments);
+    return _ref3.apply(this, arguments);
   };
 }();
 
 var create = function () {
-  var _ref3 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.mark(function _callee3(model) {
+  var _ref4 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.mark(function _callee3(model) {
     return __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
@@ -2578,12 +2598,12 @@ var create = function () {
   }));
 
   return function create(_x4) {
-    return _ref3.apply(this, arguments);
+    return _ref4.apply(this, arguments);
   };
 }();
 
 var update = function () {
-  var _ref4 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.mark(function _callee4(model) {
+  var _ref5 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.mark(function _callee4(model) {
     var entity;
     return __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee4$(_context4) {
       while (1) {
@@ -2623,12 +2643,12 @@ var update = function () {
   }));
 
   return function update(_x5) {
-    return _ref4.apply(this, arguments);
+    return _ref5.apply(this, arguments);
   };
 }();
 
 var remove = function () {
-  var _ref5 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.mark(function _callee5(_id) {
+  var _ref6 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.mark(function _callee5(_id) {
     return __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee5$(_context5) {
       while (1) {
         switch (_context5.prev = _context5.next) {
@@ -2648,7 +2668,7 @@ var remove = function () {
   }));
 
   return function remove(_x6) {
-    return _ref5.apply(this, arguments);
+    return _ref6.apply(this, arguments);
   };
 }();
 

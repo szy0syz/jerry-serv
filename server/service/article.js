@@ -3,7 +3,7 @@ const Article = mongoose.model('Article')
 
 export async function fetchList(page = 1, size = 20) {
   const data = await Article
-    .find({}, { __v: 0, password: 0, content:0, desc:0 })
+    .find({}, { __v: 0, password: 0, content:0 })
     .skip((page - 1) * size)
     .limit(Number(size))
     .sort({ '_id': -1 })
@@ -15,8 +15,19 @@ export async function fetchList(page = 1, size = 20) {
   return data
 }
 
-export async function fetchDetail(_id) {
-  const entity = await Article.findOne({ _id }).exec()
+export async function fetchDetail({_id, username, userid}) {
+  const entity = await Article.findOne({ _id }, { __v: 0 }).lean().exec()
+
+  // default value （要不要节省流量不传递呢？）
+  entity.isLike = false
+
+  // 如果 存在点赞人list 且 传了参数 再去编译，节省系统开支
+  if ((entity.likeList.length > 0) && (username || userid)) {
+    const isHas = entity.likeList.some(i => i.name === username || i.id === userid)
+    if(isHas) {
+      entity.isLike = true
+    }
+  }
 
   return entity
 }

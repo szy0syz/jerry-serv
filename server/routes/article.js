@@ -20,7 +20,10 @@ export class articleController {
   async detail(ctx) {
     const { _id } = ctx.params
 
-    const data = await Article.fetchDetail(_id)
+    const { username, userid } = ctx.query
+
+    const data = await Article.fetchDetail({_id, username, userid})
+    
     ctx.body = {
       success: true,
       data
@@ -31,7 +34,7 @@ export class articleController {
   async post(ctx) {
     let data = ctx.request.body
 
-    if(!data.pubdate) {
+    if (!data.pubdate) {
       data.pubdate = Date.now()
     }
 
@@ -76,7 +79,6 @@ export class articleController {
   @put('/')
   async put(ctx) {
     let data = ctx.request.body
-    console.log('收到的data', data)
     // TODO: 修正业务逻辑-根据不同角色用户改变status
 
     // 默认提交则自动审核
