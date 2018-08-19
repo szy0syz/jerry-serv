@@ -15,6 +15,7 @@
 
 ## Top Features
 
+* 使用ES7-decorator重构koa-router合并路由与控制器
 * Bcrypt password encryption/verification
 * quill-editor powerful rich text editor
 * 二次封装iview与quill-editor图片上传组件
