@@ -2,7 +2,7 @@ import xss from 'xss'
 
 const { article: Article } = require('../service')
 
-const { controller, get, del, post, required } = require('../lib/decorator')
+const { controller, get, del, put, post, required } = require('../lib/decorator')
 
 @controller('/api/article')
 export class articleController {
@@ -68,6 +68,46 @@ export class articleController {
     } catch (err) {
       ctx.body = {
         err,
+        success: false
+      }
+    }
+  }
+
+  @put('/')
+  async put(ctx) {
+    let data = ctx.request.body
+    console.log('收到的data', data)
+    // TODO: 修正业务逻辑-根据不同角色用户改变status
+
+    // 默认提交则自动审核
+    if (data.status === 1) {
+      data.status = 9
+    }
+
+    data = {
+      _id: xss(data._id),
+      title: xss(data.title),
+      desc: xss(data.desc),
+      cover: xss(data.cover),
+      pubdate: xss(data.pubdate),
+      content: xss(data.content),
+      type: xss(data.type),
+      status: xss(data.status),
+      openness: xss(data.openness),
+      password: xss(data.password),
+      isTop: Boolean(data.isTop),
+      tags: data.tags
+    }
+
+    try {
+      data = await Article.update(data)
+      ctx.body = {
+        data,
+        success: true
+      }
+    } catch (error) {
+      ctx.body = {
+        error,
         success: false
       }
     }

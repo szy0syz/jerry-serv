@@ -560,8 +560,21 @@ export default {
             id: '24444'
           }
         ]
-        // let res = await axios.post('/api/article', this.article)
-        console.log(res)
+        let res = await axios.put('/api/article', this.article)
+        if (res.data.success) {
+          this.$Notice.success({
+            title: '保存成功',
+            desc: `《${res.data.data.title}》`
+          })
+          this.$router.push({
+            name: 'article-list'
+          })
+        } else {
+          this.$Notice.success({
+            title: '保存失败',
+            desc: `${res.data.error}`
+          })
+        }
 
         // setTimeout(() => {
         //   this.publishLoading = false
@@ -593,7 +606,7 @@ export default {
   async mounted() {
     this.current_id = this.$route.query._id
     this.$store.dispatch('detailArticle', this.current_id)
-    console.log('edit~~~~~~mounted',data)
+    
     const data = this.$store.state.article.curtArticle
     this.article = data
 

@@ -125,7 +125,10 @@ export default {
     this.getToken()
     this.uploadList = this.$refs.upload.fileList
     // TODO: 重写七牛上传封面图上传组件
-    this.uploadList.push({url: this.$store.state.article.curtArticle.cover, status: 'finished'})
+    const cover = this.$store.state.article.curtArticle.cover
+    if (cover) {
+      this.uploadList.push({url: this.$store.state.article.curtArticle.cover, status: 'finished'})
+    }
   }
 }
 </script>

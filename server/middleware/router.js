@@ -3,7 +3,7 @@ const { Route } = require('../lib/decorator')
 // 只要执行此中间件，就等于执行了整个路由中间层
 export const router = app => {
   // const apiPath = resolve(__dirname, '../routes')
-  // Todo: 待修复，现在智能传相对路径，且字符串
+  // Todo: 待修复，现在只能传相对路径，且字符串
   const router = new Route(app, '../routes')
 
   router.init()

@@ -200,9 +200,10 @@ export default {
     },
     handleCurrentRow(curt, prev) {
       this.currentRow = curt
+      console.log(curt.title)
     },
     handleRow(type) {
-      // this.optType = type
+      this.optType = type
       // if (type === 'add') {
       //   this.rowModel = {
       //     name: '',
@@ -223,6 +224,14 @@ export default {
       //     this.showForm = true
       //   }
       // }
+      if (type === 'add') {
+        this.$router.push({ name: 'article-publish' })
+      } else {
+        this.$router.push({
+          name: 'article-edit',
+          query: { _id: this.currentRow._id }
+        })
+      }
     },
     handleRemoveRow() {
       // if (!this.currentRow) {
@@ -232,7 +241,7 @@ export default {
       // this.$store.dispatch('removeProjUnit', this.currentRow._id)
       this.$router.push({
         name: 'article-edit',
-        query: {_id: '5b784114c861422a11899e9d'}
+        query: { _id: '5b784114c861422a11899e9d' }
       })
     },
     handleSearch() {
@@ -242,7 +251,7 @@ export default {
       // })
       this.$router.push({
         name: 'article-edit',
-        query: {_id: '5b784114c861422a11899e9d'}
+        query: { _id: '5b784114c861422a11899e9d' }
       })
     }
   },

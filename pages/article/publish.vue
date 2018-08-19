@@ -131,7 +131,7 @@
                         <Input v-model="article.desc" type="textarea" :autosize="{minRows: 2,maxRows: 3}" placeholder="请输入摘要..." icon="android-list" />
                     </FormItem>
                     <FormItem label="文章封面">
-                        <qiniuImgUpload @handleSuccess = "(url) => this.article.cover = url"></qiniuImgUpload>
+                        <qiniuImgUpload ref="qiniuUploader" @handleSuccess = "(url) => this.article.cover = url"></qiniuImgUpload>
                     </FormItem>
                     <!-- <div class="article-link-con">
                         <transition name="fixed-link">
@@ -586,7 +586,6 @@ export default {
     qiniuImgUpload
   },
   async mounted() {
-    console.log(this.$router)
     // -------init ArticleTag--------
     let tagRes = await axios.get('/api/articleTag?size=99')
     this.articleTagList = tagRes.data.data
@@ -613,6 +612,8 @@ export default {
       protected: '密码',
       private: '私密'
     }
+    // console.log(this.$refs['qiniuUploader'])
+    this.$store.state.article.curtArticle.cover = ''
 
     // tinymce.init({
     //   selector: '#articleEditor',
