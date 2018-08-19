@@ -170,7 +170,6 @@ const app = {
       } else {
         state.avatorImgPath = localStorage.avatorImgPath
       }
-      console.log('avatorImgPath', state.avatorImgPath)
     },
     switchLang(state, lang) {
       state.lang = lang

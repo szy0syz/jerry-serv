@@ -43,7 +43,8 @@ module.exports = {
     // },
     vendor: ['axios', 'iview', './plugins/iview.js'],
     extend(config, ctx) {
-      if (ctx.isClient) {
+      // if (ctx.isClient) {
+      if (process.client) {
         // config.module.rules.push({
         //   enforce: 'pre',
         //   test: /\.(js|vue)$/,
