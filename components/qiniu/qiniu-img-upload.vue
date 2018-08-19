@@ -72,6 +72,11 @@ export default {
       fileList: []
     }
   },
+  computed: {
+    // uploadList1() {
+    //   return [this.$store.state.article.curtArticle.cover] || []
+    // }
+  },
   methods: {
     async getToken() {
       let token = await axios.get('/api/qiniu/token')
@@ -90,6 +95,8 @@ export default {
       // console.log(res);
       file.url = 'http://cdn.jerryshi.com/' + res.key
       file.name = res.key
+      console.log('this.$refs.upload.fileList',this.$refs.upload.fileList)
+      console.log('this.$store.state.article.curtArticle.cover',this.$store.state.article.curtArticle.cover)
       this.$emit('handleSuccess', 'http://cdn.jerryshi.com/' + res.key) //传递给父组件
     },
     handleFormatError(file) {
@@ -117,6 +124,8 @@ export default {
   mounted() {
     this.getToken()
     this.uploadList = this.$refs.upload.fileList
+    // TODO: 重写七牛上传封面图上传组件
+    this.uploadList.push({url: this.$store.state.article.curtArticle.cover, status: 'finished'})
   }
 }
 </script>

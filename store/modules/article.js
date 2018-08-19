@@ -3,7 +3,10 @@ import Service from '../../services/article'
 const article = {
   state: {
     articles: [],
-    curtArticle: null
+    curtArticle: {
+      title: '',
+      cover: ''
+    }
   },
   getters: {
     // TODO: 节省时间，后续再补上
@@ -25,7 +28,7 @@ const article = {
       const res = await Service.detailArticle(_id)
 
       state.curtArticle = res.data.data
-
+      console.log(res.data.data)
       return res
     },
 

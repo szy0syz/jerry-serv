@@ -232,7 +232,7 @@ export default {
       // this.$store.dispatch('removeProjUnit', this.currentRow._id)
       this.$router.push({
         name: 'article-edit',
-        query: {_id: '0147'}
+        query: {_id: '5b784114c861422a11899e9d'}
       })
     },
     handleSearch() {
@@ -242,7 +242,7 @@ export default {
       // })
       this.$router.push({
         name: 'article-edit',
-        query: {_id: '444222jjjj999'}
+        query: {_id: '5b784114c861422a11899e9d'}
       })
     }
   },

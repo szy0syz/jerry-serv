@@ -287,6 +287,7 @@ import axios from '~/plugins/axios2'
 import * as qiniu from 'qiniu-js'
 import randomToken from 'random-token'
 import config from '../../server/config'
+import { mapState } from 'vuex'
 
 import qiniuImgUpload from '../../components/qiniu/qiniu-img-upload'
 
@@ -559,7 +560,7 @@ export default {
             id: '24444'
           }
         ]
-        let res = await axios.post('/api/article', this.article)
+        // let res = await axios.post('/api/article', this.article)
         console.log(res)
 
         // setTimeout(() => {
@@ -581,7 +582,10 @@ export default {
       let finalUrl = this.fixedLink + this.articlePath
       localStorage.finalUrl = finalUrl // 本地存储完整文章路径
       return finalUrl
-    }
+    },
+    ...mapState({
+      curtArticle: state => state.article.curtArticle
+    })
   },
   components: {
     qiniuImgUpload
@@ -589,7 +593,7 @@ export default {
   async mounted() {
     this.current_id = this.$route.query._id
     this.$store.dispatch('detailArticle', this.current_id)
-    console.log('edit~~~~~~mounted')
+    console.log('edit~~~~~~mounted',data)
     const data = this.$store.state.article.curtArticle
     this.article = data
 
@@ -611,6 +615,10 @@ export default {
       {
         name: '提交',
         value: 1
+      },
+      {
+        name: '审核',
+        value: 9
       }
     ]
 
