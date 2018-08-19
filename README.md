@@ -37,9 +37,9 @@ npm run dev
 
 ## 环境
 
-> ✔️ 开发环境：Windows 10, Version 1803 + Chrome v68 + NodeJS v10.9.0
-
 > ✔️ 开发环境：macOS, Version 10.12.6 + Chrome v68 + NodeJS v10.9.0
+
+> ✔️ 开发环境：Windows 10 Enterprise LTSB + Chrome v68 + NodeJS v10.9.0
 
 ```bash
 # for development
@@ -62,7 +62,7 @@ npm run publish:prod
 * [x] [BE]~~优化ArticleQuery查询结果，节省不必要资源缓存~~
 * [ ] [FE]index页中tagsRouter优化
 * [ ] [FE]index页注册快捷键操作
-* [ ] [BE]完善后端中各个控制器[required]修饰器的逻辑使用
+* [ ] [BE]完善后端中各个控制器[required]修饰器的逻辑
 
 参考资料
 
