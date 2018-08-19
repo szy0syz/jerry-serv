@@ -29,3 +29,9 @@
 * [ ] [FE]index页中tagsRouter优化
 * [ ] [FE]index页注册快捷键操作
 * [ ] [BE]完善后端中各个控制器[required]修饰器的逻辑使用
+* [ ] [FE]使用Nuxt全家桶:axios-moudle/auth-module/apollo-module/pwa-apollo-module
+
+## Test
+
+* `curl -H "Content-Type:application/json" -X POST -d '{"_id": "5b790ae5275be80c380e7074", "username": "shi", "userid":"44"}' http://127.0.0.1:3000/api/articleHandler/like`
+* `curl -H "Content-Type:application/json" -X POST -d '{"_id": "5b784114c861422a11899e9d", "username": "jerry_shi", "userid":"555", "avatar": "http://cdn.jerryshi.com/picgo/20180808232138.png", "content": "No.2 comment"}' http://127.0.0.1:3000/api/articleHandler/comment`

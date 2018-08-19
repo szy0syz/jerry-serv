@@ -30,7 +30,7 @@ export class articleHandlerController {
   async postUnLike(ctx) {
     // must contain: _id, username, userid
     let params = ctx.request.body
-    console.log('@@进来了/api/articleHandler/unlike', params)
+
     try {
       await Article.subLiker(params)
 
@@ -51,12 +51,12 @@ export class articleHandlerController {
   async postComment(ctx) {
     // must contain: _id, username, userid, avatar, content
     let params = ctx.request.body
-    console.log('/api/articleHandler/comment', params)
+
     try {
       const data = await Article.addComment(params)
 
       ctx.body = {
-        data,
+        msg: '评论成功',
         success: true
       }
     } catch (error) {
