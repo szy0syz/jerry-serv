@@ -23,7 +23,7 @@ export async function fetchDetail({_id, username, userid}) {
 
   // 如果 存在点赞人list 且 传了参数 再去编译，节省系统开支
   if ((entity.likeList.length > 0) && (username || userid)) {
-    const isHas = entity.likeList.some(i => i.name === username || i.id === userid)
+    const isHas = entity.likeList.some(i => i.username === username || i.userid === userid)
     if(isHas) {
       entity.isLike = true
     }
@@ -66,6 +66,15 @@ export async function addLiker({_id, username, userid}) {
   let entity = await Article.findOne({ _id }, { __v: 0 }).exec()
   // 数据服务层不管业务逻辑，业务逻辑交给控制器层
   entity.likeList.push({username, userid})
+  entity = await entity.save()
+
+  return entity
+}
+
+export async function addComment({_id, username, userid, avatar, content}) {
+  let entity = await Article.findOne({ _id }, { __v: 0 }).exec()
+
+  entity.commentList.push({username, userid, avatar, content})
   entity = await entity.save()
 
   return entity

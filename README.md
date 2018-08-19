@@ -62,6 +62,7 @@ npm run publish:prod
 * [x] [BE]~~优化ArticleQuery查询结果，节省不必要资源缓存~~
 * [ ] [FE]index页中tagsRouter优化
 * [ ] [FE]index页注册快捷键操作
+* [ ] [BE]完善后端中各个控制器[required]修饰器的逻辑使用
 
 参考资料
 

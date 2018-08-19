@@ -1494,13 +1494,13 @@ var ArticleSchema = new Schema({
     ref: 'ArticleTag'
   }],
   likeList: [{
-    name: String,
-    id: String
+    username: String,
+    userid: String
   }],
   commentList: [{
-    name: String,
+    username: String,
     avatar: String,
-    id: String,
+    userid: String,
     content: String
   }],
   clickNum: {
@@ -2491,6 +2491,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "update", function() { return update; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "remove", function() { return remove; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addLiker", function() { return addLiker; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addComment", function() { return addComment; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_mongoose__ = __webpack_require__(1);
@@ -2554,7 +2555,7 @@ var fetchDetail = function () {
             // 如果 存在点赞人list 且 传了参数 再去编译，节省系统开支
             if (entity.likeList.length > 0 && (username || userid)) {
               isHas = entity.likeList.some(function (i) {
-                return i.name === username || i.id === userid;
+                return i.username === username || i.userid === userid;
               });
 
               if (isHas) {
@@ -2709,6 +2710,46 @@ var addLiker = function () {
 
   return function addLiker(_x7) {
     return _ref8.apply(this, arguments);
+  };
+}();
+
+var addComment = function () {
+  var _ref10 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.mark(function _callee7(_ref9) {
+    var _id = _ref9._id,
+        username = _ref9.username,
+        userid = _ref9.userid,
+        avatar = _ref9.avatar,
+        content = _ref9.content;
+    var entity;
+    return __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee7$(_context7) {
+      while (1) {
+        switch (_context7.prev = _context7.next) {
+          case 0:
+            _context7.next = 2;
+            return Article.findOne({ _id: _id }, { __v: 0 }).exec();
+
+          case 2:
+            entity = _context7.sent;
+
+
+            entity.commentList.push({ username: username, userid: userid, avatar: avatar, content: content });
+            _context7.next = 6;
+            return entity.save();
+
+          case 6:
+            entity = _context7.sent;
+            return _context7.abrupt('return', entity);
+
+          case 8:
+          case 'end':
+            return _context7.stop();
+        }
+      }
+    }, _callee7, this);
+  }));
+
+  return function addComment(_x8) {
+    return _ref10.apply(this, arguments);
   };
 }();
 
@@ -3640,7 +3681,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _dec, _dec2, _class, _desc, _value, _class2;
+var _dec, _dec2, _dec3, _class, _desc, _value, _class2;
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
@@ -3688,7 +3729,7 @@ var _require2 = __webpack_require__(2),
     post = _require2.post,
     required = _require2.required;
 
-var articleHandlerController = (_dec = controller('/api/articleHandler'), _dec2 = post('/like'), _dec(_class = (_class2 = function () {
+var articleHandlerController = (_dec = controller('/api/articleHandler'), _dec2 = post('/like'), _dec3 = post('/comment'), _dec(_class = (_class2 = function () {
   function articleHandlerController() {
     _classCallCheck(this, articleHandlerController);
   }
@@ -3742,10 +3783,59 @@ var articleHandlerController = (_dec = controller('/api/articleHandler'), _dec2 
 
       return postLike;
     }()
+  }, {
+    key: 'postLike',
+    value: function () {
+      var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.mark(function _callee2(ctx) {
+        var params, data;
+        return __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                // must contain: _id, username, userid, avatar, content
+                params = ctx.request.body;
+                _context2.prev = 1;
+                _context2.next = 4;
+                return Article.addComment(params);
+
+              case 4:
+                data = _context2.sent;
+
+
+                ctx.body = {
+                  data: data,
+                  success: true
+                };
+                _context2.next = 11;
+                break;
+
+              case 8:
+                _context2.prev = 8;
+                _context2.t0 = _context2['catch'](1);
+
+                ctx.body = {
+                  error: _context2.t0,
+                  success: false
+                };
+
+              case 11:
+              case 'end':
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this, [[1, 8]]);
+      }));
+
+      function postLike(_x2) {
+        return _ref2.apply(this, arguments);
+      }
+
+      return postLike;
+    }()
   }]);
 
   return articleHandlerController;
-}(), (_applyDecoratedDescriptor(_class2.prototype, 'postLike', [_dec2], Object.getOwnPropertyDescriptor(_class2.prototype, 'postLike'), _class2.prototype)), _class2)) || _class);
+}(), (_applyDecoratedDescriptor(_class2.prototype, 'postLike', [_dec2], Object.getOwnPropertyDescriptor(_class2.prototype, 'postLike'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'postLike', [_dec3], Object.getOwnPropertyDescriptor(_class2.prototype, 'postLike'), _class2.prototype)), _class2)) || _class);
 
 /***/ })
 /******/ ]);

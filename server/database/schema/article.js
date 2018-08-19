@@ -34,15 +34,15 @@ const ArticleSchema = new Schema({
   ],
   likeList: [
     {
-      name: String,
-      id: String
+      username: String,
+      userid: String
     }
   ],
   commentList: [
     {
-      name: String,
+      username: String,
       avatar: String,
-      id: String,
+      userid: String,
       content: String
     }
   ],
