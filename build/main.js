@@ -113,7 +113,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var Router = __webpack_require__(3);
 
-var _require = __webpack_require__(5),
+var _require = __webpack_require__(7),
     resolve = _require.resolve;
 // const glob = require('glob')
 
@@ -425,6 +425,33 @@ module.exports = require("koa-router");
 
 /***/ }),
 /* 4 */
+/***/ (function(module, exports) {
+
+module.exports = require("xss");
+
+/***/ }),
+/* 5 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__admin__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__article__ = __webpack_require__(50);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__articleTag__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__articleType__ = __webpack_require__(52);
+/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "admin", function() { return __WEBPACK_IMPORTED_MODULE_0__admin__; });
+/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "article", function() { return __WEBPACK_IMPORTED_MODULE_1__article__; });
+/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "articleTag", function() { return __WEBPACK_IMPORTED_MODULE_2__articleTag__; });
+/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "articleType", function() { return __WEBPACK_IMPORTED_MODULE_3__articleType__; });
+
+
+
+
+
+
+
+/***/ }),
+/* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -445,37 +472,10 @@ var conf = __webpack_require__(17)("./" + env + '.json');
 /* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_0_lodash___default.a.assign({ env: env, host: host }, conf));
 
 /***/ }),
-/* 5 */
+/* 7 */
 /***/ (function(module, exports) {
 
 module.exports = require("path");
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports) {
-
-module.exports = require("xss");
-
-/***/ }),
-/* 7 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__admin__ = __webpack_require__(49);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__article__ = __webpack_require__(50);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__articleTag__ = __webpack_require__(51);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__articleType__ = __webpack_require__(52);
-/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "admin", function() { return __WEBPACK_IMPORTED_MODULE_0__admin__; });
-/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "article", function() { return __WEBPACK_IMPORTED_MODULE_1__article__; });
-/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "articleTag", function() { return __WEBPACK_IMPORTED_MODULE_2__articleTag__; });
-/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "articleType", function() { return __WEBPACK_IMPORTED_MODULE_3__articleType__; });
-
-
-
-
-
-
 
 /***/ }),
 /* 8 */
@@ -580,7 +580,7 @@ var Server = function () {
                 this.app.use(router.routes()).use(router.allowedMethods());
 
                 // Import and Set Nuxt.js options
-                config = __webpack_require__(59);
+                config = __webpack_require__(60);
 
                 config.dev = !("development" === 'production');
                 // console.log('env === ', app.env, env, process.env.COOKIE_DOMAIN, process.env.APP_ENV, config.dev)
@@ -717,7 +717,7 @@ router.get('/api/test', function (ctx) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_axios__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__config__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__config__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_axios_mock_adapter__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_axios_mock_adapter___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_axios_mock_adapter__);
 
@@ -1208,7 +1208,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__koa_cors___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__koa_cors__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_koa_static__ = __webpack_require__(32);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_koa_static___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_koa_static__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_path__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_path__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_path___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_path__);
 
 
@@ -1289,11 +1289,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_fs__ = __webpack_require__(34);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_fs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_fs__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_path__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_path__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_path___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_path__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_mongoose__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_mongoose___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_mongoose__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__config__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__config__ = __webpack_require__(6);
 
 
 var _this = this;
@@ -1414,7 +1414,7 @@ module.exports = require("fs");
 /***/ (function(module, exports) {
 
 module.exports = exports = function MetaPlugin(schema, options) {
-
+  // 完全就是连锁反应 subDocument也会触发这个中间件!
   schema.pre('save', function (next) {
     if (this.isNew) {
       this.meta = {}; // 不能给访问undefined的属性
@@ -1495,13 +1495,33 @@ var ArticleSchema = new Schema({
   }],
   likeList: [{
     username: String,
-    userid: String
+    userid: String,
+    meta: {
+      createdAt: {
+        type: Date,
+        default: Date.now()
+      },
+      updatedAt: {
+        type: Date,
+        default: Date.now()
+      }
+    }
   }],
   commentList: [{
     username: String,
     avatar: String,
     userid: String,
-    content: String
+    content: String,
+    meta: {
+      createdAt: {
+        type: Date,
+        default: Date.now()
+      },
+      updatedAt: {
+        type: Date,
+        default: Date.now()
+      }
+    }
   }],
   clickNum: {
     type: Number,
@@ -1941,11 +1961,11 @@ var router = function router(app) {
 
 var map = {
 	"./admin.js": 47,
-	"./article-handler.js": 61,
-	"./article.js": 48,
-	"./articleTag.js": 53,
-	"./articleType.js": 54,
-	"./qiniu.js": 55
+	"./article-handler.js": 48,
+	"./article.js": 53,
+	"./articleTag.js": 54,
+	"./articleType.js": 55,
+	"./qiniu.js": 56
 };
 function webpackContext(req) {
 	return __webpack_require__(webpackContextResolve(req));
@@ -2129,16 +2149,16 @@ var adminController = (_dec = controller('/api/admin'), _dec2 = get('/user'), _d
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "articleController", function() { return articleController; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "articleHandlerController", function() { return articleHandlerController; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_xss__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_xss__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_xss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_xss__);
 
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _dec, _dec2, _dec3, _dec4, _dec5, _class, _desc, _value, _class2;
+var _dec, _dec2, _dec3, _dec4, _class, _desc, _value, _class2;
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
@@ -2175,7 +2195,7 @@ function _applyDecoratedDescriptor(target, property, decorators, descriptor, con
 
 
 
-var _require = __webpack_require__(7),
+var _require = __webpack_require__(5),
     Article = _require.article;
 
 var _require2 = __webpack_require__(2),
@@ -2186,236 +2206,165 @@ var _require2 = __webpack_require__(2),
     post = _require2.post,
     required = _require2.required;
 
-var articleController = (_dec = controller('/api/article'), _dec2 = get('/'), _dec3 = get('/:_id'), _dec4 = post('/'), _dec5 = put('/'), _dec(_class = (_class2 = function () {
-  function articleController() {
-    _classCallCheck(this, articleController);
+var articleHandlerController = (_dec = controller('/api/articleHandler'), _dec2 = post('/like'), _dec3 = post('/unlike'), _dec4 = post('/comment'), _dec(_class = (_class2 = function () {
+  function articleHandlerController() {
+    _classCallCheck(this, articleHandlerController);
   }
 
-  _createClass(articleController, [{
-    key: 'get',
+  _createClass(articleHandlerController, [{
+    key: 'postLike',
     value: function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.mark(function _callee(ctx) {
-        var _ctx$query, page, size, data;
-
+        var params;
         return __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _ctx$query = ctx.query, page = _ctx$query.page, size = _ctx$query.size;
-                _context.next = 3;
-                return Article.fetchList(page, size);
+                // must contain: _id, username, userid
+                params = ctx.request.body;
+                _context.prev = 1;
+                _context.next = 4;
+                return Article.addLiker(params);
 
-              case 3:
-                data = _context.sent;
+              case 4:
 
                 ctx.body = {
-                  success: true,
-                  data: data
+                  msg: '点赞成功',
+                  success: true
                 };
+                _context.next = 11;
+                break;
 
-              case 5:
+              case 7:
+                _context.prev = 7;
+                _context.t0 = _context['catch'](1);
+
+                ctx.body = {
+                  error: _context.t0,
+                  success: false
+                };
+                console.error(_context.t0);
+
+              case 11:
               case 'end':
                 return _context.stop();
             }
           }
-        }, _callee, this);
+        }, _callee, this, [[1, 7]]);
       }));
 
-      function get(_x) {
+      function postLike(_x) {
         return _ref.apply(this, arguments);
       }
 
-      return get;
+      return postLike;
     }()
   }, {
-    key: 'detail',
+    key: 'postUnLike',
     value: function () {
       var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.mark(function _callee2(ctx) {
-        var _id, _ctx$query2, username, userid, data;
-
+        var params;
         return __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _id = ctx.params._id;
-                _ctx$query2 = ctx.query, username = _ctx$query2.username, userid = _ctx$query2.userid;
-                _context2.next = 4;
-                return Article.fetchDetail({ _id: _id, username: username, userid: userid });
+                // must contain: _id, username, userid
+                params = ctx.request.body;
 
-              case 4:
-                data = _context2.sent;
+                console.log('@@进来了/api/articleHandler/unlike', params);
+                _context2.prev = 2;
+                _context2.next = 5;
+                return Article.subLiker(params);
 
+              case 5:
 
                 ctx.body = {
-                  success: true,
-                  data: data
+                  msg: '取消点赞',
+                  success: true
                 };
+                _context2.next = 12;
+                break;
 
-              case 6:
+              case 8:
+                _context2.prev = 8;
+                _context2.t0 = _context2['catch'](2);
+
+                ctx.body = {
+                  error: _context2.t0,
+                  success: false
+                };
+                console.error(_context2.t0);
+
+              case 12:
               case 'end':
                 return _context2.stop();
             }
           }
-        }, _callee2, this);
+        }, _callee2, this, [[2, 8]]);
       }));
 
-      function detail(_x2) {
+      function postUnLike(_x2) {
         return _ref2.apply(this, arguments);
       }
 
-      return detail;
+      return postUnLike;
     }()
   }, {
-    key: 'post',
+    key: 'postComment',
     value: function () {
       var _ref3 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.mark(function _callee3(ctx) {
-        var data;
+        var params, data;
         return __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                data = ctx.request.body;
+                // must contain: _id, username, userid, avatar, content
+                params = ctx.request.body;
 
+                console.log('/api/articleHandler/comment', params);
+                _context3.prev = 2;
+                _context3.next = 5;
+                return Article.addComment(params);
 
-                if (!data.pubdate) {
-                  data.pubdate = Date.now();
-                }
-
-                // TODO: 修正业务逻辑-根据不同角色用户改变status
-
-                // 默认提交则自动审核
-                if (data.status === 1) {
-                  data.status = 9;
-                }
-
-                data = {
-                  title: __WEBPACK_IMPORTED_MODULE_1_xss___default()(data.title),
-                  desc: __WEBPACK_IMPORTED_MODULE_1_xss___default()(data.desc),
-                  cover: __WEBPACK_IMPORTED_MODULE_1_xss___default()(data.cover),
-                  pubdate: __WEBPACK_IMPORTED_MODULE_1_xss___default()(data.pubdate),
-                  content: __WEBPACK_IMPORTED_MODULE_1_xss___default()(data.content),
-                  type: __WEBPACK_IMPORTED_MODULE_1_xss___default()(data.type),
-                  status: __WEBPACK_IMPORTED_MODULE_1_xss___default()(data.status),
-                  openness: __WEBPACK_IMPORTED_MODULE_1_xss___default()(data.openness),
-                  password: __WEBPACK_IMPORTED_MODULE_1_xss___default()(data.password),
-                  isTop: Boolean(data.isTop),
-                  tags: data.tags,
-                  author: '5b72ff427b1fd01b980e0f84'
-                  // to test
-                  // likeList: data.likeList
-                };
-
-                _context3.prev = 4;
-                _context3.next = 7;
-                return Article.create(data);
-
-              case 7:
+              case 5:
                 data = _context3.sent;
+
 
                 ctx.body = {
                   data: data,
                   success: true
                 };
-                _context3.next = 14;
+                _context3.next = 13;
                 break;
 
-              case 11:
-                _context3.prev = 11;
-                _context3.t0 = _context3['catch'](4);
+              case 9:
+                _context3.prev = 9;
+                _context3.t0 = _context3['catch'](2);
 
                 ctx.body = {
-                  err: _context3.t0,
+                  error: _context3.t0,
                   success: false
                 };
+                console.error(_context3.t0);
 
-              case 14:
+              case 13:
               case 'end':
                 return _context3.stop();
             }
           }
-        }, _callee3, this, [[4, 11]]);
+        }, _callee3, this, [[2, 9]]);
       }));
 
-      function post(_x3) {
+      function postComment(_x3) {
         return _ref3.apply(this, arguments);
       }
 
-      return post;
-    }()
-  }, {
-    key: 'put',
-    value: function () {
-      var _ref4 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.mark(function _callee4(ctx) {
-        var data;
-        return __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee4$(_context4) {
-          while (1) {
-            switch (_context4.prev = _context4.next) {
-              case 0:
-                data = ctx.request.body;
-                // TODO: 修正业务逻辑-根据不同角色用户改变status
-
-                // 默认提交则自动审核
-
-                if (data.status === 1) {
-                  data.status = 9;
-                }
-
-                data = {
-                  _id: __WEBPACK_IMPORTED_MODULE_1_xss___default()(data._id),
-                  title: __WEBPACK_IMPORTED_MODULE_1_xss___default()(data.title),
-                  desc: __WEBPACK_IMPORTED_MODULE_1_xss___default()(data.desc),
-                  cover: __WEBPACK_IMPORTED_MODULE_1_xss___default()(data.cover),
-                  pubdate: __WEBPACK_IMPORTED_MODULE_1_xss___default()(data.pubdate),
-                  content: __WEBPACK_IMPORTED_MODULE_1_xss___default()(data.content),
-                  type: __WEBPACK_IMPORTED_MODULE_1_xss___default()(data.type),
-                  status: __WEBPACK_IMPORTED_MODULE_1_xss___default()(data.status),
-                  openness: __WEBPACK_IMPORTED_MODULE_1_xss___default()(data.openness),
-                  password: __WEBPACK_IMPORTED_MODULE_1_xss___default()(data.password),
-                  isTop: Boolean(data.isTop),
-                  tags: data.tags
-                };
-
-                _context4.prev = 3;
-                _context4.next = 6;
-                return Article.update(data);
-
-              case 6:
-                data = _context4.sent;
-
-                ctx.body = {
-                  data: data,
-                  success: true
-                };
-                _context4.next = 13;
-                break;
-
-              case 10:
-                _context4.prev = 10;
-                _context4.t0 = _context4['catch'](3);
-
-                ctx.body = {
-                  error: _context4.t0,
-                  success: false
-                };
-
-              case 13:
-              case 'end':
-                return _context4.stop();
-            }
-          }
-        }, _callee4, this, [[3, 10]]);
-      }));
-
-      function put(_x4) {
-        return _ref4.apply(this, arguments);
-      }
-
-      return put;
+      return postComment;
     }()
   }]);
 
-  return articleController;
-}(), (_applyDecoratedDescriptor(_class2.prototype, 'get', [_dec2], Object.getOwnPropertyDescriptor(_class2.prototype, 'get'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'detail', [_dec3], Object.getOwnPropertyDescriptor(_class2.prototype, 'detail'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'post', [_dec4], Object.getOwnPropertyDescriptor(_class2.prototype, 'post'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'put', [_dec5], Object.getOwnPropertyDescriptor(_class2.prototype, 'put'), _class2.prototype)), _class2)) || _class);
+  return articleHandlerController;
+}(), (_applyDecoratedDescriptor(_class2.prototype, 'postLike', [_dec2], Object.getOwnPropertyDescriptor(_class2.prototype, 'postLike'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'postUnLike', [_dec3], Object.getOwnPropertyDescriptor(_class2.prototype, 'postUnLike'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'postComment', [_dec4], Object.getOwnPropertyDescriptor(_class2.prototype, 'postComment'), _class2.prototype)), _class2)) || _class);
 
 /***/ }),
 /* 49 */
@@ -2491,6 +2440,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "update", function() { return update; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "remove", function() { return remove; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addLiker", function() { return addLiker; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "subLiker", function() { return subLiker; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addComment", function() { return addComment; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator__);
@@ -2691,6 +2641,7 @@ var addLiker = function () {
           case 2:
             entity = _context6.sent;
 
+
             // 数据服务层不管业务逻辑，业务逻辑交给控制器层
             entity.likeList.push({ username: username, userid: userid });
             _context6.next = 6;
@@ -2713,14 +2664,12 @@ var addLiker = function () {
   };
 }();
 
-var addComment = function () {
+var subLiker = function () {
   var _ref10 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.mark(function _callee7(_ref9) {
     var _id = _ref9._id,
         username = _ref9.username,
-        userid = _ref9.userid,
-        avatar = _ref9.avatar,
-        content = _ref9.content;
-    var entity;
+        userid = _ref9.userid;
+    var entity, targetId;
     return __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee7$(_context7) {
       while (1) {
         switch (_context7.prev = _context7.next) {
@@ -2731,16 +2680,31 @@ var addComment = function () {
           case 2:
             entity = _context7.sent;
 
+            // 需要取消点赞的subdocument的_id
+            targetId = null;
 
-            entity.commentList.push({ username: username, userid: userid, avatar: avatar, content: content });
-            _context7.next = 6;
+            // 遍历subdocument 找到目标id
+
+            entity.likeList.some(function (i) {
+              var result = i.username === username || i.userid === userid;
+              if (result) {
+                targetId = i._id;
+              }
+              return result;
+            });
+            // remove subDocument
+            _context7.next = 7;
+            return entity.likeList.id(targetId).remove();
+
+          case 7:
+            _context7.next = 9;
             return entity.save();
 
-          case 6:
+          case 9:
             entity = _context7.sent;
             return _context7.abrupt('return', entity);
 
-          case 8:
+          case 11:
           case 'end':
             return _context7.stop();
         }
@@ -2748,8 +2712,48 @@ var addComment = function () {
     }, _callee7, this);
   }));
 
-  return function addComment(_x8) {
+  return function subLiker(_x8) {
     return _ref10.apply(this, arguments);
+  };
+}();
+
+var addComment = function () {
+  var _ref12 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.mark(function _callee8(_ref11) {
+    var _id = _ref11._id,
+        username = _ref11.username,
+        userid = _ref11.userid,
+        avatar = _ref11.avatar,
+        content = _ref11.content;
+    var entity;
+    return __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee8$(_context8) {
+      while (1) {
+        switch (_context8.prev = _context8.next) {
+          case 0:
+            _context8.next = 2;
+            return Article.findOne({ _id: _id }, { __v: 0 }).exec();
+
+          case 2:
+            entity = _context8.sent;
+
+
+            entity.commentList.push({ username: username, userid: userid, avatar: avatar, content: content });
+            _context8.next = 6;
+            return entity.save();
+
+          case 6:
+            entity = _context8.sent;
+            return _context8.abrupt('return', entity);
+
+          case 8:
+          case 'end':
+            return _context8.stop();
+        }
+      }
+    }, _callee8, this);
+  }));
+
+  return function addComment(_x9) {
+    return _ref12.apply(this, arguments);
   };
 }();
 
@@ -3112,7 +3116,301 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "articleController", function() { return articleController; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_xss__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_xss__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_xss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_xss__);
+
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _dec, _dec2, _dec3, _dec4, _dec5, _class, _desc, _value, _class2;
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) {
+  var desc = {};
+  Object['ke' + 'ys'](descriptor).forEach(function (key) {
+    desc[key] = descriptor[key];
+  });
+  desc.enumerable = !!desc.enumerable;
+  desc.configurable = !!desc.configurable;
+
+  if ('value' in desc || desc.initializer) {
+    desc.writable = true;
+  }
+
+  desc = decorators.slice().reverse().reduce(function (desc, decorator) {
+    return decorator(target, property, desc) || desc;
+  }, desc);
+
+  if (context && desc.initializer !== void 0) {
+    desc.value = desc.initializer ? desc.initializer.call(context) : void 0;
+    desc.initializer = undefined;
+  }
+
+  if (desc.initializer === void 0) {
+    Object['define' + 'Property'](target, property, desc);
+    desc = null;
+  }
+
+  return desc;
+}
+
+
+
+var _require = __webpack_require__(5),
+    Article = _require.article;
+
+var _require2 = __webpack_require__(2),
+    controller = _require2.controller,
+    get = _require2.get,
+    del = _require2.del,
+    put = _require2.put,
+    post = _require2.post,
+    required = _require2.required;
+
+var articleController = (_dec = controller('/api/article'), _dec2 = get('/'), _dec3 = get('/:_id'), _dec4 = post('/'), _dec5 = put('/'), _dec(_class = (_class2 = function () {
+  function articleController() {
+    _classCallCheck(this, articleController);
+  }
+
+  _createClass(articleController, [{
+    key: 'get',
+    value: function () {
+      var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.mark(function _callee(ctx) {
+        var _ctx$query, page, size, data;
+
+        return __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _ctx$query = ctx.query, page = _ctx$query.page, size = _ctx$query.size;
+                _context.next = 3;
+                return Article.fetchList(page, size);
+
+              case 3:
+                data = _context.sent;
+
+                ctx.body = {
+                  success: true,
+                  data: data
+                };
+
+              case 5:
+              case 'end':
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function get(_x) {
+        return _ref.apply(this, arguments);
+      }
+
+      return get;
+    }()
+  }, {
+    key: 'detail',
+    value: function () {
+      var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.mark(function _callee2(ctx) {
+        var _id, _ctx$query2, username, userid, data;
+
+        return __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _id = ctx.params._id;
+                _ctx$query2 = ctx.query, username = _ctx$query2.username, userid = _ctx$query2.userid;
+                _context2.next = 4;
+                return Article.fetchDetail({ _id: _id, username: username, userid: userid });
+
+              case 4:
+                data = _context2.sent;
+
+
+                ctx.body = {
+                  success: true,
+                  data: data
+                };
+
+              case 6:
+              case 'end':
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function detail(_x2) {
+        return _ref2.apply(this, arguments);
+      }
+
+      return detail;
+    }()
+  }, {
+    key: 'post',
+    value: function () {
+      var _ref3 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.mark(function _callee3(ctx) {
+        var data;
+        return __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                data = ctx.request.body;
+
+
+                if (!data.pubdate) {
+                  data.pubdate = Date.now();
+                }
+
+                // TODO: 修正业务逻辑-根据不同角色用户改变status
+
+                // 默认提交则自动审核
+                if (data.status === 1) {
+                  data.status = 9;
+                }
+
+                data = {
+                  title: __WEBPACK_IMPORTED_MODULE_1_xss___default()(data.title),
+                  desc: __WEBPACK_IMPORTED_MODULE_1_xss___default()(data.desc),
+                  cover: __WEBPACK_IMPORTED_MODULE_1_xss___default()(data.cover),
+                  pubdate: __WEBPACK_IMPORTED_MODULE_1_xss___default()(data.pubdate),
+                  content: __WEBPACK_IMPORTED_MODULE_1_xss___default()(data.content),
+                  type: __WEBPACK_IMPORTED_MODULE_1_xss___default()(data.type),
+                  status: __WEBPACK_IMPORTED_MODULE_1_xss___default()(data.status),
+                  openness: __WEBPACK_IMPORTED_MODULE_1_xss___default()(data.openness),
+                  password: __WEBPACK_IMPORTED_MODULE_1_xss___default()(data.password),
+                  isTop: Boolean(data.isTop),
+                  tags: data.tags,
+                  author: '5b72ff427b1fd01b980e0f84'
+                  // to test
+                  // likeList: data.likeList
+                };
+
+                _context3.prev = 4;
+                _context3.next = 7;
+                return Article.create(data);
+
+              case 7:
+                data = _context3.sent;
+
+                ctx.body = {
+                  data: data,
+                  success: true
+                };
+                _context3.next = 14;
+                break;
+
+              case 11:
+                _context3.prev = 11;
+                _context3.t0 = _context3['catch'](4);
+
+                ctx.body = {
+                  err: _context3.t0,
+                  success: false
+                };
+
+              case 14:
+              case 'end':
+                return _context3.stop();
+            }
+          }
+        }, _callee3, this, [[4, 11]]);
+      }));
+
+      function post(_x3) {
+        return _ref3.apply(this, arguments);
+      }
+
+      return post;
+    }()
+  }, {
+    key: 'put',
+    value: function () {
+      var _ref4 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.mark(function _callee4(ctx) {
+        var data;
+        return __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                data = ctx.request.body;
+                // TODO: 修正业务逻辑-根据不同角色用户改变status
+
+                // 默认提交则自动审核
+
+                if (data.status === 1) {
+                  data.status = 9;
+                }
+
+                data = {
+                  _id: __WEBPACK_IMPORTED_MODULE_1_xss___default()(data._id),
+                  title: __WEBPACK_IMPORTED_MODULE_1_xss___default()(data.title),
+                  desc: __WEBPACK_IMPORTED_MODULE_1_xss___default()(data.desc),
+                  cover: __WEBPACK_IMPORTED_MODULE_1_xss___default()(data.cover),
+                  pubdate: __WEBPACK_IMPORTED_MODULE_1_xss___default()(data.pubdate),
+                  content: __WEBPACK_IMPORTED_MODULE_1_xss___default()(data.content),
+                  type: __WEBPACK_IMPORTED_MODULE_1_xss___default()(data.type),
+                  status: __WEBPACK_IMPORTED_MODULE_1_xss___default()(data.status),
+                  openness: __WEBPACK_IMPORTED_MODULE_1_xss___default()(data.openness),
+                  password: __WEBPACK_IMPORTED_MODULE_1_xss___default()(data.password),
+                  isTop: Boolean(data.isTop),
+                  tags: data.tags
+                };
+
+                _context4.prev = 3;
+                _context4.next = 6;
+                return Article.update(data);
+
+              case 6:
+                data = _context4.sent;
+
+                ctx.body = {
+                  data: data,
+                  success: true
+                };
+                _context4.next = 13;
+                break;
+
+              case 10:
+                _context4.prev = 10;
+                _context4.t0 = _context4['catch'](3);
+
+                ctx.body = {
+                  error: _context4.t0,
+                  success: false
+                };
+
+              case 13:
+              case 'end':
+                return _context4.stop();
+            }
+          }
+        }, _callee4, this, [[3, 10]]);
+      }));
+
+      function put(_x4) {
+        return _ref4.apply(this, arguments);
+      }
+
+      return put;
+    }()
+  }]);
+
+  return articleController;
+}(), (_applyDecoratedDescriptor(_class2.prototype, 'get', [_dec2], Object.getOwnPropertyDescriptor(_class2.prototype, 'get'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'detail', [_dec3], Object.getOwnPropertyDescriptor(_class2.prototype, 'detail'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'post', [_dec4], Object.getOwnPropertyDescriptor(_class2.prototype, 'post'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'put', [_dec5], Object.getOwnPropertyDescriptor(_class2.prototype, 'put'), _class2.prototype)), _class2)) || _class);
+
+/***/ }),
+/* 54 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "articleController", function() { return articleController; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_xss__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_xss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_xss__);
 
 
@@ -3155,7 +3453,7 @@ function _applyDecoratedDescriptor(target, property, decorators, descriptor, con
 
 
 
-var _require = __webpack_require__(7),
+var _require = __webpack_require__(5),
     Model = _require.articleTag;
 
 var _require2 = __webpack_require__(2),
@@ -3264,7 +3562,7 @@ var articleController = (_dec = controller('/api/articleTag'), _dec2 = get('/'),
 }(), (_applyDecoratedDescriptor(_class2.prototype, 'get', [_dec2], Object.getOwnPropertyDescriptor(_class2.prototype, 'get'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'post', [_dec3], Object.getOwnPropertyDescriptor(_class2.prototype, 'post'), _class2.prototype)), _class2)) || _class);
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3272,7 +3570,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "articleController", function() { return articleController; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_xss__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_xss__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_xss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_xss__);
 
 
@@ -3315,7 +3613,7 @@ function _applyDecoratedDescriptor(target, property, decorators, descriptor, con
 
 
 
-var _require = __webpack_require__(7),
+var _require = __webpack_require__(5),
     Model = _require.articleType;
 
 var _require2 = __webpack_require__(2),
@@ -3427,7 +3725,7 @@ var articleController = (_dec = controller('/api/articleType'), _dec2 = get('/')
 }(), (_applyDecoratedDescriptor(_class2.prototype, 'get', [_dec2], Object.getOwnPropertyDescriptor(_class2.prototype, 'get'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'post', [_dec3], Object.getOwnPropertyDescriptor(_class2.prototype, 'post'), _class2.prototype)), _class2)) || _class);
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3435,7 +3733,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "QiniuController", function() { return QiniuController; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__lib_qiniu__ = __webpack_require__(56);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__lib_qiniu__ = __webpack_require__(57);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__lib_decorator__ = __webpack_require__(2);
 
 
@@ -3525,7 +3823,7 @@ var QiniuController = (_dec = Object(__WEBPACK_IMPORTED_MODULE_2__lib_decorator_
 }(), (_applyDecoratedDescriptor(_class2.prototype, 'qiniuToken', [_dec2], Object.getOwnPropertyDescriptor(_class2.prototype, 'qiniuToken'), _class2.prototype)), _class2)) || _class);
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3533,10 +3831,10 @@ var QiniuController = (_dec = Object(__WEBPACK_IMPORTED_MODULE_2__lib_decorator_
 /* unused harmony export fetchImage */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_qiniu__ = __webpack_require__(57);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_qiniu__ = __webpack_require__(58);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_qiniu___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_qiniu__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__config__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_shelljs__ = __webpack_require__(58);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__config__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_shelljs__ = __webpack_require__(59);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_shelljs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_shelljs__);
 
 
@@ -3608,19 +3906,19 @@ var fetchImage = function () {
 }();
 
 /***/ }),
-/* 57 */
+/* 58 */
 /***/ (function(module, exports) {
 
 module.exports = require("qiniu");
 
 /***/ }),
-/* 58 */
+/* 59 */
 /***/ (function(module, exports) {
 
 module.exports = require("shelljs");
 
 /***/ }),
-/* 59 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = {
@@ -3664,178 +3962,6 @@ module.exports = {
     }
   }
 };
-
-/***/ }),
-/* 60 */,
-/* 61 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "articleHandlerController", function() { return articleHandlerController; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_xss__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_xss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_xss__);
-
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _dec, _dec2, _dec3, _class, _desc, _value, _class2;
-
-function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) {
-  var desc = {};
-  Object['ke' + 'ys'](descriptor).forEach(function (key) {
-    desc[key] = descriptor[key];
-  });
-  desc.enumerable = !!desc.enumerable;
-  desc.configurable = !!desc.configurable;
-
-  if ('value' in desc || desc.initializer) {
-    desc.writable = true;
-  }
-
-  desc = decorators.slice().reverse().reduce(function (desc, decorator) {
-    return decorator(target, property, desc) || desc;
-  }, desc);
-
-  if (context && desc.initializer !== void 0) {
-    desc.value = desc.initializer ? desc.initializer.call(context) : void 0;
-    desc.initializer = undefined;
-  }
-
-  if (desc.initializer === void 0) {
-    Object['define' + 'Property'](target, property, desc);
-    desc = null;
-  }
-
-  return desc;
-}
-
-
-
-var _require = __webpack_require__(7),
-    Article = _require.article;
-
-var _require2 = __webpack_require__(2),
-    controller = _require2.controller,
-    get = _require2.get,
-    del = _require2.del,
-    put = _require2.put,
-    post = _require2.post,
-    required = _require2.required;
-
-var articleHandlerController = (_dec = controller('/api/articleHandler'), _dec2 = post('/like'), _dec3 = post('/comment'), _dec(_class = (_class2 = function () {
-  function articleHandlerController() {
-    _classCallCheck(this, articleHandlerController);
-  }
-
-  _createClass(articleHandlerController, [{
-    key: 'postLike',
-    value: function () {
-      var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.mark(function _callee(ctx) {
-        var params, data;
-        return __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                // must contain: _id, username, userid
-                params = ctx.request.body;
-                _context.prev = 1;
-                _context.next = 4;
-                return Article.addLiker(params);
-
-              case 4:
-                data = _context.sent;
-
-
-                ctx.body = {
-                  data: data,
-                  success: true
-                };
-                _context.next = 11;
-                break;
-
-              case 8:
-                _context.prev = 8;
-                _context.t0 = _context['catch'](1);
-
-                ctx.body = {
-                  error: _context.t0,
-                  success: false
-                };
-
-              case 11:
-              case 'end':
-                return _context.stop();
-            }
-          }
-        }, _callee, this, [[1, 8]]);
-      }));
-
-      function postLike(_x) {
-        return _ref.apply(this, arguments);
-      }
-
-      return postLike;
-    }()
-  }, {
-    key: 'postLike',
-    value: function () {
-      var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.mark(function _callee2(ctx) {
-        var params, data;
-        return __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                // must contain: _id, username, userid, avatar, content
-                params = ctx.request.body;
-                _context2.prev = 1;
-                _context2.next = 4;
-                return Article.addComment(params);
-
-              case 4:
-                data = _context2.sent;
-
-
-                ctx.body = {
-                  data: data,
-                  success: true
-                };
-                _context2.next = 11;
-                break;
-
-              case 8:
-                _context2.prev = 8;
-                _context2.t0 = _context2['catch'](1);
-
-                ctx.body = {
-                  error: _context2.t0,
-                  success: false
-                };
-
-              case 11:
-              case 'end':
-                return _context2.stop();
-            }
-          }
-        }, _callee2, this, [[1, 8]]);
-      }));
-
-      function postLike(_x2) {
-        return _ref2.apply(this, arguments);
-      }
-
-      return postLike;
-    }()
-  }]);
-
-  return articleHandlerController;
-}(), (_applyDecoratedDescriptor(_class2.prototype, 'postLike', [_dec2], Object.getOwnPropertyDescriptor(_class2.prototype, 'postLike'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'postLike', [_dec3], Object.getOwnPropertyDescriptor(_class2.prototype, 'postLike'), _class2.prototype)), _class2)) || _class);
 
 /***/ })
 /******/ ]);

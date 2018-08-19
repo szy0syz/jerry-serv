@@ -64,8 +64,29 @@ export async function remove(_id) {
 
 export async function addLiker({_id, username, userid}) {
   let entity = await Article.findOne({ _id }, { __v: 0 }).exec()
+
   // 数据服务层不管业务逻辑，业务逻辑交给控制器层
   entity.likeList.push({username, userid})
+  entity = await entity.save()
+
+  return entity
+}
+
+export async function subLiker({_id, username, userid}) {
+  let entity = await Article.findOne({ _id }, { __v: 0 }).exec()
+  // 需要取消点赞的subdocument的_id
+  let targetId = null
+
+  // 遍历subdocument 找到目标id
+  entity.likeList.some(i => {
+    const result = i.username === username || i.userid === userid
+    if(result) {
+      targetId = i._id
+    }
+    return result
+  })
+  // remove subDocument
+  await entity.likeList.id(targetId).remove()  // is prmoise ?
   entity = await entity.save()
 
   return entity

@@ -35,7 +35,17 @@ const ArticleSchema = new Schema({
   likeList: [
     {
       username: String,
-      userid: String
+      userid: String,
+      meta: {
+        createdAt: {
+          type: Date,
+          default: Date.now()
+        },
+        updatedAt: {
+          type: Date,
+          default: Date.now()
+        }
+      }
     }
   ],
   commentList: [
@@ -43,7 +53,17 @@ const ArticleSchema = new Schema({
       username: String,
       avatar: String,
       userid: String,
-      content: String
+      content: String,
+      meta: {
+        createdAt: {
+          type: Date,
+          default: Date.now()
+        },
+        updatedAt: {
+          type: Date,
+          default: Date.now()
+        }
+      }
     }
   ],
   clickNum: {

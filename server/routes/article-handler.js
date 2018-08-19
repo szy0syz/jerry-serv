@@ -11,10 +11,10 @@ export class articleHandlerController {
     // must contain: _id, username, userid
     let params = ctx.request.body
     try {
-      const data = await Article.addLiker(params)
+      await Article.addLiker(params)
 
       ctx.body = {
-        data,
+        msg: '点赞成功',
         success: true
       }
     } catch (error) {
@@ -22,13 +22,36 @@ export class articleHandlerController {
         error,
         success: false
       }
+      console.error(error)
+    }
+  }
+
+  @post('/unlike')
+  async postUnLike(ctx) {
+    // must contain: _id, username, userid
+    let params = ctx.request.body
+    console.log('@@进来了/api/articleHandler/unlike', params)
+    try {
+      await Article.subLiker(params)
+
+      ctx.body = {
+        msg: '取消点赞',
+        success: true
+      }
+    } catch (error) {
+      ctx.body = {
+        error,
+        success: false
+      }
+      console.error(error)
     }
   }
 
   @post('/comment')
-  async postLike(ctx) {
+  async postComment(ctx) {
     // must contain: _id, username, userid, avatar, content
     let params = ctx.request.body
+    console.log('/api/articleHandler/comment', params)
     try {
       const data = await Article.addComment(params)
 
@@ -41,6 +64,7 @@ export class articleHandlerController {
         error,
         success: false
       }
+      console.error(error)
     }
   }
 }
