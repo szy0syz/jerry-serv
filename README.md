@@ -1,5 +1,7 @@
 # jerry-serv
 
+    PC端、api接口、GraphQL的后端综合管理平台
+
 ## Tech Stack
 
 * `NodeJS`
