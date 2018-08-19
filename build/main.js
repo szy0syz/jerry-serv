@@ -1641,6 +1641,10 @@ var UserSchema = new Schema({
     type: String,
     required: true
   },
+  avatar: {
+    type: String,
+    default: 'http://cdn.jerryshi.com/picgo/20180819213615.png'
+  },
   role: {
     type: String,
     default: 'user'
