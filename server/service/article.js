@@ -9,7 +9,7 @@ export async function fetchList(page = 1, size = 20) {
     .sort({ '_id': -1 })
     .populate({ path: 'type', select: 'name' })
     .populate({ path: 'tags', select: 'name' })
-    .populate({ path: 'author', select: 'username' })
+    .populate({ path: 'author', select: '_id username avatar' })
     .exec()
 
   return data
