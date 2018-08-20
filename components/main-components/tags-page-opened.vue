@@ -65,7 +65,7 @@ export default {
     },
     closePage(event, name) {
       let pageOpenedList = this.$store.state.app.pageOpenedList
-      console.log("pageOpenedList:~~~", pageOpenedList)
+
       let lastPageObj = pageOpenedList[0]
       if (this.currentPageName === name) {
         let len = pageOpenedList.length

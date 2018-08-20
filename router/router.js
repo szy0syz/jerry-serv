@@ -126,20 +126,6 @@ export const appRouter = [
     ]
   },
   {
-    path: '/tables',
-    icon: 'ios-grid-view',
-    title: '表格',
-    name: 'tables',
-    children: [
-      {
-        path: '/tables/editable-table',
-        title: '可编辑表格',
-        icon: 'edit',
-        name: 'tables-editable-table'
-      }
-    ]
-  },
-  {
     path: '/error-page',
     icon: 'android-sad',
     title: '错误页面',
