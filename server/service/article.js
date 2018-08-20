@@ -57,9 +57,8 @@ export async function update(model) {
 }
 
 export async function remove(_id) {
-  await Article.remove({ _id })
-
-  return true
+  const res = await Article.remove({ _id: _id })
+  return res
 }
 
 export async function addLiker({_id, username, userid}) {

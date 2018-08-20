@@ -28,7 +28,7 @@ const article = {
       const res = await Service.detailArticle(_id)
 
       state.curtArticle = res.data.data
-      console.log(res.data.data)
+
       return res
     },
 
@@ -41,7 +41,15 @@ const article = {
       }
 
       return res.data.data
-    }
+    },
+
+    async deleteArticle({state}, _id) {
+      const res = await Service.deleteArticles(_id)
+
+      state.curtArticle = res.data.data
+
+      return res
+    },
   }
 }
 

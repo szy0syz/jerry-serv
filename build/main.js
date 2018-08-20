@@ -1553,7 +1553,7 @@ ArticleSchema.set('toObject', { virtuals: true });
 //   console.log(this)
 //   next()
 // })
-console.log('~~~~ArticleSchema');
+
 mongoose.model('Article', ArticleSchema);
 
 /***/ }),
@@ -1733,7 +1733,7 @@ UserSchema.methods = {
     });
   }
 };
-console.log('~~~~UserSchema');
+
 mongoose.model('User', UserSchema);
 
 /***/ }),
@@ -2397,6 +2397,7 @@ var update = function () {
 
 var remove = function () {
   var _ref6 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.mark(function _callee5(_id) {
+    var res;
     return __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee5$(_context5) {
       while (1) {
         switch (_context5.prev = _context5.next) {
@@ -2405,9 +2406,10 @@ var remove = function () {
             return Article.remove({ _id: _id });
 
           case 2:
-            return _context5.abrupt('return', true);
+            res = _context5.sent;
+            return _context5.abrupt('return', res);
 
-          case 3:
+          case 4:
           case 'end':
             return _context5.stop();
         }
@@ -2917,7 +2919,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _dec, _dec2, _dec3, _dec4, _dec5, _class, _desc, _value, _class2;
+var _dec, _dec2, _dec3, _dec4, _dec5, _dec6, _class, _desc, _value, _class2;
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
@@ -2965,7 +2967,7 @@ var _require2 = __webpack_require__(2),
     post = _require2.post,
     required = _require2.required;
 
-var articleController = (_dec = controller('/api/article'), _dec2 = get('/'), _dec3 = get('/:_id'), _dec4 = post('/'), _dec5 = put('/'), _dec(_class = (_class2 = function () {
+var articleController = (_dec = controller('/api/article'), _dec2 = get('/'), _dec3 = get('/:_id'), _dec4 = post('/'), _dec5 = put('/'), _dec6 = del('/:_id'), _dec(_class = (_class2 = function () {
   function articleController() {
     _classCallCheck(this, articleController);
   }
@@ -3191,10 +3193,47 @@ var articleController = (_dec = controller('/api/article'), _dec2 = get('/'), _d
 
       return put;
     }()
+  }, {
+    key: 'delete',
+    value: function () {
+      var _ref5 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.mark(function _callee5(ctx) {
+        var _id, data;
+
+        return __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                _id = ctx.params._id;
+                _context5.next = 3;
+                return Article.remove(_id);
+
+              case 3:
+                data = _context5.sent;
+
+
+                ctx.body = {
+                  success: true,
+                  data: data
+                };
+
+              case 5:
+              case 'end':
+                return _context5.stop();
+            }
+          }
+        }, _callee5, this);
+      }));
+
+      function _delete(_x5) {
+        return _ref5.apply(this, arguments);
+      }
+
+      return _delete;
+    }()
   }]);
 
   return articleController;
-}(), (_applyDecoratedDescriptor(_class2.prototype, 'get', [_dec2], Object.getOwnPropertyDescriptor(_class2.prototype, 'get'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'detail', [_dec3], Object.getOwnPropertyDescriptor(_class2.prototype, 'detail'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'post', [_dec4], Object.getOwnPropertyDescriptor(_class2.prototype, 'post'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'put', [_dec5], Object.getOwnPropertyDescriptor(_class2.prototype, 'put'), _class2.prototype)), _class2)) || _class);
+}(), (_applyDecoratedDescriptor(_class2.prototype, 'get', [_dec2], Object.getOwnPropertyDescriptor(_class2.prototype, 'get'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'detail', [_dec3], Object.getOwnPropertyDescriptor(_class2.prototype, 'detail'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'post', [_dec4], Object.getOwnPropertyDescriptor(_class2.prototype, 'post'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'put', [_dec5], Object.getOwnPropertyDescriptor(_class2.prototype, 'put'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'delete', [_dec6], Object.getOwnPropertyDescriptor(_class2.prototype, 'delete'), _class2.prototype)), _class2)) || _class);
 
 /***/ }),
 /* 53 */

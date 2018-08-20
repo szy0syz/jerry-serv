@@ -233,25 +233,25 @@ export default {
       }
     },
     handleRemoveRow() {
-      // if (!this.currentRow) {
-      //   this.$Message.error('请点击需要删除的行')
-      //   return void 0
-      // }
-      // this.$store.dispatch('removeProjUnit', this.currentRow._id)
-      this.$router.push({
-        name: 'article-edit',
-        query: { _id: '5b784114c861422a11899e9d' }
+      if (!this.currentRow) {
+        this.$Message.error('请点击需要删除的行')
+        return void 0
+      }
+      this.$Modal.confirm({
+        title: '确认框',
+        content: `<p>确认删除《${this.currentRow.title}》吗？</p>`,
+        onOk: () => {
+          this.$store.dispatch('deleteArticle', this.currentRow._id)
+          this.$store.dispatch('getArticles')
+        }
       })
+      // this.$store.dispatch('removeProjUnit', this.currentRow._id)
     },
     handleSearch() {
       // this.$store.dispatch('fetchProjUnit', {
       //   number: this.inpNumber,
       //   name: this.inpName
       // })
-      this.$router.push({
-        name: 'article-edit',
-        query: { _id: '5b784114c861422a11899e9d' }
-      })
     }
   },
   mounted() {

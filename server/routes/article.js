@@ -114,4 +114,15 @@ export class articleController {
       }
     }
   }
+
+  @del('/:_id')
+  async delete(ctx) {
+    const { _id } = ctx.params
+    const data = await Article.remove(_id)
+    
+    ctx.body = {
+      success: true,
+      data
+    }
+  }
 }

@@ -29,7 +29,7 @@ class ArticleService {
   }
 
   deleteArticles(_id) {
-    return axios.delete(`/api/article${_id}`)
+    return axios.delete(`/api/article/${_id}`)
   }
 }
 

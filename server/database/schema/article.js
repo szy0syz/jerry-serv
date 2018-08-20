@@ -98,5 +98,5 @@ ArticleSchema.set('toObject', { virtuals: true });
 //   console.log(this)
 //   next()
 // })
-console.log('~~~~ArticleSchema')
+
 mongoose.model('Article', ArticleSchema)
