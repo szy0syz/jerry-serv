@@ -92,7 +92,7 @@ export const appRouter = [
         name: 'extended-nav'
       },
       {
-        path: '/extended/swiper',
+        path: '/extended/extended-swiper',
         title: '首页轮播',
         icon: 'edit',
         name: 'extended-swiper'
@@ -131,12 +131,6 @@ export const appRouter = [
     title: '表格',
     name: 'tables',
     children: [
-      {
-        path: '/tables/dragable-table',
-        title: '可拖拽排序',
-        icon: 'arrow-move',
-        name: 'tables-dragable-table'
-      },
       {
         path: '/tables/editable-table',
         title: '可编辑表格',
