@@ -71,69 +71,52 @@
     height: 230px !important;
   }
 }
+
+.buttonPanel{ 
+  margin-bottom: -8px;
+  button {
+    margin-left: 10px;
+  }
+}
 </style>
 
 <template>
-    <div>
-        <Row>
-            <Col span="16">
+  <div>
+    <Row>
+      <Col span="16">
+        <Card>
+          <DragableTable v-model="tableData" :columns-list="columnsList" @on-start="handleOnstart1" @on-end="handleOnend1"></DragableTable>
+        </Card>
+      </Col>
+      <Col span="8" class="padding-left-10 height-100">
+        <Card>
+          <div class="buttonPanel" slot="extra">
+            <Button type="info">添加</Button>
+            <Button type="error">删除</Button>
+            <Button type="success">保存</Button>
+          </div>
+          <p slot="title">
+            <Icon type="clipboard"></Icon>
+            首页导航操作记录( 拖拽 )
+          </p>
+          <Row style="height: 374px;">
+            <div class="dragging-tip-con">
+              <transition name="dragging-tip">
+                <span v-show="table1.isDragging">您正在拖拽表格1单元行...</span>
+              </transition>
+            </div>
             <Card>
-                <DragableTable v-model="tableData" :columns-list="columnsList" @on-start="handleOnstart1" @on-end="handleOnend1"></DragableTable>
+              <div class="record-tip-con">
+                <div v-for="(item, index) in table1.draggingRecord" :key="index" class="record-item">
+                  拖拽第 {{ item.from }} 行表格到第 {{ item.to }} 行
+                </div>
+              </div>
             </Card>
-            </Col>
-            <Col span="8" class="padding-left-10 height-100">
-            <Card>
-                <p slot="title">
-                    <Icon type="clipboard"></Icon>
-                    表格1操作记录( 拖拽 )
-                </p>
-                <Row style="height: 374px;">
-                    <div class="dragging-tip-con">
-                        <transition name="dragging-tip">
-                            <span v-show="table1.isDragging">您正在拖拽表格1单元行...</span>
-                        </transition>
-                    </div>
-                    <Card>
-                        <div class="record-tip-con">
-                            <div v-for="(item, index) in table1.draggingRecord" :key="index" class="record-item">
-                                拖拽第 {{ item.from }} 行表格到第 {{ item.to }} 行
-                            </div>
-                        </div>
-                    </Card>
-                </Row>
-            </Card>
-            </Col>
-        </Row>
-        <Row class="margin-top-10">
-            <Col span="8" class="height-100">
-            <Card>
-                <p slot="title">
-                    <Icon type="clipboard"></Icon>
-                    表格2操作记录( 点击和拖拽 )
-                </p>
-                <Row style="height: 374px;">
-                    <div class="dragging-tip-con">
-                        <transition name="dragging-tip">
-                            <span v-show="table2.hasDragged">拖拽第 {{ table2.oldIndex + 1 }} 行表格到第 {{ table2.newIndex + 1 }} 行</span>
-                        </transition>
-                    </div>
-                    <Card>
-                        <div class="record-tip-con">
-                            <div v-for="(item, index) in table2.chooseRecord" :key="index" class="record-item">
-                                {{ item }}
-                            </div>
-                        </div>
-                    </Card>
-                </Row>
-            </Card>
-            </Col>
-            <Col span="16" class="padding-left-10">
-            <Card>
-                <DragableTable refs="table2" :columns-list="columnsList" v-model="tableData" @on-start="handleOnstart2" @on-end="handleOnend2" @on-choose="handleOnchoose2"></DragableTable>
-            </Card>
-            </Col>
-        </Row>
-    </div>
+          </Row>
+        </Card>
+      </Col>
+    </Row>
+  </div>
 </template>
 
 <script>
@@ -154,13 +137,6 @@ export default {
         oldIndex: 0,
         newIndex: 0,
         draggingRecord: []
-      },
-      table2: {
-        hasDragged: false,
-        isDragging: false,
-        oldIndex: 0,
-        newIndex: 0,
-        chooseRecord: []
       }
     }
   },
@@ -198,12 +174,29 @@ export default {
           align: 'center'
         },
         {
-          title: '待办事项',
-          key: 'todoItem'
+          title: '导航名称',
+          key: 'itemName'
         },
         {
-          title: '备注',
-          key: 'remarks'
+          title: '导航图标',
+          width: 130,
+          key: 'cover',
+          align: 'center',
+          render: (h, params) => {
+            return h('img', {
+              attrs: {
+                src: params.row.itemIco,
+              },
+              style: {
+                display: 'inline-block',
+                width: '66%'
+              },
+            })
+          }
+        },
+        {
+          title: '链接地址',
+          key: 'itemUrl'
         },
         {
           title: '拖拽',
@@ -222,37 +215,45 @@ export default {
       ]
       this.tableData = [
         {
-          todoItem: '明天去后海玩',
-          remarks: '估计得加班'
+          itemName: '产业职教',
+          itemIco: 'http://cdn.jerryshi.com/picgo/20180819213615.png',
+          itemUrl: '/list?type=111'
         },
         {
-          todoItem: '后天去和妹子看电影',
-          remarks: '可能没妹子'
+          itemName: '校企合作',
+          itemIco: 'http://cdn.jerryshi.com/picgo/20180819213615.png',
+          itemUrl: '/list?type=222'
         },
         {
-          todoItem: '大后天去吃海天盛筵',
-          remarks: '没钱就不去了'
+          itemName: '选学校',
+          itemIco: 'http://cdn.jerryshi.com/picgo/20180819213615.png',
+          itemUrl: '/list?type=333'
         },
         {
-          todoItem: '周末去看电影',
-          remarks: '估计得加班'
+          itemName: '资源干货',
+          itemIco: 'http://cdn.jerryshi.com/picgo/20180819213615.png',
+          itemUrl: '/list?type=444'
         },
         {
-          todoItem: '下个月准备回家看父母',
-          remarks: '估计得加班'
+          itemName: '校园安全',
+          itemIco: 'http://cdn.jerryshi.com/picgo/20180819213615.png',
+          itemUrl: '/list?type=555'
         },
         {
-          todoItem: '该买回家的票了',
-          remarks: '可能没票了'
+          itemName: '化育明珠',
+          itemIco: 'http://cdn.jerryshi.com/picgo/20180819213615.png',
+          itemUrl: '/list?type=666'
         },
         {
-          todoItem: '过年不回家和父母视频聊天',
-          remarks: '一定要记得'
+          itemName: '选企业',
+          itemIco: 'http://cdn.jerryshi.com/picgo/20180819213615.png',
+          itemUrl: '/list?type=777'
         },
         {
-          todoItem: '去车站接父母一起在北京过年',
-          remarks: 'love'
-        }
+          itemName: '现代课堂',
+          itemIco: 'http://cdn.jerryshi.com/picgo/20180819213615.png',
+          itemUrl: '/list?type=888'
+        },
       ]
     }
   },
