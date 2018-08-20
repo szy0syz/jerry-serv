@@ -116,5 +116,5 @@ UserSchema.methods = {
     })
   }
 }
-
+console.log('~~~~UserSchema')
 mongoose.model('User', UserSchema)

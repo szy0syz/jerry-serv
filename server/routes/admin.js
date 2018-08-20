@@ -1,4 +1,13 @@
-const { controller, get, del, post, auth, admin, required } = require('../lib/decorator')
+import { admin as adminService } from '../service'
+const {
+  controller,
+  get,
+  del,
+  post,
+  auth,
+  admin,
+  required
+} = require('../lib/decorator')
 
 @controller('/api/admin')
 export class adminController {
@@ -7,7 +16,7 @@ export class adminController {
     ctx.body = {
       ret: 200,
       msg: '获取成功',
-      data: { username: 'jerry' }
+      data: { username: 'jerry', name: 'jerry' }
     }
   }
 
@@ -17,12 +26,13 @@ export class adminController {
   })
   async login(ctx) {
     const { username, password } = ctx.request.body
-    const matchData = await checkPassword(username, password)
+    const matchData = await adminService.login(username, password)
 
     if (!matchData.user) {
       return (ctx.body = {
+        ret: 403,
         success: false,
-        err: '用户不存在'
+        msg: '用户不存在'
       })
     }
 
@@ -33,14 +43,25 @@ export class adminController {
       }
 
       return (ctx.body = {
-        success: true
+        success: true,
+        ret: 200,
+        msg: '请求成功',
+        data: {
+          code: 0,
+          message: '登录成功',
+          token: '3232893283928392',
+          info: {
+            name: username,
+            mobile: '13988889999'
+          }
+        }
       })
     }
 
     ctx.body = {
+      ret: 403,
       success: false,
-      err: '用户名或密码不正确'
+      msg: '用户名或密码不正确'
     }
   }
-
 }

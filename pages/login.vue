@@ -76,11 +76,12 @@ export default {
             closable: true
           })
         } else {
-          let _mobile = this.formData.user
-          let _psd = md5(this.formData.password)
-          let req = await axios.post('/api/login', {
-            mobile: _mobile,
-            psd: _psd
+          let _usr = this.formData.user
+          // let _psd = md5(this.formData.password)
+          let _psd = this.formData.password  // TODO: 后期密码策略优化
+          let req = await axios.post('/api/admin/login', {
+            username: _usr,
+            password: _psd
           })
 
           // 网络异常

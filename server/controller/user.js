@@ -1,7 +1,7 @@
+// import { admin } from '../service'
 import axios from 'axios'
 import config from '../config'
 import MockAdapter from 'axios-mock-adapter'
-
 var mock = new MockAdapter(axios)
 mock.onPost(config.base_url + '/api/v1.user/login').reply(function (config) {
   // console.log(JSON.parse(config.data).mobile)
@@ -21,8 +21,8 @@ export const userinfo = async (ctx, next) => {
 }
 
 export const login = async (ctx, next) => {
-  const { mobile, psd } = ctx.request.body
-  if (!mobile || !psd) {
+  const { username, password} = ctx.request.body
+  if (!username || !password) {
     return (ctx.body = {
       ret: 303,
       msg: '缺少请求参数',
@@ -30,67 +30,80 @@ export const login = async (ctx, next) => {
     })
   }
 
-  // 发起请求
-  let _url = config.base_url + '/api/v1.user/login'
-  let req = await axios.post(_url, {
-    mobile: mobile,
-    psd: psd,
-    sign: ''
-  })
-  // 网络异常
-  if (req.status !== 200) {
-    return (ctx.body = {
-      ret: 400,
-      msg: '网络通讯异常',
-      data: {}
-    })
-  }
-  // 系统异常
-  if (req.data.ret !== 200) {
-    let ret = req.data.ret || 400
-    let msg = req.data.msg || '失败'
-    return (ctx.body = {
-      ret: ret,
-      msg: msg,
-      data: {}
-    })
-  }
+  // // 发起请求
+  // let _url = config.base_url + '/api/v1.user/login'
+  // let req = await axios.post(_url, {
+  //   mobile: mobile,
+  //   psd: psd,
+  //   sign: ''
+  // })
+  // // 网络异常
+  // if (req.status !== 200) {
+  //   return (ctx.body = {
+  //     ret: 400,
+  //     msg: '网络通讯异常',
+  //     data: {}
+  //   })
+  // }
+  // // 系统异常
+  // if (req.data.ret !== 200) {
+  //   let ret = req.data.ret || 400
+  //   let msg = req.data.msg || '失败'
+  //   return (ctx.body = {
+  //     ret: ret,
+  //     msg: msg,
+  //     data: {}
+  //   })
+  // }
 
-  // 登陆失败
-  if (req.data.data.code !== 0) {
-    let code = req.data.data.code || -1
-    let message = req.data.data.message || '登录失败'
-    return (ctx.body = {
-      ret: 200,
-      msg: '请求成功',
-      data: {
-        code: code,
-        message: message
-      }
-    })
-  }
+  // // 登陆失败
+  // if (req.data.data.code !== 0) {
+  //   let code = req.data.data.code || -1
+  //   let message = req.data.data.message || '登录失败'
+  //   return (ctx.body = {
+  //     ret: 200,
+  //     msg: '请求成功',
+  //     data: {
+  //       code: code,
+  //       message: message
+  //     }
+  //   })
+  // }
 
   // 登陆成功
-  let token = req.data.data.token
-  let signkey = config.sign_key
+  // let token = req.data.data.token
+  // let signkey = config.sign_key
 
-  let info = {
-    id: req.data.data.id,
-    mobile: req.data.data.mobile,
-    name: req.data.data.name,
-    sex: req.data.data.sex,
-    status: req.data.data.status,
-    role_id: req.data.data.role_id,
-    depart_id: req.data.data.depart_id,
-    deader_id: req.data.data.deader_id
-  }
+  // let info = {
+  //   id: req.data.data.id,
+  //   mobile: req.data.data.mobile,
+  //   name: req.data.data.name,
+  //   sex: req.data.data.sex,
+  //   status: req.data.data.status,
+  //   role_id: req.data.data.role_id,
+  //   depart_id: req.data.data.depart_id,
+  //   deader_id: req.data.data.deader_id
+  // }
 
-  let session = ctx.session
+  // let session = ctx.session
+  // session.user = {
+  //   token: token,
+  //   sign_key: signkey,
+  //   info: info
+  // }
+
+  // const isValid = await admin.login(username, password)
+  console.log('isValid, username, password', isValid, username, password)
+  
+  let session = {}, token = 'PhU0Sd9zwUSwOQgXnJpj7pgSwdA7YD80'
   session.user = {
-    token: token,
-    sign_key: signkey,
-    info: info
+    token,
+    username,
+    name: username,
+    mobile: username,
+    id: '444'
   }
+
   ctx.session = session
 
   return (ctx.body = {
@@ -99,8 +112,7 @@ export const login = async (ctx, next) => {
     data: {
       code: 0,
       message: '登录成功',
-      token: token,
-      info: info
+      token
     }
   })
 }

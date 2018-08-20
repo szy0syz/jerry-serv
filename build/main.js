@@ -111,7 +111,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Router = __webpack_require__(3);
+var Router = __webpack_require__(4);
 
 var _require = __webpack_require__(7),
     resolve = _require.resolve;
@@ -419,26 +419,14 @@ var required = function required(rules) {
 
 /***/ }),
 /* 3 */
-/***/ (function(module, exports) {
-
-module.exports = require("koa-router");
-
-/***/ }),
-/* 4 */
-/***/ (function(module, exports) {
-
-module.exports = require("xss");
-
-/***/ }),
-/* 5 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__admin__ = __webpack_require__(49);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__article__ = __webpack_require__(50);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__articleTag__ = __webpack_require__(51);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__articleType__ = __webpack_require__(52);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__admin__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__article__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__articleTag__ = __webpack_require__(50);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__articleType__ = __webpack_require__(51);
 /* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "admin", function() { return __WEBPACK_IMPORTED_MODULE_0__admin__; });
 /* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "article", function() { return __WEBPACK_IMPORTED_MODULE_1__article__; });
 /* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "articleTag", function() { return __WEBPACK_IMPORTED_MODULE_2__articleTag__; });
@@ -449,6 +437,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports) {
+
+module.exports = require("koa-router");
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports) {
+
+module.exports = require("xss");
 
 /***/ }),
 /* 6 */
@@ -501,7 +501,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_koa___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_koa__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_nuxt__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_nuxt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_nuxt__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_koa_router__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_koa_router__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_koa_router___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_koa_router__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__routers__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_ramda__ = __webpack_require__(9);
@@ -687,7 +687,7 @@ module.exports = require("nuxt");
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa_router__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa_router__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa_router___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_koa_router__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__controller_user__ = __webpack_require__(15);
 
@@ -726,7 +726,7 @@ var _this = this;
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
-
+// import { admin } from '../service'
 
 
 
@@ -765,15 +765,15 @@ var userinfo = function () {
 
 var login = function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.mark(function _callee2(ctx, next) {
-    var _ctx$request$body, mobile, psd, _url, req, ret, msg, code, message, token, signkey, info, session;
+    var _ctx$request$body, username, password, session, token;
 
     return __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            _ctx$request$body = ctx.request.body, mobile = _ctx$request$body.mobile, psd = _ctx$request$body.psd;
+            _ctx$request$body = ctx.request.body, username = _ctx$request$body.username, password = _ctx$request$body.password;
 
-            if (!(!mobile || !psd)) {
+            if (!(!username || !password)) {
               _context2.next = 3;
               break;
             }
@@ -786,82 +786,81 @@ var login = function () {
 
           case 3:
 
-            // 发起请求
-            _url = __WEBPACK_IMPORTED_MODULE_2__config__["a" /* default */].base_url + '/api/v1.user/login';
-            _context2.next = 6;
-            return __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post(_url, {
-              mobile: mobile,
-              psd: psd,
-              sign: ''
-            });
+            // // 发起请求
+            // let _url = config.base_url + '/api/v1.user/login'
+            // let req = await axios.post(_url, {
+            //   mobile: mobile,
+            //   psd: psd,
+            //   sign: ''
+            // })
+            // // 网络异常
+            // if (req.status !== 200) {
+            //   return (ctx.body = {
+            //     ret: 400,
+            //     msg: '网络通讯异常',
+            //     data: {}
+            //   })
+            // }
+            // // 系统异常
+            // if (req.data.ret !== 200) {
+            //   let ret = req.data.ret || 400
+            //   let msg = req.data.msg || '失败'
+            //   return (ctx.body = {
+            //     ret: ret,
+            //     msg: msg,
+            //     data: {}
+            //   })
+            // }
 
-          case 6:
-            req = _context2.sent;
-
-            if (!(req.status !== 200)) {
-              _context2.next = 9;
-              break;
-            }
-
-            return _context2.abrupt('return', ctx.body = {
-              ret: 400,
-              msg: '网络通讯异常',
-              data: {}
-            });
-
-          case 9:
-            if (!(req.data.ret !== 200)) {
-              _context2.next = 13;
-              break;
-            }
-
-            ret = req.data.ret || 400;
-            msg = req.data.msg || '失败';
-            return _context2.abrupt('return', ctx.body = {
-              ret: ret,
-              msg: msg,
-              data: {}
-            });
-
-          case 13:
-            if (!(req.data.data.code !== 0)) {
-              _context2.next = 17;
-              break;
-            }
-
-            code = req.data.data.code || -1;
-            message = req.data.data.message || '登录失败';
-            return _context2.abrupt('return', ctx.body = {
-              ret: 200,
-              msg: '请求成功',
-              data: {
-                code: code,
-                message: message
-              }
-            });
-
-          case 17:
+            // // 登陆失败
+            // if (req.data.data.code !== 0) {
+            //   let code = req.data.data.code || -1
+            //   let message = req.data.data.message || '登录失败'
+            //   return (ctx.body = {
+            //     ret: 200,
+            //     msg: '请求成功',
+            //     data: {
+            //       code: code,
+            //       message: message
+            //     }
+            //   })
+            // }
 
             // 登陆成功
-            token = req.data.data.token;
-            signkey = __WEBPACK_IMPORTED_MODULE_2__config__["a" /* default */].sign_key;
-            info = {
-              id: req.data.data.id,
-              mobile: req.data.data.mobile,
-              name: req.data.data.name,
-              sex: req.data.data.sex,
-              status: req.data.data.status,
-              role_id: req.data.data.role_id,
-              depart_id: req.data.data.depart_id,
-              deader_id: req.data.data.deader_id
-            };
-            session = ctx.session;
+            // let token = req.data.data.token
+            // let signkey = config.sign_key
+
+            // let info = {
+            //   id: req.data.data.id,
+            //   mobile: req.data.data.mobile,
+            //   name: req.data.data.name,
+            //   sex: req.data.data.sex,
+            //   status: req.data.data.status,
+            //   role_id: req.data.data.role_id,
+            //   depart_id: req.data.data.depart_id,
+            //   deader_id: req.data.data.deader_id
+            // }
+
+            // let session = ctx.session
+            // session.user = {
+            //   token: token,
+            //   sign_key: signkey,
+            //   info: info
+            // }
+
+            // const isValid = await admin.login(username, password)
+            console.log('isValid, username, password', isValid, username, password);
+
+            session = {}, token = 'PhU0Sd9zwUSwOQgXnJpj7pgSwdA7YD80';
 
             session.user = {
               token: token,
-              sign_key: signkey,
-              info: info
+              username: username,
+              name: username,
+              mobile: username,
+              id: '444'
             };
+
             ctx.session = session;
 
             return _context2.abrupt('return', ctx.body = {
@@ -870,12 +869,11 @@ var login = function () {
               data: {
                 code: 0,
                 message: '登录成功',
-                token: token,
-                info: info
+                token: token
               }
             });
 
-          case 24:
+          case 8:
           case 'end':
             return _context2.stop();
         }
@@ -973,7 +971,7 @@ module.exports = {"db":"mongodb://localhost:27017/jerryServ","SITE_ROOT_URL":"ht
 /* 19 */
 /***/ (function(module, exports) {
 
-module.exports = {"db":"mongodb://localhost:27017/jerryServ","SITE_ROOT_URL":"http://jj.jerryshi.com","qiniu":{"AK":"OiUlP0RxLh1eN318uvFvX4AyHeRfAGOiPmnNwdGx","SK":"Meii5goUxxczCkctM3vM3dgdQTU5r7YwOzHeIocE","bucket":"myblog","qiniuURL":"http://cdn.jerryshi.com/","config":{"useCdnDomain":true}}}
+module.exports = {"db":"mongodb://localhost:27017/jerryServ","SITE_ROOT_URL":"http://jj.jerryshi.com","qiniu":{"AK":"","SK":"","bucket":"","qiniuURL":"","config":{"useCdnDomain":true}}}
 
 /***/ }),
 /* 20 */
@@ -1555,7 +1553,7 @@ ArticleSchema.set('toObject', { virtuals: true });
 //   console.log(this)
 //   next()
 // })
-
+console.log('~~~~ArticleSchema');
 mongoose.model('Article', ArticleSchema);
 
 /***/ }),
@@ -1735,7 +1733,7 @@ UserSchema.methods = {
     });
   }
 };
-
+console.log('~~~~UserSchema');
 mongoose.model('User', UserSchema);
 
 /***/ }),
@@ -1761,7 +1759,7 @@ var addRestful = function addRestful(app) {
 /* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Router = __webpack_require__(3);
+var Router = __webpack_require__(4);
 var rest = __webpack_require__(44);
 
 var router = new Router({ prefix: '/autoapi' });
@@ -1965,8 +1963,8 @@ var router = function router(app) {
 
 var map = {
 	"./admin.js": 47,
-	"./article.js": 53,
-	"./articleHandler.js": 62,
+	"./article.js": 52,
+	"./articleHandler.js": 53,
 	"./articleTag.js": 54,
 	"./articleType.js": 55,
 	"./qiniu.js": 56
@@ -1996,6 +1994,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "adminController", function() { return adminController; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__service__ = __webpack_require__(3);
 
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -2035,6 +2034,8 @@ function _applyDecoratedDescriptor(target, property, decorators, descriptor, con
   return desc;
 }
 
+
+
 var _require = __webpack_require__(2),
     controller = _require.controller,
     get = _require.get,
@@ -2062,7 +2063,7 @@ var adminController = (_dec = controller('/api/admin'), _dec2 = get('/user'), _d
                 ctx.body = {
                   ret: 200,
                   msg: '获取成功',
-                  data: { username: 'jerry' }
+                  data: { username: 'jerry', name: 'jerry' }
                 };
 
               case 1:
@@ -2091,7 +2092,7 @@ var adminController = (_dec = controller('/api/admin'), _dec2 = get('/user'), _d
               case 0:
                 _ctx$request$body = ctx.request.body, username = _ctx$request$body.username, password = _ctx$request$body.password;
                 _context2.next = 3;
-                return checkPassword(username, password);
+                return __WEBPACK_IMPORTED_MODULE_1__service__["admin"].login(username, password);
 
               case 3:
                 matchData = _context2.sent;
@@ -2102,8 +2103,9 @@ var adminController = (_dec = controller('/api/admin'), _dec2 = get('/user'), _d
                 }
 
                 return _context2.abrupt('return', ctx.body = {
+                  ret: 403,
                   success: false,
-                  err: '用户不存在'
+                  msg: '用户不存在'
                 });
 
               case 6:
@@ -2118,14 +2120,26 @@ var adminController = (_dec = controller('/api/admin'), _dec2 = get('/user'), _d
                 };
 
                 return _context2.abrupt('return', ctx.body = {
-                  success: true
+                  success: true,
+                  ret: 200,
+                  msg: '请求成功',
+                  data: {
+                    code: 0,
+                    message: '登录成功',
+                    token: '3232893283928392',
+                    info: {
+                      name: username,
+                      mobile: '13988889999'
+                    }
+                  }
                 });
 
               case 9:
 
                 ctx.body = {
+                  ret: 403,
                   success: false,
-                  err: '用户名或密码不正确'
+                  msg: '用户名或密码不正确'
                 };
 
               case 10:
@@ -2148,8 +2162,7 @@ var adminController = (_dec = controller('/api/admin'), _dec2 = get('/user'), _d
 }(), (_applyDecoratedDescriptor(_class2.prototype, 'getUser', [_dec2], Object.getOwnPropertyDescriptor(_class2.prototype, 'getUser'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'login', [_dec3, _dec4], Object.getOwnPropertyDescriptor(_class2.prototype, 'login'), _class2.prototype)), _class2)) || _class);
 
 /***/ }),
-/* 48 */,
-/* 49 */
+/* 48 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2211,7 +2224,7 @@ var login = function () {
 }();
 
 /***/ }),
-/* 50 */
+/* 49 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2540,7 +2553,7 @@ var addComment = function () {
 }();
 
 /***/ }),
-/* 51 */
+/* 50 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2715,7 +2728,7 @@ var remove = function () {
 }();
 
 /***/ }),
-/* 52 */
+/* 51 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2890,7 +2903,7 @@ var remove = function () {
 }();
 
 /***/ }),
-/* 53 */
+/* 52 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2898,7 +2911,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "articleController", function() { return articleController; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_xss__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_xss__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_xss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_xss__);
 
 
@@ -2941,7 +2954,7 @@ function _applyDecoratedDescriptor(target, property, decorators, descriptor, con
 
 
 
-var _require = __webpack_require__(5),
+var _require = __webpack_require__(3),
     Article = _require.article;
 
 var _require2 = __webpack_require__(2),
@@ -3184,6 +3197,225 @@ var articleController = (_dec = controller('/api/article'), _dec2 = get('/'), _d
 }(), (_applyDecoratedDescriptor(_class2.prototype, 'get', [_dec2], Object.getOwnPropertyDescriptor(_class2.prototype, 'get'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'detail', [_dec3], Object.getOwnPropertyDescriptor(_class2.prototype, 'detail'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'post', [_dec4], Object.getOwnPropertyDescriptor(_class2.prototype, 'post'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'put', [_dec5], Object.getOwnPropertyDescriptor(_class2.prototype, 'put'), _class2.prototype)), _class2)) || _class);
 
 /***/ }),
+/* 53 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "articleHandlerController", function() { return articleHandlerController; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_xss__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_xss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_xss__);
+
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _dec, _dec2, _dec3, _dec4, _class, _desc, _value, _class2;
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) {
+  var desc = {};
+  Object['ke' + 'ys'](descriptor).forEach(function (key) {
+    desc[key] = descriptor[key];
+  });
+  desc.enumerable = !!desc.enumerable;
+  desc.configurable = !!desc.configurable;
+
+  if ('value' in desc || desc.initializer) {
+    desc.writable = true;
+  }
+
+  desc = decorators.slice().reverse().reduce(function (desc, decorator) {
+    return decorator(target, property, desc) || desc;
+  }, desc);
+
+  if (context && desc.initializer !== void 0) {
+    desc.value = desc.initializer ? desc.initializer.call(context) : void 0;
+    desc.initializer = undefined;
+  }
+
+  if (desc.initializer === void 0) {
+    Object['define' + 'Property'](target, property, desc);
+    desc = null;
+  }
+
+  return desc;
+}
+
+
+
+var _require = __webpack_require__(3),
+    Article = _require.article;
+
+var _require2 = __webpack_require__(2),
+    controller = _require2.controller,
+    get = _require2.get,
+    del = _require2.del,
+    put = _require2.put,
+    post = _require2.post,
+    required = _require2.required;
+
+var articleHandlerController = (_dec = controller('/api/articleHandler'), _dec2 = post('/like'), _dec3 = post('/unlike'), _dec4 = post('/comment'), _dec(_class = (_class2 = function () {
+  function articleHandlerController() {
+    _classCallCheck(this, articleHandlerController);
+  }
+
+  _createClass(articleHandlerController, [{
+    key: 'postLike',
+    value: function () {
+      var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.mark(function _callee(ctx) {
+        var params;
+        return __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                // must contain: _id, username, userid
+                params = ctx.request.body;
+                _context.prev = 1;
+                _context.next = 4;
+                return Article.addLiker(params);
+
+              case 4:
+
+                ctx.body = {
+                  msg: '点赞成功',
+                  success: true
+                };
+                _context.next = 11;
+                break;
+
+              case 7:
+                _context.prev = 7;
+                _context.t0 = _context['catch'](1);
+
+                ctx.body = {
+                  error: _context.t0,
+                  success: false
+                };
+                console.error(_context.t0);
+
+              case 11:
+              case 'end':
+                return _context.stop();
+            }
+          }
+        }, _callee, this, [[1, 7]]);
+      }));
+
+      function postLike(_x) {
+        return _ref.apply(this, arguments);
+      }
+
+      return postLike;
+    }()
+  }, {
+    key: 'postUnLike',
+    value: function () {
+      var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.mark(function _callee2(ctx) {
+        var params;
+        return __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                // must contain: _id, username, userid
+                params = ctx.request.body;
+                _context2.prev = 1;
+                _context2.next = 4;
+                return Article.subLiker(params);
+
+              case 4:
+
+                ctx.body = {
+                  msg: '取消点赞',
+                  success: true
+                };
+                _context2.next = 11;
+                break;
+
+              case 7:
+                _context2.prev = 7;
+                _context2.t0 = _context2['catch'](1);
+
+                ctx.body = {
+                  error: _context2.t0,
+                  success: false
+                };
+                console.error(_context2.t0);
+
+              case 11:
+              case 'end':
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this, [[1, 7]]);
+      }));
+
+      function postUnLike(_x2) {
+        return _ref2.apply(this, arguments);
+      }
+
+      return postUnLike;
+    }()
+  }, {
+    key: 'postComment',
+    value: function () {
+      var _ref3 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.mark(function _callee3(ctx) {
+        var params, data;
+        return __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                // must contain: _id, username, userid, avatar, content
+                params = ctx.request.body;
+                _context3.prev = 1;
+                _context3.next = 4;
+                return Article.addComment(params);
+
+              case 4:
+                data = _context3.sent;
+
+
+                ctx.body = {
+                  msg: '评论成功',
+                  success: true
+                };
+                _context3.next = 12;
+                break;
+
+              case 8:
+                _context3.prev = 8;
+                _context3.t0 = _context3['catch'](1);
+
+                ctx.body = {
+                  error: _context3.t0,
+                  success: false
+                };
+                console.error(_context3.t0);
+
+              case 12:
+              case 'end':
+                return _context3.stop();
+            }
+          }
+        }, _callee3, this, [[1, 8]]);
+      }));
+
+      function postComment(_x3) {
+        return _ref3.apply(this, arguments);
+      }
+
+      return postComment;
+    }()
+  }]);
+
+  return articleHandlerController;
+}(), (_applyDecoratedDescriptor(_class2.prototype, 'postLike', [_dec2], Object.getOwnPropertyDescriptor(_class2.prototype, 'postLike'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'postUnLike', [_dec3], Object.getOwnPropertyDescriptor(_class2.prototype, 'postUnLike'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'postComment', [_dec4], Object.getOwnPropertyDescriptor(_class2.prototype, 'postComment'), _class2.prototype)), _class2)) || _class);
+
+/***/ }),
 /* 54 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -3192,7 +3424,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "articleController", function() { return articleController; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_xss__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_xss__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_xss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_xss__);
 
 
@@ -3235,7 +3467,7 @@ function _applyDecoratedDescriptor(target, property, decorators, descriptor, con
 
 
 
-var _require = __webpack_require__(5),
+var _require = __webpack_require__(3),
     Model = _require.articleTag;
 
 var _require2 = __webpack_require__(2),
@@ -3352,7 +3584,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "articleController", function() { return articleController; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_xss__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_xss__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_xss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_xss__);
 
 
@@ -3395,7 +3627,7 @@ function _applyDecoratedDescriptor(target, property, decorators, descriptor, con
 
 
 
-var _require = __webpack_require__(5),
+var _require = __webpack_require__(3),
     Model = _require.articleType;
 
 var _require2 = __webpack_require__(2),
@@ -3745,226 +3977,6 @@ module.exports = {
     }
   }
 };
-
-/***/ }),
-/* 61 */,
-/* 62 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "articleHandlerController", function() { return articleHandlerController; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_xss__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_xss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_xss__);
-
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _dec, _dec2, _dec3, _dec4, _class, _desc, _value, _class2;
-
-function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) {
-  var desc = {};
-  Object['ke' + 'ys'](descriptor).forEach(function (key) {
-    desc[key] = descriptor[key];
-  });
-  desc.enumerable = !!desc.enumerable;
-  desc.configurable = !!desc.configurable;
-
-  if ('value' in desc || desc.initializer) {
-    desc.writable = true;
-  }
-
-  desc = decorators.slice().reverse().reduce(function (desc, decorator) {
-    return decorator(target, property, desc) || desc;
-  }, desc);
-
-  if (context && desc.initializer !== void 0) {
-    desc.value = desc.initializer ? desc.initializer.call(context) : void 0;
-    desc.initializer = undefined;
-  }
-
-  if (desc.initializer === void 0) {
-    Object['define' + 'Property'](target, property, desc);
-    desc = null;
-  }
-
-  return desc;
-}
-
-
-
-var _require = __webpack_require__(5),
-    Article = _require.article;
-
-var _require2 = __webpack_require__(2),
-    controller = _require2.controller,
-    get = _require2.get,
-    del = _require2.del,
-    put = _require2.put,
-    post = _require2.post,
-    required = _require2.required;
-
-var articleHandlerController = (_dec = controller('/api/articleHandler'), _dec2 = post('/like'), _dec3 = post('/unlike'), _dec4 = post('/comment'), _dec(_class = (_class2 = function () {
-  function articleHandlerController() {
-    _classCallCheck(this, articleHandlerController);
-  }
-
-  _createClass(articleHandlerController, [{
-    key: 'postLike',
-    value: function () {
-      var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.mark(function _callee(ctx) {
-        var params;
-        return __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                // must contain: _id, username, userid
-                params = ctx.request.body;
-                _context.prev = 1;
-                _context.next = 4;
-                return Article.addLiker(params);
-
-              case 4:
-
-                ctx.body = {
-                  msg: '点赞成功',
-                  success: true
-                };
-                _context.next = 11;
-                break;
-
-              case 7:
-                _context.prev = 7;
-                _context.t0 = _context['catch'](1);
-
-                ctx.body = {
-                  error: _context.t0,
-                  success: false
-                };
-                console.error(_context.t0);
-
-              case 11:
-              case 'end':
-                return _context.stop();
-            }
-          }
-        }, _callee, this, [[1, 7]]);
-      }));
-
-      function postLike(_x) {
-        return _ref.apply(this, arguments);
-      }
-
-      return postLike;
-    }()
-  }, {
-    key: 'postUnLike',
-    value: function () {
-      var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.mark(function _callee2(ctx) {
-        var params;
-        return __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                // must contain: _id, username, userid
-                params = ctx.request.body;
-                _context2.prev = 1;
-                _context2.next = 4;
-                return Article.subLiker(params);
-
-              case 4:
-
-                ctx.body = {
-                  msg: '取消点赞',
-                  success: true
-                };
-                _context2.next = 11;
-                break;
-
-              case 7:
-                _context2.prev = 7;
-                _context2.t0 = _context2['catch'](1);
-
-                ctx.body = {
-                  error: _context2.t0,
-                  success: false
-                };
-                console.error(_context2.t0);
-
-              case 11:
-              case 'end':
-                return _context2.stop();
-            }
-          }
-        }, _callee2, this, [[1, 7]]);
-      }));
-
-      function postUnLike(_x2) {
-        return _ref2.apply(this, arguments);
-      }
-
-      return postUnLike;
-    }()
-  }, {
-    key: 'postComment',
-    value: function () {
-      var _ref3 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.mark(function _callee3(ctx) {
-        var params, data;
-        return __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
-                // must contain: _id, username, userid, avatar, content
-                params = ctx.request.body;
-                _context3.prev = 1;
-                _context3.next = 4;
-                return Article.addComment(params);
-
-              case 4:
-                data = _context3.sent;
-
-
-                ctx.body = {
-                  msg: '评论成功',
-                  success: true
-                };
-                _context3.next = 12;
-                break;
-
-              case 8:
-                _context3.prev = 8;
-                _context3.t0 = _context3['catch'](1);
-
-                ctx.body = {
-                  error: _context3.t0,
-                  success: false
-                };
-                console.error(_context3.t0);
-
-              case 12:
-              case 'end':
-                return _context3.stop();
-            }
-          }
-        }, _callee3, this, [[1, 8]]);
-      }));
-
-      function postComment(_x3) {
-        return _ref3.apply(this, arguments);
-      }
-
-      return postComment;
-    }()
-  }]);
-
-  return articleHandlerController;
-}(), (_applyDecoratedDescriptor(_class2.prototype, 'postLike', [_dec2], Object.getOwnPropertyDescriptor(_class2.prototype, 'postLike'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'postUnLike', [_dec3], Object.getOwnPropertyDescriptor(_class2.prototype, 'postUnLike'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'postComment', [_dec4], Object.getOwnPropertyDescriptor(_class2.prototype, 'postComment'), _class2.prototype)), _class2)) || _class);
 
 /***/ })
 /******/ ]);
