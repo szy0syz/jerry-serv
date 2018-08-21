@@ -65,6 +65,21 @@ export const database = app => {
         },
         {
           name: '资源干货'
+        },
+        {
+          name: '集团新闻'
+        },
+        {
+          name: '选学校'
+        },
+        {
+          name: '选企业'
+        },
+        {
+          name: '化育明珠'
+        },
+        {
+          name: '现代课堂'
         }
       ]
       await ArticleType.insertMany(typeList)
