@@ -5,7 +5,7 @@
   "author": "jerry shi",
   "private": true,
   "scripts": {
-    "dev": "backpack dev",
+    "dev": "cross-env NODE_ENV=development backpack dev",
     "build:prod": "cross-env NODE_ENV=production nuxt build && cross-env NODE_ENV=production backpack build",
     "build:test": "cross-env NODE_ENV=test nuxt build && cross-env NODE_ENV=test backpack build",
     "start:prod": "pm2 start ecosystem.config.js --env production",

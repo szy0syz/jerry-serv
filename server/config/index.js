@@ -3,7 +3,7 @@ import _ from 'lodash'
 
 const host = process.env.HOST || 'localhost'
 const env = process.env.NODE_ENV || 'development'
-
+console.log('config~~~', process.env.NODE_ENV)
 // const confPath = resolve(__dirname, `./${env}.json`)
 
 // 同步加载json配置文件

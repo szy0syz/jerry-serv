@@ -28,7 +28,7 @@ module.exports = {
   ],
   loading: './components/loading.vue',
   env: {
-    NODE_ENV: process.env.NODE_ENV
+    NODE_ENV: process.env.NODE_ENV || 'prodev'
   },
   cache: {
     max: 1000,
