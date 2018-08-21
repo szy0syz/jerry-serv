@@ -39,7 +39,15 @@ export class adminController {
     if (matchData.match) {
       ctx.session.user = {
         _id: matchData.user._id,
-        username: matchData.user.username
+        username: matchData.user.username,
+        token: 'PhU0Sd9zwUSwOQgXnJpj7pgSwdA7YD80',
+        sign_key: '4444',
+        info: {
+          id: '111',
+          mobile: '138',
+          name: 'admin',
+          status: 1
+        }
       }
 
       return (ctx.body = {
