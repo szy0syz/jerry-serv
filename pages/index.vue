@@ -75,13 +75,13 @@
                         <Col span="8">
                         <p class="notwrap">上次登录时间:</p>
                         </Col>
-                        <Col span="16" class="padding-left-8">2017.09.12-13:32:20</Col>
+                        <Col span="16" class="padding-left-8">2018.08.22-09:32:20</Col>
                     </Row>
                     <Row class="margin-top-8">
                         <Col span="8">
                         <p class="notwrap">上次登录地点:</p>
                         </Col>
-                        <Col span="16" class="padding-left-8">北京</Col>
+                        <Col span="16" class="padding-left-8">昆明 盘龙区</Col>
                     </Row>
                 </Card>
                 </Col>
@@ -145,9 +145,9 @@
                     </div>
                 </Card>
             </Row>
-            </Col>
+          </Col>
         </Row>
-        <Row :gutter="10" class="margin-top-10">
+        <!-- <Row :gutter="10" class="margin-top-10">
             <Col :md="24" :lg="8" :style="{marginBottom: '10px'}">
             <Card>
                 <p slot="title" class="card-title">
@@ -192,7 +192,7 @@
                     <service-requests></service-requests>
                 </div>
             </Card>
-        </Row>
+        </Row> -->
     </div>
 </template>
 
@@ -226,19 +226,13 @@ export default {
     return {
       toDoList: [
         {
-          title: '去iView官网学习完整的iView组件'
+          title: '完成项目计划书'
         },
         {
-          title: '去iView官网学习完整的iView组件'
+          title: '回访客户'
         },
         {
-          title: '去iView官网学习完整的iView组件'
-        },
-        {
-          title: '去iView官网学习完整的iView组件'
-        },
-        {
-          title: '去iView官网学习完整的iView组件'
+          title: '月底前申购发票'
         }
       ],
       count: {

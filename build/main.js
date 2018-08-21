@@ -461,8 +461,8 @@ module.exports = require("xss");
 // import { resolve } from 'path'
 
 var host = process.env.HOST || 'localhost';
-var env = "production" || 'development';
-console.log('config~~~', "production");
+var env = "development" || 'development';
+console.log('config~~~', "development");
 // const confPath = resolve(__dirname, `./${env}.json`)
 
 // 同步加载json配置文件
@@ -582,7 +582,7 @@ var Server = function () {
                 // Import and Set Nuxt.js options
                 config = __webpack_require__(60);
 
-                config.dev = !("production" === 'production');
+                config.dev = !("development" === 'production');
                 // console.log('env === ', app.env, env, process.env.COOKIE_DOMAIN, process.env.APP_ENV, config.dev)
 
                 // Instantiate nuxt.js
@@ -4009,7 +4009,7 @@ module.exports = {
   plugins: [{ src: '~plugins/flexible.js', ssr: false }, { src: '~plugins/iview.js', ssr: true }, { src: '~/plugins/quillEditor.js', ssr: false }],
   loading: './components/loading.vue',
   env: {
-    NODE_ENV: "production" || 'prodev'
+    NODE_ENV: "development" || 'prodev'
   },
   cache: {
     max: 1000,
