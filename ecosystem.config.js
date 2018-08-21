@@ -6,18 +6,18 @@ module.exports = {
       watch: true,
       env: {
         NODE_ENV: 'development',
-        BACKEND_URL: 'https://dev.domain.com',
-        COOKIE_DOMAIN: '.domain.com'
+        BACKEND_URL: 'https://dev.yncyzj.com',
+        COOKIE_DOMAIN: '.yncyzj.com'
       },
       env_test: {
         NODE_ENV: 'test',
-        BACKEND_URL: 'https://test.domain.com',
-        COOKIE_DOMAIN: '.domain.com'
+        BACKEND_URL: 'https://test.yncyzj.com',
+        COOKIE_DOMAIN: '.yncyzj.com'
       },
       env_production: {
         NODE_ENV: 'production',
-        BACKEND_URL: 'https://pro.domain.com',
-        COOKIE_DOMAIN: '.domain.com'
+        BACKEND_URL: 'https://pro.yncyzj.com',
+        COOKIE_DOMAIN: '.yncyzj.com'
       }
     }
   ]
