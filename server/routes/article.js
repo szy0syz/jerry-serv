@@ -8,8 +8,8 @@ const { controller, get, del, put, post, required } = require('../lib/decorator'
 export class articleController {
   @get('/')
   async get(ctx) {
-    const { page, size } = ctx.query
-    const data = await Article.fetchList(page, size)
+    // const { page, size, type } = ctx.query
+    const data = await Article.fetchList(ctx.query)
     ctx.body = {
       success: true,
       data

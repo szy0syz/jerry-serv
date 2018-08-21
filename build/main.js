@@ -1885,12 +1885,12 @@ var get = function () {
                 }
               }
             }
-
+            console.log(populate);
             //查询 - 根据：tab
-            _context.next = 8;
+            _context.next = 9;
             return getModel(ctx.params.tab).find(where).sort(sort).skip(skip).limit(limit).populate(populate).exec();
 
-          case 8:
+          case 9:
             data = _context.sent;
 
 
@@ -1899,7 +1899,7 @@ var get = function () {
               data: data
             };
 
-          case 10:
+          case 11:
           case 'end':
             return _context.stop();
         }
@@ -2269,22 +2269,31 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 var Article = __WEBPACK_IMPORTED_MODULE_1_mongoose___default.a.model('Article');
 
 var fetchList = function () {
-  var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.mark(function _callee() {
-    var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
-    var size = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 20;
-    var data;
+  var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.mark(function _callee(params) {
+    var _params$page, page, _params$size, size, type, isTop, where, data;
+
     return __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            _context.next = 2;
-            return Article.find({}, { __v: 0, password: 0, content: 0 }).skip((page - 1) * size).limit(Number(size)).sort({ '_id': -1 }).populate({ path: 'type', select: 'name' }).populate({ path: 'tags', select: 'name' }).populate({ path: 'author', select: '_id username avatar' }).exec();
+            _params$page = params.page, page = _params$page === undefined ? 1 : _params$page, _params$size = params.size, size = _params$size === undefined ? 20 : _params$size, type = params.type, isTop = params.isTop;
+            where = {};
 
-          case 2:
+            if (type) {
+              where['type'] = type;
+            }
+            if (isTop) {
+              where['isTop'] = isTop === 'true';
+            }
+            console.log(where);
+            _context.next = 7;
+            return Article.find(where, { __v: 0, password: 0, content: 0 }).skip((page - 1) * size).limit(Number(size)).sort({ '_id': -1 }).populate({ path: 'type', select: 'name' }).populate({ path: 'tags', select: 'name' }).populate({ path: 'author', select: '_id username avatar' }).exec();
+
+          case 7:
             data = _context.sent;
             return _context.abrupt('return', data);
 
-          case 4:
+          case 9:
           case 'end':
             return _context.stop();
         }
@@ -2292,7 +2301,7 @@ var fetchList = function () {
     }, _callee, this);
   }));
 
-  return function fetchList() {
+  return function fetchList(_x) {
     return _ref.apply(this, arguments);
   };
 }();
@@ -2338,7 +2347,7 @@ var fetchDetail = function () {
     }, _callee2, this);
   }));
 
-  return function fetchDetail(_x3) {
+  return function fetchDetail(_x2) {
     return _ref3.apply(this, arguments);
   };
 }();
@@ -2365,7 +2374,7 @@ var create = function () {
     }, _callee3, this);
   }));
 
-  return function create(_x4) {
+  return function create(_x3) {
     return _ref4.apply(this, arguments);
   };
 }();
@@ -2410,7 +2419,7 @@ var update = function () {
     }, _callee4, this, [[0, 12]]);
   }));
 
-  return function update(_x5) {
+  return function update(_x4) {
     return _ref5.apply(this, arguments);
   };
 }();
@@ -2437,7 +2446,7 @@ var remove = function () {
     }, _callee5, this);
   }));
 
-  return function remove(_x6) {
+  return function remove(_x5) {
     return _ref6.apply(this, arguments);
   };
 }();
@@ -2476,7 +2485,7 @@ var addLiker = function () {
     }, _callee6, this);
   }));
 
-  return function addLiker(_x7) {
+  return function addLiker(_x6) {
     return _ref8.apply(this, arguments);
   };
 }();
@@ -2529,7 +2538,7 @@ var subLiker = function () {
     }, _callee7, this);
   }));
 
-  return function subLiker(_x8) {
+  return function subLiker(_x7) {
     return _ref10.apply(this, arguments);
   };
 }();
@@ -2569,7 +2578,7 @@ var addComment = function () {
     }, _callee8, this);
   }));
 
-  return function addComment(_x9) {
+  return function addComment(_x8) {
     return _ref12.apply(this, arguments);
   };
 }();
@@ -2996,17 +3005,15 @@ var articleController = (_dec = controller('/api/article'), _dec2 = get('/'), _d
     key: 'get',
     value: function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.mark(function _callee(ctx) {
-        var _ctx$query, page, size, data;
-
+        var data;
         return __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _ctx$query = ctx.query, page = _ctx$query.page, size = _ctx$query.size;
-                _context.next = 3;
-                return Article.fetchList(page, size);
+                _context.next = 2;
+                return Article.fetchList(ctx.query);
 
-              case 3:
+              case 2:
                 data = _context.sent;
 
                 ctx.body = {
@@ -3014,7 +3021,7 @@ var articleController = (_dec = controller('/api/article'), _dec2 = get('/'), _d
                   data: data
                 };
 
-              case 5:
+              case 4:
               case 'end':
                 return _context.stop();
             }
@@ -3032,14 +3039,14 @@ var articleController = (_dec = controller('/api/article'), _dec2 = get('/'), _d
     key: 'detail',
     value: function () {
       var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.mark(function _callee2(ctx) {
-        var _id, _ctx$query2, username, userid, data;
+        var _id, _ctx$query, username, userid, data;
 
         return __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
                 _id = ctx.params._id;
-                _ctx$query2 = ctx.query, username = _ctx$query2.username, userid = _ctx$query2.userid;
+                _ctx$query = ctx.query, username = _ctx$query.username, userid = _ctx$query.userid;
                 _context2.next = 4;
                 return Article.fetchDetail({ _id: _id, username: username, userid: userid });
 

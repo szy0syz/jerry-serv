@@ -45,7 +45,7 @@ export const get = async (ctx, next) => {
       }
     }
   }
-
+  console.log(populate)
   //查询 - 根据：tab
   const data = await getModel(ctx.params.tab)
     .find(where)
