@@ -971,7 +971,7 @@ module.exports = {"db":"mongodb://localhost:27017/jerryServ","SITE_ROOT_URL":"ht
 /* 19 */
 /***/ (function(module, exports) {
 
-module.exports = {"db":"mongodb://localhost:27017/jerryServ","SITE_ROOT_URL":"http://jj.jerryshi.com","qiniu":{"AK":"","SK":"","bucket":"","qiniuURL":"","config":{"useCdnDomain":true}}}
+module.exports = {"db":"mongodb://localhost:27017/jerryServ","SITE_ROOT_URL":"http://jj.jerryshi.com","qiniu":{"AK":"OiUlP0RxLh1eN318uvFvX4AyHeRfAGOiPmnNwdGx","SK":"Meii5goUxxczCkctM3vM3dgdQTU5r7YwOzHeIocE","bucket":"myblog","qiniuURL":"http://cdn.jerryshi.com/","config":{"useCdnDomain":true}}}
 
 /***/ }),
 /* 20 */
@@ -2120,7 +2120,7 @@ var adminController = (_dec = controller('/api/admin'), _dec2 = get('/user'), _d
                   token: 'PhU0Sd9zwUSwOQgXnJpj7pgSwdA7YD80',
                   sign_key: '4444',
                   info: {
-                    id: '111',
+                    id: matchData.user._id,
                     mobile: '138',
                     name: 'admin',
                     status: 1
@@ -2137,7 +2137,9 @@ var adminController = (_dec = controller('/api/admin'), _dec2 = get('/user'), _d
                     token: '3232893283928392',
                     info: {
                       name: username,
-                      mobile: '13988889999'
+                      mobile: '13988889999',
+                      _id: matchData.user._id,
+                      username: matchData.user.username
                     }
                   }
                 });
@@ -3089,7 +3091,7 @@ var articleController = (_dec = controller('/api/article'), _dec2 = get('/'), _d
                   password: __WEBPACK_IMPORTED_MODULE_1_xss___default()(data.password),
                   isTop: Boolean(data.isTop),
                   tags: data.tags,
-                  author: '5b72ff427b1fd01b980e0f84'
+                  author: __WEBPACK_IMPORTED_MODULE_1_xss___default()(data.author)
                   // to test
                   // likeList: data.likeList
                 };

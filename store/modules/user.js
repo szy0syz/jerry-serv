@@ -18,7 +18,7 @@ const user = {
       return state.sign_key
     },
     getUserId: state => {
-      return state.info.id || null
+      return state.info.id || state.info._id || null
     },
     getInfo: state => {
       return state.info

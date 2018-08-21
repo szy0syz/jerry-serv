@@ -57,7 +57,7 @@ export class articleController {
       password: xss(data.password),
       isTop: Boolean(data.isTop),
       tags: data.tags,
-      author: '5b72ff427b1fd01b980e0f84'
+      author: xss(data.author)
       // to test
       // likeList: data.likeList
     }

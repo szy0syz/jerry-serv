@@ -43,7 +43,7 @@ export class adminController {
         token: 'PhU0Sd9zwUSwOQgXnJpj7pgSwdA7YD80',
         sign_key: '4444',
         info: {
-          id: '111',
+          id: matchData.user._id,
           mobile: '138',
           name: 'admin',
           status: 1
@@ -60,7 +60,9 @@ export class adminController {
           token: '3232893283928392',
           info: {
             name: username,
-            mobile: '13988889999'
+            mobile: '13988889999',
+            _id: matchData.user._id,
+            username: matchData.user.username
           }
         }
       })

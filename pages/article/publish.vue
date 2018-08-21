@@ -306,7 +306,8 @@ export default {
         status: 1,
         openness: 'public',
         isTop: false,
-        password: ''
+        password: '',
+        author: ''
       },
       articleTypeList: [],
       editorOption: {
@@ -547,19 +548,25 @@ export default {
     async handlePublish() {
       if (this.canPublish()) {
         // this.publishLoading = true
-        console.log(this.article)
-        this.article.likeList = [
-          {
-            name: 'jj1',
-            id: '222'
-          },
-          {
-            name: 'jj2',
-            id: '24444'
-          }
-        ]
+        // console.log(this.article)
+        this.article.author = this.$store.getters.getUserId
+
         let res = await axios.post('/api/article', this.article)
-        console.log(res)
+        
+        if (res.data.success) {
+          this.$Notice.success({
+            title: '发布成功',
+            desc: `《${res.data.data.title}》`
+          })
+          this.$router.push({
+            name: 'article-list'
+          })
+        } else {
+          this.$Notice.success({
+            title: '发布失败',
+            desc: `${res.data.error}`
+          })
+        }
 
         // setTimeout(() => {
         //   this.publishLoading = false
