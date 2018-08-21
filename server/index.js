@@ -8,7 +8,7 @@ import { getFilename } from './utils'
 const host = process.env.HOST || '0.0.0.0'
 const port = process.env.PORT || 3000
 
-const MIDDLEWARES = ['database', 'common', 'router']  //  'rest'
+const MIDDLEWARES = ['database', 'common', 'rest', 'router']
 
 // 自动遍历 ./middleware/*.js 导出对象后再逐个遍历初始化koa中间件
 const useMiddlewares = app => {

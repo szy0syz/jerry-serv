@@ -462,7 +462,7 @@ module.exports = require("xss");
 
 var host = process.env.HOST || 'localhost';
 var env = "development" || 'development';
-console.log('config~~~', "development");
+
 // const confPath = resolve(__dirname, `./${env}.json`)
 
 // 同步加载json配置文件
@@ -525,7 +525,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var host = process.env.HOST || '0.0.0.0';
 var port = process.env.PORT || 3000;
 
-var MIDDLEWARES = ['database', 'common', 'router']; //  'rest'
+var MIDDLEWARES = ['database', 'common', 'rest', 'router'];
 
 // 自动遍历 ./middleware/*.js 导出对象后再逐个遍历初始化koa中间件
 var useMiddlewares = function useMiddlewares(app) {
