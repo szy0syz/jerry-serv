@@ -68,3 +68,5 @@ pages/article/.DS_Store
 build/
 build/main.map
 build/main.js
+server/config/production.json
+server/config/production.json

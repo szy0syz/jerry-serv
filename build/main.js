@@ -525,7 +525,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var host = process.env.HOST || '0.0.0.0';
 var port = process.env.PORT || 3000;
 
-var MIDDLEWARES = ['database', 'common', 'rest', 'router'];
+var MIDDLEWARES = ['database', 'common', 'router']; //  'rest'
 
 // 自动遍历 ./middleware/*.js 导出对象后再逐个遍历初始化koa中间件
 var useMiddlewares = function useMiddlewares(app) {
@@ -983,7 +983,7 @@ module.exports = {"db":"mongodb://localhost/jerryServ","SITE_ROOT_URL":"http://j
 /* 21 */
 /***/ (function(module, exports) {
 
-module.exports = {"db":"mongodb://localhost/jerryServ","SITE_ROOT_URL":"http://jj.jerryshi.com"}
+module.exports = {"db":"mongodb://localhost:27017/jerryServ","SITE_ROOT_URL":"http://jj.jerryshi.com","qiniu":{"AK":"OiUlP0RxLh1eN318uvFvX4AyHeRfAGOiPmnNwdGx","SK":"Meii5goUxxczCkctM3vM3dgdQTU5r7YwOzHeIocE","bucket":"myblog","qiniuURL":"http://cdn.jerryshi.com/","config":{"useCdnDomain":true}}}
 
 /***/ }),
 /* 22 */
@@ -1384,6 +1384,16 @@ var database = function database(app) {
               name: '校园安全'
             }, {
               name: '资源干货'
+            }, {
+              name: '集团新闻'
+            }, {
+              name: '选学校'
+            }, {
+              name: '选企业'
+            }, {
+              name: '化育明珠'
+            }, {
+              name: '现代课堂'
             }];
             _context.next = 16;
             return ArticleType.insertMany(typeList);
