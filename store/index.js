@@ -15,8 +15,9 @@ const store = () =>
     },
     mutations: {},
     actions: {
-      nuxtServerInit: async ({ commit }, { req, res }) => {
-        // console.log('nuxtServerInit', res.session)
+      nuxtServerInit: async ({ commit, dispatch }, { req, res }) => {
+        let pro = await dispatch('fetchQiniuToken')
+        console.log(pro)
         if (!!req.session && !!req.session.user && !!req.session.user.token) {
           commit('LOGIN', req.session)
         } else {

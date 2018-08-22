@@ -63,21 +63,6 @@
       </Col>
     </Row>
     <Table highlight-row @on-current-change="handleCurrentRow" style="margin-top:10px;" stripe border :height="700" :columns="columns" :data="articleList"></Table>
-    <Modal @on-ok="handleOpt" width="700" v-model="showForm" title="单位登记变更">
-      <Card>
-        <Form :model="rowModel" :label-width="90">
-          <FormItem label="单位编号： ">
-            <Input v-model="rowModel.number" placeholder="请输入单位编号"></Input>
-          </FormItem>
-          <FormItem label="单位名称： ">
-            <Input v-model="rowModel.name" placeholder="请输入单位名称"></Input>
-          </FormItem>
-          <FormItem label="单位地址： ">
-            <Input v-model="rowModel.address" placeholder="请输入单位地址"></Input>
-          </FormItem>
-        </Form>
-      </Card>
-    </Modal>
   </div>
 </template>
 
@@ -189,15 +174,6 @@ export default {
     }
   },
   methods: {
-    async handleOpt() {
-      // this.rowModel.region = this.selectedArea[2]
-      // if (this.optType === 'add') {
-      //   await this.$store.dispatch('postProjUnit', this.rowModel)
-      // } else {
-      //   console.log('edit')
-      //   await this.$store.dispatch('putProjUnit', this.rowModel)
-      // }
-    },
     handleCurrentRow(curt, prev) {
       this.currentRow = curt
     },

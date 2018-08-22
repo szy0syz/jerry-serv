@@ -1,4 +1,5 @@
 import { otherRouter, appRouter } from '@/router/router'
+import axios from '~/plugins/axios2'
 import Util from '@/libs/util'
 import Cookies from 'js-cookie'
 import Vue from 'vue'
@@ -20,7 +21,13 @@ const app = {
     messageCount: 0,
     accordion: true,
     avatorImgPath: '',
+    qiniuToken: '',
     dontCache: ['text-editor', 'artical-publish'] // 在这里定义你不想要缓存的页面的name属性值(参见路由配置router.js)
+  },
+  getters: {
+    getQiniuToken: async state => {
+      return state.qiniuToken
+    }
   },
   mutations: {
     setAccordion(state, boolean) {
@@ -188,6 +195,16 @@ const app = {
       }
       state.pageOpenedList.push(tagObj)
       localStorage.pageOpenedList = JSON.stringify(state.pageOpenedList)
+    }
+  },
+  actions: {
+    async fetchQiniuToken({ state }) {
+      console.log('执行store.App fetchQiniuToken~~~~~~~')
+      if (!state.qiniuToken) {
+        let token = await axios.get('/api/qiniu/token')|| {}
+        console.log('fetchQiniuToken', token)
+        // state.qiniuToken = token.data.data.token
+      }
     }
   }
 }

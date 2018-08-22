@@ -119,21 +119,21 @@
 </style>
 
 <template>
-    <div>
-        <Row>
-            <Col span="18">
-            <Card>
-                <Form :label-width="80">
-                    <FormItem label="文章标题">
-                        <Input v-model="article.title" @on-blur="handleArticletitleBlur" placeholder="请输入标题..." icon="android-list" />
-                    </FormItem>
-                    <FormItem label="文章摘要">
-                        <Input v-model="article.desc" type="textarea" :autosize="{minRows: 2,maxRows: 3}" placeholder="请输入摘要..." icon="android-list" />
-                    </FormItem>
-                    <FormItem label="文章封面">
-                        <qiniuImgUpload ref="qiniuUploader" @handleSuccess = "(url) => this.article.cover = url"></qiniuImgUpload>
-                    </FormItem>
-                    <!-- <div class="article-link-con">
+  <div>
+    <Row>
+      <Col span="18">
+      <Card>
+        <Form :label-width="80">
+          <FormItem label="文章标题">
+            <Input v-model="article.title" @on-blur="handleArticletitleBlur" placeholder="请输入标题..." icon="android-list" />
+          </FormItem>
+          <FormItem label="文章摘要">
+            <Input v-model="article.desc" type="textarea" :autosize="{minRows: 2,maxRows: 3}" placeholder="请输入摘要..." icon="android-list" />
+          </FormItem>
+          <FormItem label="文章封面">
+            <qiniuImgUpload ref="qiniuUploader" @handleSuccess="(url) => this.article.cover = url"></qiniuImgUpload>
+          </FormItem>
+          <!-- <div class="article-link-con">
                         <transition name="fixed-link">
                             <FormItem v-show="showLink" label="固定链接">
                                 <span>
@@ -147,139 +147,137 @@
                             </FormItem>
                         </transition>
                     </div> -->
-                </Form>
-                <div class="margin-top-20">
-                  <input type="file" style="display:none" id="file" ref="input" @change="handleUploadImg">
-                  <div class="quill-editor" 
-                    v-model="article.content"
-                    v-quill:myQuillEditor="editorOption">
-                  </div>
-                </div>
-            </Card>
-            </Col>
-            <Col span="6" class="padding-left-10">
-            <Card>
-                <p slot="title">
-                    <Icon type="paper-airplane"></Icon>
-                    发布
-                </p>
-                <p class="margin-top-10">
-                    <Icon type="android-time"></Icon>&nbsp;&nbsp;状&nbsp;&nbsp;&nbsp;态：
-                    <Select size="small" style="width:90px" :value="article.status">
-                        <Option v-for="item in articleStateList" :value="item.value" :key="item.value">{{ item.name }}</Option>
-                    </Select>
-                </p>
-                <p class="margin-top-10">
-                    <Icon type="eye"></Icon>&nbsp;&nbsp;公开度：&nbsp;
-                    <b>{{ Openness }}</b>
-                    <Button v-show="!editOpenness" size="small" @click="handleEditOpenness" type="text">修改</Button>
-                    <transition name="openness-con">
-                        <div v-show="editOpenness" class="openness-radio-con">
-                            <RadioGroup v-model="article.openness" vertical>
-                                <Radio label="public">
-                                    公开
-                                    <Checkbox v-show="article.openness === 'public'" v-model="article.isTop">在首页置顶这篇文章</Checkbox>
-                                </Radio>
-                                <Radio label="protected">
-                                    密码
-                                    <Input v-show="article.openness === 'protected'" v-model="article.password" style="width:120px" size="small" placeholder="请输入密码" />
-                                </Radio>
-                                <Radio label="private">私密</Radio>
-                            </RadioGroup>
-                            <div>
-                                <Button type="primary" @click="handleSaveOpenness">确认</Button>
-                                <Button type="ghost" @click="cancelEditOpenness">取消</Button>
-                            </div>
-                        </div>
-                    </transition>
-                </p>
-                <p class="margin-top-10">
-                    <Icon type="ios-calendar-outline"></Icon>&nbsp;
-                    <span v-if="publishTimeType === 'immediately'">立即发布:</span>
-                    <span v-else>定时：{{ publishTime }}</span>
-                    <Button v-show="!editPublishTime" size="small" @click="handleEditPublishTime" type="text">修改</Button>
-                    <transition name="publish-time">
-                        <div v-show="editPublishTime" class="publish-time-picker-con">
-                            <div class="margin-top-10">
-                                <DatePicker @on-change="setPublishTime" type="datetime" style="width:200px;" placeholder="选择日期和时间"></DatePicker>
-                            </div>
-                            <div class="margin-top-10">
-                                <Button type="primary" @click="handleSavePublishTime">确认</Button>
-                                <Button type="ghost" @click="cancelEditPublishTime">取消</Button>
-                            </div>
-                        </div>
-                    </transition>
-                </p>
-                <Row class="margin-top-20 publish-button-con">
-                    <span class="publish-button">
-                        <Button @click="handlePreview">预览</Button>
-                    </span>
-                    <span class="publish-button">
-                        <Button @click="handleSaveDraft">保存草稿</Button>
-                    </span>
-                    <span class="publish-button">
-                        <Button @click="handlePublish" :loading="publishLoading" icon="ios-checkmark" style="width:90px;" type="primary">发布</Button>
-                    </span>
-                </Row>
-            </Card>
-            <div class="margin-top-10">
-                <Card>
-                    <p slot="title">
-                        <Icon type="navicon-round"></Icon>
-                        分类目录
-                    </p>
-                    <Tabs type="card">
-                        <!-- <TabPane label="所有分类目录">
+        </Form>
+        <div class="margin-top-20">
+          <input type="file" style="display:none" id="file" ref="input" @change="handleUploadImg">
+          <div class="quill-editor" v-model="article.content" v-quill:myQuillEditor="editorOption">
+          </div>
+        </div>
+      </Card>
+      </Col>
+      <Col span="6" class="padding-left-10">
+      <Card>
+        <p slot="title">
+          <Icon type="paper-airplane"></Icon>
+          发布
+        </p>
+        <p class="margin-top-10">
+          <Icon type="android-time"></Icon>&nbsp;&nbsp;状&nbsp;&nbsp;&nbsp;态：
+          <Select size="small" style="width:90px" :value="article.status">
+            <Option v-for="item in articleStateList" :value="item.value" :key="item.value">{{ item.name }}</Option>
+          </Select>
+        </p>
+        <p class="margin-top-10">
+          <Icon type="eye"></Icon>&nbsp;&nbsp;公开度：&nbsp;
+          <b>{{ Openness }}</b>
+          <Button v-show="!editOpenness" size="small" @click="handleEditOpenness" type="text">修改</Button>
+          <transition name="openness-con">
+            <div v-show="editOpenness" class="openness-radio-con">
+              <RadioGroup v-model="article.openness" vertical>
+                <Radio label="public">
+                  公开
+                  <Checkbox v-show="article.openness === 'public'" v-model="article.isTop">在首页置顶这篇文章</Checkbox>
+                </Radio>
+                <Radio label="protected">
+                  密码
+                  <Input v-show="article.openness === 'protected'" v-model="article.password" style="width:120px" size="small" placeholder="请输入密码" />
+                </Radio>
+                <Radio label="private">私密</Radio>
+              </RadioGroup>
+              <div>
+                <Button type="primary" @click="handleSaveOpenness">确认</Button>
+                <Button type="ghost" @click="cancelEditOpenness">取消</Button>
+              </div>
+            </div>
+          </transition>
+        </p>
+        <p class="margin-top-10">
+          <Icon type="ios-calendar-outline"></Icon>&nbsp;
+          <span v-if="publishTimeType === 'immediately'">立即发布:</span>
+          <span v-else>定时：{{ publishTime }}</span>
+          <Button v-show="!editPublishTime" size="small" @click="handleEditPublishTime" type="text">修改</Button>
+          <transition name="publish-time">
+            <div v-show="editPublishTime" class="publish-time-picker-con">
+              <div class="margin-top-10">
+                <DatePicker @on-change="setPublishTime" type="datetime" style="width:200px;" placeholder="选择日期和时间"></DatePicker>
+              </div>
+              <div class="margin-top-10">
+                <Button type="primary" @click="handleSavePublishTime">确认</Button>
+                <Button type="ghost" @click="cancelEditPublishTime">取消</Button>
+              </div>
+            </div>
+          </transition>
+        </p>
+        <Row class="margin-top-20 publish-button-con">
+          <span class="publish-button">
+            <Button @click="handlePreview">预览</Button>
+          </span>
+          <span class="publish-button">
+            <Button @click="handleSaveDraft">保存草稿</Button>
+          </span>
+          <span class="publish-button">
+            <Button @click="handlePublish" :loading="publishLoading" icon="ios-checkmark" style="width:90px;" type="primary">发布</Button>
+          </span>
+        </Row>
+      </Card>
+      <div class="margin-top-10">
+        <Card>
+          <p slot="title">
+            <Icon type="navicon-round"></Icon>
+            分类目录
+          </p>
+          <Tabs type="card">
+            <!-- <TabPane label="所有分类目录">
                             <div class="classification-con">
                                 <Tree :data="classificationList" @on-check-change="setClassificationInAll" show-checkbox></Tree>
                             </div>
                         </TabPane> -->
-                        <TabPane label="所有分类目录">
-                            <div class="classification-con">
-                                <RadioGroup v-model="article.type" vertical>
-                                    <Radio v-for="item in articleTypeList" :key="item._id" :label="item._id">
-                                        <span>{{item.name}}</span>
-                                    </Radio>
-                                </RadioGroup>
-                            </div>
-                        </TabPane>
-                    </Tabs>
-                </Card>
-            </div>
-            <div class="margin-top-10">
-                <Card>
-                    <p slot="title">
-                        <Icon type="ios-pricetags-outline"></Icon>
-                        标签
-                    </p>
-                    <Row>
-                        <Col span="18">
-                        <Select v-model="article.tags" multiple @on-change="handleSelectTag" placeholder="请选择文章标签">
-                            <Option v-for="item in articleTagList" :value="item._id" :key="item.name">{{ item.name }}</Option>
-                        </Select>
-                        </Col>
-                        <Col span="6" class="padding-left-10">
-                        <Button v-show="!addingNewTag" @click="handleAddNewTag" long type="ghost">新建</Button>
-                        </Col>
-                    </Row>
-                    <transition name="add-new-tag">
-                        <div v-show="addingNewTag" class="add-new-tag-con">
-                            <Col span="14">
-                            <Input v-model="newTagName" placeholder="请输入标签名" />
-                            </Col>
-                            <Col span="5" class="padding-left-10">
-                            <Button @click="createNewTag" long type="primary">确定</Button>
-                            </Col>
-                            <Col span="5" class="padding-left-10">
-                            <Button @click="cancelCreateNewTag" long type="ghost">取消</Button>
-                            </Col>
-                        </div>
-                    </transition>
-                </Card>
-            </div>
+            <TabPane label="所有分类目录">
+              <div class="classification-con">
+                <RadioGroup v-model="article.type" vertical>
+                  <Radio v-for="item in articleTypeList" :key="item._id" :label="item._id">
+                    <span>{{item.name}}</span>
+                  </Radio>
+                </RadioGroup>
+              </div>
+            </TabPane>
+          </Tabs>
+        </Card>
+      </div>
+      <div class="margin-top-10">
+        <Card>
+          <p slot="title">
+            <Icon type="ios-pricetags-outline"></Icon>
+            标签
+          </p>
+          <Row>
+            <Col span="18">
+            <Select v-model="article.tags" multiple @on-change="handleSelectTag" placeholder="请选择文章标签">
+              <Option v-for="item in articleTagList" :value="item._id" :key="item.name">{{ item.name }}</Option>
+            </Select>
             </Col>
-        </Row>
-    </div>
+            <Col span="6" class="padding-left-10">
+            <Button v-show="!addingNewTag" @click="handleAddNewTag" long type="ghost">新建</Button>
+            </Col>
+          </Row>
+          <transition name="add-new-tag">
+            <div v-show="addingNewTag" class="add-new-tag-con">
+              <Col span="14">
+              <Input v-model="newTagName" placeholder="请输入标签名" />
+              </Col>
+              <Col span="5" class="padding-left-10">
+              <Button @click="createNewTag" long type="primary">确定</Button>
+              </Col>
+              <Col span="5" class="padding-left-10">
+              <Button @click="cancelCreateNewTag" long type="ghost">取消</Button>
+              </Col>
+            </div>
+          </transition>
+        </Card>
+      </div>
+      </Col>
+    </Row>
+  </div>
 </template>
 
 <script>
@@ -330,7 +328,7 @@ export default {
               ['link', 'image', 'video']
             ],
             handlers: {
-              image: function() {
+              image: function () {
                 this.quill.format('image', false) // 禁用quill内部上传图片方法
                 // console.log(this)
                 self.handleClickImg(this)
@@ -510,6 +508,8 @@ export default {
     },
     handlePreview() {
       if (this.canPublish()) {
+        console.log(this.$store.state.app.qiniuToken)
+        console.log('@!!!!!!!!!!!!!')
         this.$Message.error('预览失败，请稍后再试。')
         // if (this.publishTimeType === 'immediately') {
         //   let date = new Date()
@@ -552,7 +552,7 @@ export default {
         this.article.author = this.$store.getters.getUserId
 
         let res = await axios.post('/api/article', this.article)
-        
+
         if (res.data.success) {
           this.$Notice.success({
             title: '发布成功',
@@ -593,6 +593,8 @@ export default {
     qiniuImgUpload
   },
   async mounted() {
+    // console.log('@!!!!!!!!!!!!!')
+    // this.$store.dispatch('fetchQiniuToken')
     // -------init ArticleTag--------
     let tagRes = await axios.get('/api/articleTag?size=99')
     this.articleTagList = tagRes.data.data
