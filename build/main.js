@@ -3275,11 +3275,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_xss__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_xss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_xss__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_mongoose__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_mongoose___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_mongoose__);
 
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _dec, _dec2, _dec3, _dec4, _class, _desc, _value, _class2;
+var _dec, _dec2, _dec3, _dec4, _dec5, _class, _desc, _value, _class2;
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
@@ -3316,8 +3318,9 @@ function _applyDecoratedDescriptor(target, property, decorators, descriptor, con
 
 
 
+
 var _require = __webpack_require__(3),
-    Article = _require.article;
+    ArticleService = _require.article;
 
 var _require2 = __webpack_require__(2),
     controller = _require2.controller,
@@ -3327,7 +3330,10 @@ var _require2 = __webpack_require__(2),
     post = _require2.post,
     required = _require2.required;
 
-var articleHandlerController = (_dec = controller('/api/articleHandler'), _dec2 = post('/like'), _dec3 = post('/unlike'), _dec4 = post('/comment'), _dec(_class = (_class2 = function () {
+var Article = __WEBPACK_IMPORTED_MODULE_2_mongoose___default.a.model('Article');
+var ArticleType = __WEBPACK_IMPORTED_MODULE_2_mongoose___default.a.model('ArticleType');
+
+var articleHandlerController = (_dec = controller('/api/articleHandler'), _dec2 = post('/like'), _dec3 = post('/unlike'), _dec4 = post('/comment'), _dec5 = get('/homeArticles'), _dec(_class = (_class2 = function () {
   function articleHandlerController() {
     _classCallCheck(this, articleHandlerController);
   }
@@ -3345,7 +3351,7 @@ var articleHandlerController = (_dec = controller('/api/articleHandler'), _dec2 
                 params = ctx.request.body;
                 _context.prev = 1;
                 _context.next = 4;
-                return Article.addLiker(params);
+                return ArticleService.addLiker(params);
 
               case 4:
 
@@ -3393,7 +3399,7 @@ var articleHandlerController = (_dec = controller('/api/articleHandler'), _dec2 
                 params = ctx.request.body;
                 _context2.prev = 1;
                 _context2.next = 4;
-                return Article.subLiker(params);
+                return ArticleService.subLiker(params);
 
               case 4:
 
@@ -3441,7 +3447,7 @@ var articleHandlerController = (_dec = controller('/api/articleHandler'), _dec2 
                 params = ctx.request.body;
                 _context3.prev = 1;
                 _context3.next = 4;
-                return Article.addComment(params);
+                return ArticleService.addComment(params);
 
               case 4:
                 data = _context3.sent;
@@ -3478,10 +3484,67 @@ var articleHandlerController = (_dec = controller('/api/articleHandler'), _dec2 
 
       return postComment;
     }()
+  }, {
+    key: 'getHomeArticles',
+    value: function () {
+      var _ref4 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.mark(function _callee4(ctx) {
+        var groupType, filter, topArticles, latestArticles, groupArticles;
+        return __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                _context4.next = 2;
+                return ArticleType.findOne({ name: '集团新闻' });
+
+              case 2:
+                groupType = _context4.sent;
+                filter = { __v: 0, password: 0, content: 0
+                  // 查询 置顶文章
+                };
+                _context4.next = 6;
+                return Article.find({ status: 9, isTop: true }, filter);
+
+              case 6:
+                topArticles = _context4.sent;
+                _context4.next = 9;
+                return Article.find({ status: 9, type: { $ne: groupType._id }, isTop: false }, filter);
+
+              case 9:
+                latestArticles = _context4.sent;
+                _context4.next = 12;
+                return Article.find({ status: 9, type: groupType._id, isTop: false }, filter);
+
+              case 12:
+                groupArticles = _context4.sent;
+
+
+                ctx.body = {
+                  success: true,
+                  data: {
+                    topArticles: topArticles,
+                    latestArticles: latestArticles,
+                    groupArticles: groupArticles
+                  }
+                };
+
+              case 14:
+              case 'end':
+                return _context4.stop();
+            }
+          }
+        }, _callee4, this);
+      }));
+
+      function getHomeArticles(_x4) {
+        return _ref4.apply(this, arguments);
+      }
+
+      return getHomeArticles;
+    }()
   }]);
 
   return articleHandlerController;
-}(), (_applyDecoratedDescriptor(_class2.prototype, 'postLike', [_dec2], Object.getOwnPropertyDescriptor(_class2.prototype, 'postLike'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'postUnLike', [_dec3], Object.getOwnPropertyDescriptor(_class2.prototype, 'postUnLike'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'postComment', [_dec4], Object.getOwnPropertyDescriptor(_class2.prototype, 'postComment'), _class2.prototype)), _class2)) || _class);
+}(), (_applyDecoratedDescriptor(_class2.prototype, 'postLike', [_dec2], Object.getOwnPropertyDescriptor(_class2.prototype, 'postLike'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'postUnLike', [_dec3], Object.getOwnPropertyDescriptor(_class2.prototype, 'postUnLike'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'postComment', [_dec4], Object.getOwnPropertyDescriptor(_class2.prototype, 'postComment'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'getHomeArticles', [_dec5], Object.getOwnPropertyDescriptor(_class2.prototype, 'getHomeArticles'), _class2.prototype)), _class2)) || _class);
 
 /***/ }),
 /* 54 */

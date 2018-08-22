@@ -1,8 +1,11 @@
 import xss from 'xss'
+import mongoose from 'mongoose'
 
-const { article: Article } = require('../service')
+const { article: ArticleService } = require('../service')
 
 const { controller, get, del, put, post, required } = require('../lib/decorator')
+const Article = mongoose.model('Article')
+const ArticleType = mongoose.model('ArticleType')
 
 @controller('/api/articleHandler')
 export class articleHandlerController {
@@ -11,7 +14,7 @@ export class articleHandlerController {
     // must contain: _id, username, userid
     let params = ctx.request.body
     try {
-      await Article.addLiker(params)
+      await ArticleService.addLiker(params)
 
       ctx.body = {
         msg: '点赞成功',
@@ -32,7 +35,7 @@ export class articleHandlerController {
     let params = ctx.request.body
 
     try {
-      await Article.subLiker(params)
+      await ArticleService.subLiker(params)
 
       ctx.body = {
         msg: '取消点赞',
@@ -53,7 +56,7 @@ export class articleHandlerController {
     let params = ctx.request.body
 
     try {
-      const data = await Article.addComment(params)
+      const data = await ArticleService.addComment(params)
 
       ctx.body = {
         msg: '评论成功',
@@ -65,6 +68,30 @@ export class articleHandlerController {
         success: false
       }
       console.error(error)
+    }
+  }
+
+  @get('/homeArticles')
+  async getHomeArticles(ctx) {
+    // TODO: redis缓存公共业务数据，不能让ODM每次都去查
+    const groupType = await ArticleType.findOne({name: '集团新闻'})
+    const filter = { __v: 0, password: 0, content:0 }
+    // 查询 置顶文章
+    let topArticles = await Article.find({status: 9, isTop: true}, filter)
+
+    // 查询 最新文章：审核状态 and 不等于[集团新闻]类别 and 不是轮播文章
+    let latestArticles = await Article.find({status: 9, type: {$ne: groupType._id}, isTop: false}, filter)
+
+    // 查询 集团新闻
+    let groupArticles = await Article.find({status: 9, type: groupType._id, isTop: false}, filter)
+
+    ctx.body = {
+      success: true,
+      data: {
+        topArticles,
+        latestArticles,
+        groupArticles
+      }
     }
   }
 }

@@ -117,7 +117,7 @@ export default {
         {
           title: '文档类别',
           render: (h, params) => {
-            return h('span', params.row.type.name)
+            return h('span', params.row.type ? params.row.type.name : { name: '无分类'})
           },
           width: 100
         },
