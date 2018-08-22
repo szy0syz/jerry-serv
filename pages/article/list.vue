@@ -203,33 +203,18 @@ export default {
     },
     handleRow(type) {
       this.optType = type
-      // if (type === 'add') {
-      //   this.rowModel = {
-      //     name: '',
-      //     number: '',
-      //     address: '',
-      //     region: 0
-      //   }
-      //   this.showForm = true
-      // } else {
-      //   if (!this.currentRow) {
-      //     this.$Message.error('请点击需编辑的行')
-      //   } else {
-      //     this.rowModel._id = this.currentRow._id
-      //     this.rowModel.number = this.currentRow.number
-      //     this.rowModel.name = this.currentRow.name
-      //     this.rowModel.address = this.currentRow.address
-      //     this.rowModel.region = this.currentRow.region
-      //     this.showForm = true
-      //   }
-      // }
+
       if (type === 'add') {
         this.$router.push({ name: 'article-publish' })
       } else {
-        this.$router.push({
-          name: 'article-edit',
-          query: { _id: this.currentRow._id }
-        })
+        if (!this.currentRow) {
+          this.$Message.error('请点击需编辑的行')
+        } else {
+          this.$router.push({
+            name: 'article-edit',
+            query: { _id: this.currentRow._id }
+          })
+        }
       }
     },
     handleRemoveRow() {
