@@ -30,6 +30,8 @@
 * [ ] [FE]index页注册快捷键操作
 * [ ] [BE]完善后端中各个控制器[required]修饰器的逻辑使用
 * [ ] [FE]使用Nuxt全家桶:axios-moudle/auth-module/apollo-module/pwa-apollo-module
+* [ ] [FE]TODO: 是在没办法二次异步问题 A组件 B组件，A组件加载调用B组件，A组件mounted时加载异步数据后store设置state，B组件渲染需要这个state。难解？
+* [ ] [FE]nuxtServiceInit使用异步dispatch问题
 
 ## Test
 
