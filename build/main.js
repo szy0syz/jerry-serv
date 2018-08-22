@@ -455,7 +455,7 @@ module.exports = require("koa-router");
 // import { resolve } from 'path'
 
 var host = process.env.HOST || 'localhost';
-var env = "production" || 'development';
+var env = "development" || 'development';
 
 // const confPath = resolve(__dirname, `./${env}.json`)
 
@@ -584,7 +584,7 @@ var Server = function () {
                 // Import and Set Nuxt.js options
                 config = __webpack_require__(60);
 
-                config.dev = !("production" === 'production');
+                config.dev = !("development" === 'production');
                 // console.log('env === ', app.env, env, process.env.COOKIE_DOMAIN, process.env.APP_ENV, config.dev)
 
                 // Instantiate nuxt.js
@@ -2313,25 +2313,30 @@ var fetchDetail = function () {
     var _id = _ref2._id,
         username = _ref2.username,
         userid = _ref2.userid;
-    var entity, isHas;
+    var entity, model, isHas;
     return __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
             _context2.next = 2;
-            return Article.findOne({ _id: _id }, { __v: 0 });
+            return Article.findOne({ _id: _id }, { __v: 0 }).lean();
 
           case 2:
             entity = _context2.sent;
+            _context2.next = 5;
+            return Article.findOne({ _id: _id }, { __v: 0 });
 
-            entity.clickNum++;
-            entity.save();
-            // TODO: [急]待优化fetchDetail时又自增又lean()问题
-            _context2.next = 7;
-            return Article.findOne({ _id: _id }, { __v: 0 }).lean();
+          case 5:
+            model = _context2.sent;
 
-          case 7:
-            entity = _context2.sent;
+
+            //////////// 待优化 
+            // TODO: 修复lean()方法不包含虚拟字段问题(上中间件mongoose-lean-virtuals还是自己写？)
+            model.clickNum++;
+            entity.likeNum = model.likeNum;
+            entity.commentNum = model.commentNum;
+            ////////////
+            model.save();
 
             // default value （要不要节省流量不传递呢？）
             entity.isLike = false;
@@ -2349,7 +2354,7 @@ var fetchDetail = function () {
 
             return _context2.abrupt('return', entity);
 
-          case 11:
+          case 13:
           case 'end':
             return _context2.stop();
         }
@@ -4089,7 +4094,7 @@ module.exports = {
   plugins: [{ src: '~plugins/flexible.js', ssr: false }, { src: '~plugins/iview.js', ssr: true }, { src: '~/plugins/quillEditor.js', ssr: false }],
   loading: './components/loading.vue',
   env: {
-    NODE_ENV: "production" || 'prodev'
+    NODE_ENV: "development" || 'prodev'
   },
   cache: {
     max: 1000,

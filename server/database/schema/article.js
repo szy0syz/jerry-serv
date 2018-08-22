@@ -90,8 +90,8 @@ ArticleSchema.virtual('commentNum').get(function () {
   return this.commentList.length || 0
 })
 
-ArticleSchema.set('toJSON', { virtuals: true });
-ArticleSchema.set('toObject', { virtuals: true });
+ArticleSchema.set('toJSON', { virtuals: true })
+ArticleSchema.set('toObject', { virtuals: true })
 
 // ArticleSchema.pre('find', function (next) {
 //   console.log('我是pre方法1')

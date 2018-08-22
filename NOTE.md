@@ -34,6 +34,7 @@
 * [ ] [FE]nuxtServiceInit使用异步dispatch问题
 * [ ] [BE]redis缓存公共业务数据，不能让ODM每次都去查
 * [ ] [BE][急]待优化fetchDetail时又自增又lean()问题
+* [ ] [BE]修复lean()方法不包含虚拟字段问题(上中间件mongoose-lean-virtuals还是自己写？)
 
 ## Test
 
