@@ -2319,11 +2319,19 @@ var fetchDetail = function () {
         switch (_context2.prev = _context2.next) {
           case 0:
             _context2.next = 2;
-            return Article.findOne({ _id: _id }, { __v: 0 }).lean().exec();
+            return Article.findOne({ _id: _id }, { __v: 0 });
 
           case 2:
             entity = _context2.sent;
 
+            entity.clickNum++;
+            entity.save();
+            // TODO: [急]待优化fetchDetail时又自增又lean()问题
+            _context2.next = 7;
+            return Article.findOne({ _id: _id }, { __v: 0 }).lean();
+
+          case 7:
+            entity = _context2.sent;
 
             // default value （要不要节省流量不传递呢？）
             entity.isLike = false;
@@ -2341,7 +2349,7 @@ var fetchDetail = function () {
 
             return _context2.abrupt('return', entity);
 
-          case 6:
+          case 11:
           case 'end':
             return _context2.stop();
         }

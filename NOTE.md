@@ -33,6 +33,7 @@
 * [ ] [FE]TODO: 是在没办法二次异步问题 A组件 B组件，A组件加载调用B组件，A组件mounted时加载异步数据后store设置state，B组件渲染需要这个state。难解？
 * [ ] [FE]nuxtServiceInit使用异步dispatch问题
 * [ ] [BE]redis缓存公共业务数据，不能让ODM每次都去查
+* [ ] [BE][急]待优化fetchDetail时又自增又lean()问题
 
 ## Test
 

@@ -25,8 +25,11 @@ export async function fetchList(params) {
 }
 
 export async function fetchDetail({_id, username, userid}) {
-  const entity = await Article.findOne({ _id }, { __v: 0 }).lean().exec()
-
+  let entity = await Article.findOne({ _id }, { __v: 0 })
+  entity.clickNum++
+  entity.save()
+  // TODO: [急]待优化fetchDetail时又自增又lean()问题
+  entity = await Article.findOne({ _id }, { __v: 0 }).lean()
   // default value （要不要节省流量不传递呢？）
   entity.isLike = false
 
