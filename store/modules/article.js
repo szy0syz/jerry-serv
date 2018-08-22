@@ -49,7 +49,7 @@ const article = {
       state.curtArticle = res.data.data
 
       return res
-    },
+    }
   }
 }
 

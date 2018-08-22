@@ -1,5 +1,6 @@
 import { otherRouter, appRouter } from '@/router/router'
 import axios from '~/plugins/axios2'
+import qiniuService from '../../services/qiniu'
 import Util from '@/libs/util'
 import Cookies from 'js-cookie'
 import Vue from 'vue'
@@ -25,7 +26,7 @@ const app = {
     dontCache: ['text-editor', 'artical-publish'] // 在这里定义你不想要缓存的页面的name属性值(参见路由配置router.js)
   },
   getters: {
-    getQiniuToken: async state => {
+    getQiniuToken: state => {
       return state.qiniuToken
     }
   },
@@ -35,6 +36,9 @@ const app = {
     },
     setTagsList(state, list) {
       state.tagsList.push(...list)
+    },
+    setQiniuTiken(state, token) {
+      state.qiniuToken = token
     },
     updateMenulist(state) {
       let accessCode = parseInt(Cookies.get('access'))
@@ -199,11 +203,9 @@ const app = {
   },
   actions: {
     async fetchQiniuToken({ state }) {
-      console.log('执行store.App fetchQiniuToken~~~~~~~')
       if (!state.qiniuToken) {
-        let token = await axios.get('/api/qiniu/token')|| {}
-        console.log('fetchQiniuToken', token)
-        // state.qiniuToken = token.data.data.token
+        let token = await qiniuService.fetchToken()
+        state.qiniuToken = token.data.data.token
       }
     }
   }

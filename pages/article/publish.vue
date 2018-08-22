@@ -382,9 +382,7 @@ export default {
       let key = randomToken(32)
       // key = `yncyzj/${key}.${file.name.split('.')[1]}`
       key = `yncyzj/${key}`
-      let token = await axios.get('/api/qiniu/token')
-      token = token.data.data.token
-
+      let token = this.$store.getters.getQiniuToken
       const self = this
       const myConfig = config
       const observer = {

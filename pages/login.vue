@@ -29,6 +29,8 @@
 <script>
 import md5 from '~/libs/md5'
 import axios from '~/plugins/axios2'
+import qiniuService from '../services/qiniu.js'
+
 export default {
   layout: 'full',
   asyncData({ query }) {
@@ -126,7 +128,14 @@ export default {
       })
     }
   },
-  mounted() {}
+  async mounted() {
+    // const ress = await axios.get('/api/qiniu/token')
+    // const ress = await qiniuService.fetchToken()
+    // console.log('ress:' ,ress)
+    // 全局获取七牛Token并缓存
+    this.$store.dispatch('fetchQiniuToken')
+
+  }
 }
 </script>
 <style scoped>

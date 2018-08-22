@@ -16,8 +16,8 @@ const store = () =>
     mutations: {},
     actions: {
       nuxtServerInit: async ({ commit, dispatch }, { req, res }) => {
-        let pro = await dispatch('fetchQiniuToken')
-        console.log(pro)
+        // TODO: 解决不能使用dispatch问题，英文文档规定必须返回一个promise ?
+        // dispatch('fetchQiniuToken')
         if (!!req.session && !!req.session.user && !!req.session.user.token) {
           commit('LOGIN', req.session)
         } else {
