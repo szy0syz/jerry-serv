@@ -4,9 +4,10 @@ import Router from 'koa-router'
 import route from './routers'
 import R from 'ramda'
 import { getFilename } from './utils'
+import config from './config'
 
-const host = process.env.HOST || '0.0.0.0'
-const port = process.env.PORT || 3000
+const host = config.HOST || process.env.HOST || '0.0.0.0'
+const port = config.PORT || process.env.PORT || 3000
 
 const MIDDLEWARES = ['database', 'common', 'rest', 'router']
 

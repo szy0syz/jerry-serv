@@ -1,4 +1,6 @@
 {
+    "HOST": "0.0.0.0",
+    "PORT": 3003,
     "db": "mongodb://localhost:27017/jerryServ",
     "SITE_ROOT_URL": "http://jj.jerryshi.com",
     "qiniu": {

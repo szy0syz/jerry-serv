@@ -607,7 +607,7 @@ export default {
     await this.$store.dispatch('detailArticle', this.current_id)
 
     const data = this.$store.state.article.curtArticle
-
+    console.log('deit page', data)
     this.article = Object.assign({}, this.article, data)
 
     // -------init ArticleTag--------
