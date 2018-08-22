@@ -39,7 +39,6 @@
 </template>
 <script>
 import config from '../../server/config' //七牛配置
-console.log(config)
 import axios from '~/plugins/axios2'
 
 export default {
@@ -95,8 +94,8 @@ export default {
       // console.log(res);
       file.url = 'http://cdn.jerryshi.com/' + res.key
       file.name = res.key
-      console.log('this.$refs.upload.fileList',this.$refs.upload.fileList)
-      console.log('this.$store.state.article.curtArticle.cover',this.$store.state.article.curtArticle.cover)
+      // console.log('this.$refs.upload.fileList',this.$refs.upload.fileList)
+      // console.log('this.$store.state.article.curtArticle.cover',this.$store.state.article.curtArticle.cover)
       this.$emit('handleSuccess', 'http://cdn.jerryshi.com/' + res.key) //传递给父组件
     },
     handleFormatError(file) {
@@ -129,7 +128,6 @@ export default {
     // TODO: 是在没办法二次异步问题 A组件 B组件，A组件加载调用B组件，A组件mounted时加载异步数据后store设置state，B组件渲染需要这个state。难解？
     setTimeout(() => {
       const cover = this.$store.state.article.curtArticle.cover
-      console.log('cover!~~', cover)
       if (cover) {
       this.uploadList.push({url: this.$store.state.article.curtArticle.cover, status: 'finished'})
     }
