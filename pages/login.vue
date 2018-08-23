@@ -132,8 +132,6 @@ export default {
     // const ress = await axios.get('/api/qiniu/token')
     // const ress = await qiniuService.fetchToken()
     // console.log('ress:' ,ress)
-    // 全局获取七牛Token并缓存
-    this.$store.dispatch('fetchQiniuToken')
 
   }
 }
