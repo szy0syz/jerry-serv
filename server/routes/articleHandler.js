@@ -77,13 +77,31 @@ export class articleHandlerController {
     const groupType = await ArticleType.findOne({name: '集团新闻'})
     const filter = { __v: 0, password: 0, content:0 }
     // 查询 置顶文章
-    let topArticles = await Article.find({status: 9, isTop: true}, filter)
+    let topArticles = await Article
+      .find({status: 9, isTop: true}, filter)
+      .sort({ '_id': -1 })
+      .limit(4)
+      .populate({ path: 'type', select: 'name' })
+      .populate({ path: 'tags', select: 'name' })
+      .populate({ path: 'author', select: '_id username avatar' })
 
     // 查询 最新文章：审核状态 and 不等于[集团新闻]类别 and 不是轮播文章
-    let latestArticles = await Article.find({status: 9, type: {$ne: groupType._id}, isTop: false}, filter)
+    let latestArticles = await Article
+      .find({status: 9, type: {$ne: groupType._id}, isTop: false}, filter)
+      .sort({ '_id': -1 })
+      .limit(4)
+      .populate({ path: 'type', select: 'name' })
+      .populate({ path: 'tags', select: 'name' })
+      .populate({ path: 'author', select: '_id username avatar' })
 
     // 查询 集团新闻
-    let groupArticles = await Article.find({status: 9, type: groupType._id, isTop: false}, filter)
+    let groupArticles = await Article
+      .find({status: 9, type: groupType._id, isTop: false}, filter)
+      .sort({ '_id': -1 })
+      .limit(4)
+      .populate({ path: 'type', select: 'name' })
+      .populate({ path: 'tags', select: 'name' })
+      .populate({ path: 'author', select: '_id username avatar' })
 
     ctx.body = {
       success: true,

@@ -3515,17 +3515,17 @@ var articleHandlerController = (_dec = controller('/api/articleHandler'), _dec2 
                   // 查询 置顶文章
                 };
                 _context4.next = 6;
-                return Article.find({ status: 9, isTop: true }, filter);
+                return Article.find({ status: 9, isTop: true }, filter).sort({ '_id': -1 }).limit(4).populate({ path: 'type', select: 'name' }).populate({ path: 'tags', select: 'name' }).populate({ path: 'author', select: '_id username avatar' });
 
               case 6:
                 topArticles = _context4.sent;
                 _context4.next = 9;
-                return Article.find({ status: 9, type: { $ne: groupType._id }, isTop: false }, filter);
+                return Article.find({ status: 9, type: { $ne: groupType._id }, isTop: false }, filter).sort({ '_id': -1 }).limit(4).populate({ path: 'type', select: 'name' }).populate({ path: 'tags', select: 'name' }).populate({ path: 'author', select: '_id username avatar' });
 
               case 9:
                 latestArticles = _context4.sent;
                 _context4.next = 12;
-                return Article.find({ status: 9, type: groupType._id, isTop: false }, filter);
+                return Article.find({ status: 9, type: groupType._id, isTop: false }, filter).sort({ '_id': -1 }).limit(4).populate({ path: 'type', select: 'name' }).populate({ path: 'tags', select: 'name' }).populate({ path: 'author', select: '_id username avatar' });
 
               case 12:
                 groupArticles = _context4.sent;
