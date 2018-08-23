@@ -80,11 +80,11 @@ export async function remove(_id) {
   return res
 }
 
-export async function addLiker({_id, username, userid}) {
+export async function addLiker({_id, username, avatar, userid}) {
   let entity = await Article.findOne({ _id }, { __v: 0 }).exec()
 
   // 数据服务层不管业务逻辑，业务逻辑交给控制器层
-  entity.likeList.push({username, userid})
+  entity.likeList.push({username, avatar, userid})
   entity = await entity.save()
 
   return entity

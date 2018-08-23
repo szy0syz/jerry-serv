@@ -35,6 +35,7 @@ const ArticleSchema = new Schema({
   likeList: [
     {
       username: String,
+      avatar: String,
       userid: String,
       meta: {
         createdAt: {
