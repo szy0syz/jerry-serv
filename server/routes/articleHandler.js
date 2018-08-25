@@ -74,11 +74,11 @@ export class articleHandlerController {
   @get('/homeArticles')
   async getHomeArticles(ctx) {
     // TODO: redis缓存公共业务数据，不能让ODM每次都去查
-    const groupType = await ArticleType.findOne({name: '集团新闻'})
-    const filter = { __v: 0, password: 0, content:0 }
+    const groupType = await ArticleType.findOne({ name: '集团新闻' })
+    const filter = { __v: 0, password: 0, content: 0 }
     // 查询 置顶文章
     let topArticles = await Article
-      .find({status: 9, isTop: true}, filter)
+      .find({ status: 9, isTop: true }, filter)
       .sort({ '_id': -1 })
       .limit(4)
       .populate({ path: 'type', select: 'name' })
@@ -87,7 +87,7 @@ export class articleHandlerController {
 
     // 查询 最新文章：审核状态 and 不等于[集团新闻]类别 and 不是轮播文章
     let latestArticles = await Article
-      .find({status: 9, type: {$ne: groupType._id}, isTop: false}, filter)
+      .find({ status: 9, type: { $ne: groupType._id }, isTop: false }, filter)
       .sort({ '_id': -1 })
       .limit(4)
       .populate({ path: 'type', select: 'name' })
@@ -96,7 +96,7 @@ export class articleHandlerController {
 
     // 查询 集团新闻
     let groupArticles = await Article
-      .find({status: 9, type: groupType._id, isTop: false}, filter)
+      .find({ status: 9, type: groupType._id, isTop: false }, filter)
       .sort({ '_id': -1 })
       .limit(4)
       .populate({ path: 'type', select: 'name' })
@@ -110,6 +110,19 @@ export class articleHandlerController {
         latestArticles,
         groupArticles
       }
+    }
+  }
+
+  @get('/groupArticles')
+  async getHomeArticles(ctx) {
+    const data = await Article.aggregate([
+      { $group: { _id: '$type', articles: {$push: '$$ROOT'}} },
+      { $project: { 'articles.__v': 0,  'articles.content': 0, 'articles.password': 0, 'articles.tags': 0}}
+    ])
+
+    ctx.body = {
+      success: true,
+      data
     }
   }
 }

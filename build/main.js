@@ -1505,6 +1505,7 @@ var ArticleSchema = new Schema({
   }],
   likeList: [{
     username: String,
+    avatar: String,
     userid: String,
     meta: {
       createdAt: {
@@ -2470,6 +2471,7 @@ var addLiker = function () {
   var _ref8 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.mark(function _callee6(_ref7) {
     var _id = _ref7._id,
         username = _ref7.username,
+        avatar = _ref7.avatar,
         userid = _ref7.userid;
     var entity;
     return __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee6$(_context6) {
@@ -2484,7 +2486,7 @@ var addLiker = function () {
 
 
             // 数据服务层不管业务逻辑，业务逻辑交给控制器层
-            entity.likeList.push({ username: username, userid: userid });
+            entity.likeList.push({ username: username, avatar: avatar, userid: userid });
             _context6.next = 6;
             return entity.save();
 
@@ -3294,7 +3296,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _dec, _dec2, _dec3, _dec4, _dec5, _class, _desc, _value, _class2;
+var _dec, _dec2, _dec3, _dec4, _dec5, _dec6, _class, _desc, _value, _class2;
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
@@ -3346,7 +3348,7 @@ var _require2 = __webpack_require__(2),
 var Article = __WEBPACK_IMPORTED_MODULE_2_mongoose___default.a.model('Article');
 var ArticleType = __WEBPACK_IMPORTED_MODULE_2_mongoose___default.a.model('ArticleType');
 
-var articleHandlerController = (_dec = controller('/api/articleHandler'), _dec2 = post('/like'), _dec3 = post('/unlike'), _dec4 = post('/comment'), _dec5 = get('/homeArticles'), _dec(_class = (_class2 = function () {
+var articleHandlerController = (_dec = controller('/api/articleHandler'), _dec2 = post('/like'), _dec3 = post('/unlike'), _dec4 = post('/comment'), _dec5 = get('/homeArticles'), _dec6 = get('/groupArticles'), _dec(_class = (_class2 = function () {
   function articleHandlerController() {
     _classCallCheck(this, articleHandlerController);
   }
@@ -3554,10 +3556,45 @@ var articleHandlerController = (_dec = controller('/api/articleHandler'), _dec2 
 
       return getHomeArticles;
     }()
+  }, {
+    key: 'getHomeArticles',
+    value: function () {
+      var _ref5 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.mark(function _callee5(ctx) {
+        var data;
+        return __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                _context5.next = 2;
+                return Article.aggregate([{ $group: { _id: '$type', articles: { $push: '$$ROOT' } } }, { $project: { 'articles.__v': 0, 'articles.content': 0, 'articles.password': 0, 'articles.tags': 0 } }]);
+
+              case 2:
+                data = _context5.sent;
+
+
+                ctx.body = {
+                  success: true,
+                  data: data
+                };
+
+              case 4:
+              case 'end':
+                return _context5.stop();
+            }
+          }
+        }, _callee5, this);
+      }));
+
+      function getHomeArticles(_x5) {
+        return _ref5.apply(this, arguments);
+      }
+
+      return getHomeArticles;
+    }()
   }]);
 
   return articleHandlerController;
-}(), (_applyDecoratedDescriptor(_class2.prototype, 'postLike', [_dec2], Object.getOwnPropertyDescriptor(_class2.prototype, 'postLike'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'postUnLike', [_dec3], Object.getOwnPropertyDescriptor(_class2.prototype, 'postUnLike'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'postComment', [_dec4], Object.getOwnPropertyDescriptor(_class2.prototype, 'postComment'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'getHomeArticles', [_dec5], Object.getOwnPropertyDescriptor(_class2.prototype, 'getHomeArticles'), _class2.prototype)), _class2)) || _class);
+}(), (_applyDecoratedDescriptor(_class2.prototype, 'postLike', [_dec2], Object.getOwnPropertyDescriptor(_class2.prototype, 'postLike'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'postUnLike', [_dec3], Object.getOwnPropertyDescriptor(_class2.prototype, 'postUnLike'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'postComment', [_dec4], Object.getOwnPropertyDescriptor(_class2.prototype, 'postComment'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'getHomeArticles', [_dec5], Object.getOwnPropertyDescriptor(_class2.prototype, 'getHomeArticles'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'getHomeArticles', [_dec6], Object.getOwnPropertyDescriptor(_class2.prototype, 'getHomeArticles'), _class2.prototype)), _class2)) || _class);
 
 /***/ }),
 /* 54 */
