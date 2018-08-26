@@ -54,7 +54,7 @@ npm run publish:prod
 
 > 这么多todos，前中后都是我，坑的仍然是我。
 
-* [ ] [FE]使用Vuex重构前期件
+* [ ] [FE]使用Vuex重构前期件
 * [ ] [FE]重构qiniu-img-upload图片上传组件
 * [ ] [BE]修正Article-Controller业务逻辑-根据不同角色用户改变status
 * [ ] [FE]再次封装axios，对错误信息预先提示
