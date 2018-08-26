@@ -75,6 +75,8 @@ npm run publish:prod
 * [ ] [BE]缓存，缓存，缓存啊
   * [ ] [BE]缓存首页数据，缓存文章的likeNum，延迟批量insertMany
   * [ ] [BE]重构Service层，来个“pipeline”查询，先经过redis，再去MongoDB
+* [ ] [BE]GraqhQL
+* [ ] [BE]鉴权：单独casbin模块，登录后放jwt，后续请求放header，在graqhql前执行鉴权
 
 参考资料
 
