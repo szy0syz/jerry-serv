@@ -385,7 +385,7 @@ export default {
       let key = randomToken(32)
 
       key = `yncyzj/${key}`
-      let token = this.$store.state.app.getQiniuToken
+      let token = this.$store.state.app.qiniuToken
       const self = this
       const myConfig = config
       const observer = {
@@ -548,16 +548,6 @@ export default {
       if (this.canPublish()) {
         // this.publishLoading = true
         console.log(this.article)
-        this.article.likeList = [
-          {
-            name: 'jj1',
-            id: '222'
-          },
-          {
-            name: 'jj2',
-            id: '24444'
-          }
-        ]
         let res = await axios.put('/api/article', this.article)
         if (res.data.success) {
           this.$Notice.success({
