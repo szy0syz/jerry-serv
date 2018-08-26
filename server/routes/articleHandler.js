@@ -114,7 +114,7 @@ export class articleHandlerController {
   }
 
   @get('/groupArticles')
-  async getHomeArticles(ctx) {
+  async getGroupArticles(ctx) {
     // let data = await Article
     // .aggregate([
     //   { $match: { status: 9 } },

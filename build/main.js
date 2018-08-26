@@ -3557,7 +3557,7 @@ var articleHandlerController = (_dec = controller('/api/articleHandler'), _dec2 
       return getHomeArticles;
     }()
   }, {
-    key: 'getHomeArticles',
+    key: 'getGroupArticles',
     value: function () {
       var _ref5 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.mark(function _callee5(ctx) {
         var data;
@@ -3608,16 +3608,16 @@ var articleHandlerController = (_dec = controller('/api/articleHandler'), _dec2 
         }, _callee5, this);
       }));
 
-      function getHomeArticles(_x5) {
+      function getGroupArticles(_x5) {
         return _ref5.apply(this, arguments);
       }
 
-      return getHomeArticles;
+      return getGroupArticles;
     }()
   }]);
 
   return articleHandlerController;
-}(), (_applyDecoratedDescriptor(_class2.prototype, 'postLike', [_dec2], Object.getOwnPropertyDescriptor(_class2.prototype, 'postLike'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'postUnLike', [_dec3], Object.getOwnPropertyDescriptor(_class2.prototype, 'postUnLike'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'postComment', [_dec4], Object.getOwnPropertyDescriptor(_class2.prototype, 'postComment'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'getHomeArticles', [_dec5], Object.getOwnPropertyDescriptor(_class2.prototype, 'getHomeArticles'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'getHomeArticles', [_dec6], Object.getOwnPropertyDescriptor(_class2.prototype, 'getHomeArticles'), _class2.prototype)), _class2)) || _class);
+}(), (_applyDecoratedDescriptor(_class2.prototype, 'postLike', [_dec2], Object.getOwnPropertyDescriptor(_class2.prototype, 'postLike'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'postUnLike', [_dec3], Object.getOwnPropertyDescriptor(_class2.prototype, 'postUnLike'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'postComment', [_dec4], Object.getOwnPropertyDescriptor(_class2.prototype, 'postComment'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'getHomeArticles', [_dec5], Object.getOwnPropertyDescriptor(_class2.prototype, 'getHomeArticles'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'getGroupArticles', [_dec6], Object.getOwnPropertyDescriptor(_class2.prototype, 'getGroupArticles'), _class2.prototype)), _class2)) || _class);
 
 /***/ }),
 /* 54 */
