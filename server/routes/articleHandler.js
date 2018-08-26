@@ -115,10 +115,38 @@ export class articleHandlerController {
 
   @get('/groupArticles')
   async getHomeArticles(ctx) {
-    const data = await Article.aggregate([
-      { $group: { _id: '$type', articles: {$push: '$$ROOT'}} },
-      { $project: { 'articles.__v': 0,  'articles.content': 0, 'articles.password': 0, 'articles.tags': 0}}
-    ])
+    // let data = await Article
+    // .aggregate([
+    //   { $match: { status: 9 } },
+    //   { $group: { _id: '$type', articles: {$push: '$$ROOT'}} },
+    //   { $project: { 'articles.likeNum': { $size: '$likeList' } ,'articles.isTop': 0, 'articles.openness': 0, 'articles.author': 0, 'articles.type': 0, 'articles.__v': 0, 'articles.content': 0, 'articles.password': 0, 'articles.tags': 0}}
+    // ])
+
+    let data = await Article
+      .aggregate([
+        { $match: { status: 9 } },
+        {
+          $group: {
+            _id: '$type', articles: {
+              $push: {
+                title: '$title',
+                desc: '$desc',
+                cover: '$cover',
+                clickNum: '$clickNum',
+                likeNum: { $size: '$likeList' },
+                commentNum: { $size: '$commentList' },
+                pubdate: '$pubdate'
+              }
+            }
+          }
+        }
+      ])
+
+    data = await Article.populate(data, {
+      path: '_id',
+      model: 'ArticleType',
+      select: '_id name'
+    })
 
     ctx.body = {
       success: true,

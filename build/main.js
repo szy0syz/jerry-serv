@@ -3566,9 +3566,32 @@ var articleHandlerController = (_dec = controller('/api/articleHandler'), _dec2 
             switch (_context5.prev = _context5.next) {
               case 0:
                 _context5.next = 2;
-                return Article.aggregate([{ $group: { _id: '$type', articles: { $push: '$$ROOT' } } }, { $project: { 'articles.__v': 0, 'articles.content': 0, 'articles.password': 0, 'articles.tags': 0 } }]);
+                return Article.aggregate([{ $match: { status: 9 } }, {
+                  $group: {
+                    _id: '$type', articles: {
+                      $push: {
+                        title: '$title',
+                        desc: '$desc',
+                        cover: '$cover',
+                        clickNum: '$clickNum',
+                        likeNum: { $size: '$likeList' },
+                        commentNum: { $size: '$commentList' },
+                        pubdate: '$pubdate'
+                      }
+                    }
+                  }
+                }]);
 
               case 2:
+                data = _context5.sent;
+                _context5.next = 5;
+                return Article.populate(data, {
+                  path: '_id',
+                  model: 'ArticleType',
+                  select: '_id name'
+                });
+
+              case 5:
                 data = _context5.sent;
 
 
@@ -3577,7 +3600,7 @@ var articleHandlerController = (_dec = controller('/api/articleHandler'), _dec2 
                   data: data
                 };
 
-              case 4:
+              case 7:
               case 'end':
                 return _context5.stop();
             }
