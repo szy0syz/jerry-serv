@@ -129,6 +129,7 @@ export class articleHandlerController {
           $group: {
             _id: '$type', articles: {
               $push: {
+                _id: '$_id',
                 title: '$title',
                 desc: '$desc',
                 cover: '$cover',

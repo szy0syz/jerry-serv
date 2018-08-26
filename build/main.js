@@ -3570,6 +3570,7 @@ var articleHandlerController = (_dec = controller('/api/articleHandler'), _dec2 
                   $group: {
                     _id: '$type', articles: {
                       $push: {
+                        _id: '$_id',
                         title: '$title',
                         desc: '$desc',
                         cover: '$cover',
