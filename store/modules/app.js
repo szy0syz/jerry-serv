@@ -205,7 +205,7 @@ const app = {
     async fetchQiniuToken({ state }) {
       if (!state.qiniuToken) {
         let token = await qiniuService.fetchToken()
-        state.qiniuToken = token.data.data.token
+        state.qiniuToken = token
       }
     }
   }

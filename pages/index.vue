@@ -300,7 +300,6 @@ export default {
     this.checkTag(this.$route.name)
 
     // 全局获取七牛Token并缓存
-    console.log('this.$store.dispatch(fetchQiniuToken)~!')
     this.$store.dispatch('fetchQiniuToken')
   },
   created() {

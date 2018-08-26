@@ -383,7 +383,8 @@ export default {
       // key = `yncyzj/${key}.${file.name.split('.')[1]}`
       key = `yncyzj/${key}`
       // let token = this.$store.getters.getQiniuToken
-      let token = this.$store.state.app.getQiniuToken
+      let token = this.$store.state.app.qiniuToken
+
       const self = this
       const myConfig = config
       const observer = {
