@@ -74,4 +74,28 @@ export class adminController {
       msg: '用户名或密码不正确'
     }
   }
+
+  @post('/logout')
+  async logout(ctx) {
+    try {
+      ctx.session.user = null
+      return (ctx.body = {
+        ret: 200,
+        msg: '请求成功',
+        data: {
+          code: 0,
+          message: '退出成功'
+        }
+      })
+    } catch (e) {
+      return (ctx.body = {
+        ret: 200,
+        msg: '请求成功',
+        data: {
+          code: -1,
+          message: '退出失败'
+        }
+      })
+    }
+  }
 }

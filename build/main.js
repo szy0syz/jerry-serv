@@ -720,7 +720,7 @@ var articleHandlerController = (_dec = controller('/api/public/article'), _dec2 
     key: 'postComment',
     value: function () {
       var _ref4 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.mark(function _callee4(ctx) {
-        var params, data;
+        var params;
         return __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee4$(_context4) {
           while (1) {
             switch (_context4.prev = _context4.next) {
@@ -732,18 +732,16 @@ var articleHandlerController = (_dec = controller('/api/public/article'), _dec2 
                 return ArticleService.addComment(params);
 
               case 4:
-                data = _context4.sent;
-
 
                 ctx.body = {
                   msg: '评论成功',
                   success: true
                 };
-                _context4.next = 12;
+                _context4.next = 11;
                 break;
 
-              case 8:
-                _context4.prev = 8;
+              case 7:
+                _context4.prev = 7;
                 _context4.t0 = _context4['catch'](1);
 
                 ctx.body = {
@@ -752,12 +750,12 @@ var articleHandlerController = (_dec = controller('/api/public/article'), _dec2 
                 };
                 console.error(_context4.t0);
 
-              case 12:
+              case 11:
               case 'end':
                 return _context4.stop();
             }
           }
-        }, _callee4, this, [[1, 8]]);
+        }, _callee4, this, [[1, 7]]);
       }));
 
       function postComment(_x4) {
@@ -970,15 +968,14 @@ var Server = function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.mark(function _callee2(host, port) {
         var _this = this;
 
-        var router, config, nuxt, builder;
+        var config, nuxt, builder;
         return __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                router = new __WEBPACK_IMPORTED_MODULE_3_koa_router___default.a();
-
-                router.use('', __WEBPACK_IMPORTED_MODULE_4__routers__["a" /* default */].routes());
-                this.app.use(router.routes()).use(router.allowedMethods());
+                // const router = new Router()
+                // router.use('', route.routes())
+                // this.app.use(router.routes()).use(router.allowedMethods())
 
                 // Import and Set Nuxt.js options
                 config = __webpack_require__(63);
@@ -992,15 +989,15 @@ var Server = function () {
                 // Build in development
 
                 if (!config.dev) {
-                  _context2.next = 10;
+                  _context2.next = 7;
                   break;
                 }
 
                 builder = new __WEBPACK_IMPORTED_MODULE_2_nuxt__["Builder"](nuxt);
-                _context2.next = 10;
+                _context2.next = 7;
                 return builder.build();
 
-              case 10:
+              case 7:
 
                 this.app.use(function () {
                   var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.mark(function _callee(ctx, next) {
@@ -1039,7 +1036,7 @@ var Server = function () {
                 this.app.listen(port, host);
                 console.log('Server listening on http://' + host + ':' + port); // eslint-disable-line no-console
 
-              case 13:
+              case 10:
               case 'end':
                 return _context2.stop();
             }
@@ -1104,7 +1101,7 @@ router.get('/api/test', function (ctx) {
   return ctx.body = 'jerry';
 });
 
-/* harmony default export */ __webpack_exports__["a"] = (router);
+/* unused harmony default export */ var _unused_webpack_default_export = (router);
 
 /***/ }),
 /* 16 */
@@ -2216,7 +2213,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _dec, _dec2, _dec3, _dec4, _class, _desc, _value, _class2;
+var _dec, _dec2, _dec3, _dec4, _dec5, _class, _desc, _value, _class2;
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
@@ -2264,7 +2261,7 @@ var _require = __webpack_require__(2),
 
 var adminController = (_dec = controller('/api/admin'), _dec2 = get('/user'), _dec3 = post('/login'), _dec4 = required({
   body: ['username', 'password']
-}), _dec(_class = (_class2 = function () {
+}), _dec5 = post('/logout'), _dec(_class = (_class2 = function () {
   function adminController() {
     _classCallCheck(this, adminController);
   }
@@ -2383,10 +2380,56 @@ var adminController = (_dec = controller('/api/admin'), _dec2 = get('/user'), _d
 
       return login;
     }()
+  }, {
+    key: 'logout',
+    value: function () {
+      var _ref3 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.mark(function _callee3(ctx) {
+        return __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.prev = 0;
+
+                ctx.session.user = null;
+                return _context3.abrupt('return', ctx.body = {
+                  ret: 200,
+                  msg: '请求成功',
+                  data: {
+                    code: 0,
+                    message: '退出成功'
+                  }
+                });
+
+              case 5:
+                _context3.prev = 5;
+                _context3.t0 = _context3['catch'](0);
+                return _context3.abrupt('return', ctx.body = {
+                  ret: 200,
+                  msg: '请求成功',
+                  data: {
+                    code: -1,
+                    message: '退出失败'
+                  }
+                });
+
+              case 8:
+              case 'end':
+                return _context3.stop();
+            }
+          }
+        }, _callee3, this, [[0, 5]]);
+      }));
+
+      function logout(_x4) {
+        return _ref3.apply(this, arguments);
+      }
+
+      return logout;
+    }()
   }]);
 
   return adminController;
-}(), (_applyDecoratedDescriptor(_class2.prototype, 'getUser', [_dec2], Object.getOwnPropertyDescriptor(_class2.prototype, 'getUser'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'login', [_dec3, _dec4], Object.getOwnPropertyDescriptor(_class2.prototype, 'login'), _class2.prototype)), _class2)) || _class);
+}(), (_applyDecoratedDescriptor(_class2.prototype, 'getUser', [_dec2], Object.getOwnPropertyDescriptor(_class2.prototype, 'getUser'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'login', [_dec3, _dec4], Object.getOwnPropertyDescriptor(_class2.prototype, 'login'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'logout', [_dec5], Object.getOwnPropertyDescriptor(_class2.prototype, 'logout'), _class2.prototype)), _class2)) || _class);
 
 /***/ }),
 /* 46 */

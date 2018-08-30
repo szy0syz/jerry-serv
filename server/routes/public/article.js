@@ -35,8 +35,8 @@ export class articleHandlerController {
 
     const { username, userid } = ctx.query
 
-    const data = await ArticleService.fetchDetail({_id, username, userid})
-    
+    const data = await ArticleService.fetchDetail({ _id, username, userid })
+
     ctx.body = {
       success: true,
       data
@@ -70,7 +70,7 @@ export class articleHandlerController {
     let params = ctx.request.body
 
     try {
-      const data = await ArticleService.addComment(params)
+      await ArticleService.addComment(params)
 
       ctx.body = {
         msg: '评论成功',

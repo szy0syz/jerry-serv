@@ -120,7 +120,7 @@ export default {
         })
       } else if (name === 'loginout') {
         // 退出登录
-        let req = await axios.get('/api/logout')
+        let req = await axios.post('/api/admin/logout')
         if (req.data.data.code !== 0) {
           let msg = req.data.data.message || '退出失败'
           this.$Message.error({ content: msg, duration: 2, closable: true })
