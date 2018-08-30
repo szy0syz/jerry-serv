@@ -1,20 +1,20 @@
 import Vue from 'vue'
-import NuxtLoading from '../components/loading.vue'
+import NuxtLoading from '..\\components\\loading.vue'
 
-import '../assets/css/main.css'
+import '..\\assets\\css\\main.css'
 
-import '../node_modules/quill/dist/quill.snow.css'
+import '..\\node_modules\\quill\\dist\\quill.snow.css'
 
-import '../node_modules/quill/dist/quill.bubble.css'
+import '..\\node_modules\\quill\\dist\\quill.bubble.css'
 
-import '../node_modules/quill/dist/quill.core.css'
+import '..\\node_modules\\quill\\dist\\quill.core.css'
 
 
 let layouts = {
 
-  "_default": () => import('../layouts/default.vue'  /* webpackChunkName: "layouts/default" */).then(m => m.default || m),
+  "_default": () => import('..\\layouts\\default.vue'  /* webpackChunkName: "layouts_default" */).then(m => m.default || m),
 
-  "_full": () => import('../layouts/full.vue'  /* webpackChunkName: "layouts/full" */).then(m => m.default || m)
+  "_full": () => import('..\\layouts\\full.vue'  /* webpackChunkName: "layouts_full" */).then(m => m.default || m)
 
 }
 

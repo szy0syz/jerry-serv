@@ -32,7 +32,7 @@
 * [ ] [FE]index页注册快捷键操作
 * [ ] [BE]完善后端中各个控制器[required]修饰器的逻辑使用
 * [ ] [FE]使用Nuxt全家桶:axios-moudle/auth-module/apollo-module/pwa-apollo-module
-* [ ] [FE]TODO: 是在没办法二次异步问题 A组件 B组件，A组件加载调用B组件，A组件mounted时加载异步数据后store设置state，B组件渲染需要这个state。难解？
+* [ ] [FE]实在没办法二次异步问题 A组件 B组件，A组件加载调用B组件，A组件mounted时加载异步数据后store设置state，B组件渲染需要这个state。难解？
 * [ ] [FE]nuxtServiceInit使用异步dispatch问题
 * [ ] [BE]redis缓存公共业务数据，不能让ODM每次都去查
 * [ ] [BE][🔥急]待优化fetchDetail时又自增又lean()问题
@@ -44,7 +44,16 @@
   * [ ] [BE]缓存首页数据，缓存文章的likeNum，延迟批量insertMany
   * [ ] [BE]重构Service层，来个“pipeline”查询，先经过redis，再去MongoDB
 * [ ] [BE]GraqhQL
-* [ ] [BE]鉴权：单独casbin模块，登录后放jwt，后续请求放header，在graqhql前执行鉴权
+* [ ] [BE]鉴权：登录后放jwt，单独casbin模块，后续请求放header，在graqhql前执行鉴权
+* [ ] [BE]移除session，使用jwt代替
+
+## Architecture
+
+### 鉴权
+
+* Api分割两个部分：
+  * 公开部分：无须权限认证，但需用redis限流
+  * 私密部分：除了register和logon以外，全部需要验证
 
 ## Test
 
