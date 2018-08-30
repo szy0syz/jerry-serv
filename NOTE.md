@@ -22,12 +22,13 @@
 
 > 这么多todos，前中后都是我，坑的仍然是我。
 
-* [ ] [FE]使用Vuex重构前期件
-* [ ] [FE]重构qiniu-img-upload图片上传组件
-* [ ] [BE]修正Article-Controller业务逻辑-根据不同角色用户改变status
-* [ ] [FE]再次封装axios，对错误信息预先提示
-* [ ] [BE]修复require.context不支持绝对路径问题
-* [x] [BE]优化ArticleQuery查询结果，节省不必要资源缓存
+* [ ] [FE] 使用Vuex重构前期件
+* [ ] [FE] 重构qiniu-img-upload图片上传组件
+* [ ] [BE] 修正Article-Controller业务逻辑-根据不同角色用户改变status
+* [ ] [FE] 再次封装axios，对错误信息预先提示
+* [x] [BE] ~~修复require.context不支持绝对路径问题~~
+  * 根源：**传递给 require.context 的参数必须是字面量(literal)！**
+* [x] [BE] ~~优化ArticleQuery查询结果，节省不必要资源缓存~~
 * [ ] [FE]index页中tagsRouter优化
 * [ ] [FE]index页注册快捷键操作
 * [ ] [BE]完善后端中各个控制器[required]修饰器的逻辑使用

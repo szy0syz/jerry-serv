@@ -17,9 +17,11 @@ export class Route {
   }
 
   init() {
+    const regx = /^\.\/public\//    // 过滤public目录下的公共路由
     // glob.sync(resolve(this.apiPath, './**/*.js')).forEach(require)
     // Todo: 待修复require.context不支持绝对路径问题
     const context = require.context('../routes', true, /\.js$/)
+    console.log(context.keys().filter(i => !regx.test(i)))
     context.keys().forEach(key => context(key))
     
     // 为所有中间件注册路由
