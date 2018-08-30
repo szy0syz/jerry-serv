@@ -1,7 +1,6 @@
 import Koa from 'koa'
 import { Nuxt, Builder } from 'nuxt'
 import Router from 'koa-router'
-import route from './routers'
 import R from 'ramda'
 import { getFilename } from './utils'
 import config from './config'
