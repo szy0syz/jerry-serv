@@ -5,16 +5,16 @@ import { createRouter } from './router.js'
 import NoSSR from './components/no-ssr.js'
 import NuxtChild from './components/nuxt-child.js'
 import NuxtLink from './components/nuxt-link.js'
-import NuxtError from '..\\layouts\\error.vue'
+import NuxtError from '../layouts/error.vue'
 import Nuxt from './components/nuxt.js'
 import App from './App.js'
 import { setContext, getLocation, getRouteData } from './utils'
 import { createStore } from './store.js'
 
 /* Plugins */
-import nuxt_plugin_flexible_f1952bd6 from 'nuxt_plugin_flexible_f1952bd6' // Source: ..\\plugins\\flexible.js (ssr: false)
-import nuxt_plugin_iview_ab80ed00 from 'nuxt_plugin_iview_ab80ed00' // Source: ..\\plugins\\iview.js
-import nuxt_plugin_quillEditor_3b2368db from 'nuxt_plugin_quillEditor_3b2368db' // Source: ..\\plugins\\quillEditor.js (ssr: false)
+import nuxt_plugin_flexible_f1952bd6 from 'nuxt_plugin_flexible_f1952bd6' // Source: ../plugins/flexible.js (ssr: false)
+import nuxt_plugin_iview_ab80ed00 from 'nuxt_plugin_iview_ab80ed00' // Source: ../plugins/iview.js
+import nuxt_plugin_quillEditor_3b2368db from 'nuxt_plugin_quillEditor_3b2368db' // Source: ../plugins/quillEditor.js (ssr: false)
 
 
 // Component: <no-ssr>

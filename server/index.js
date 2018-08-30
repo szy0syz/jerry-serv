@@ -9,7 +9,8 @@ import config from './config'
 const host = config.HOST || process.env.HOST || '0.0.0.0'
 const port = config.PORT || process.env.PORT || 3000
 
-const MIDDLEWARES = ['database', 'common', 'rest', 'router']
+// const MIDDLEWARES = ['database', 'common', 'rest', 'router']
+const MIDDLEWARES = ['database', 'common', 'pubRouter', 'router']
 
 // 自动遍历 ./middleware/*.js 导出对象后再逐个遍历初始化koa中间件
 const useMiddlewares = app => {

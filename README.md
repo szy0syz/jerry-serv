@@ -58,7 +58,8 @@ npm run publish:prod
 * [ ] [FE]重构qiniu-img-upload图片上传组件
 * [ ] [BE]修正Article-Controller业务逻辑-根据不同角色用户改变status
 * [ ] [FE]再次封装axios，对错误信息预先提示
-* [ ] [BE]修复require.context不支持绝对路径问题
+* [x] [BE] ~~修复require.context不支持绝对路径问题~~
+  * 根源：**传递给 require.context 的参数必须是字面量(literal)！**
 * [x] [BE]优化ArticleQuery查询结果，节省不必要资源缓存
 * [ ] [FE]index页中tagsRouter优化
 * [ ] [FE]index页注册快捷键操作
@@ -78,6 +79,7 @@ npm run publish:prod
 * [ ] [BE]GraqhQL
 * [ ] [BE]鉴权：登录后放jwt，单独casbin模块，后续请求放header，在graqhql前执行鉴权
 * [ ] [BE]移除session，使用jwt代替
+* [x] [BE]重构后端路由：私密和受保护两部分
 
 ## Architecture
 

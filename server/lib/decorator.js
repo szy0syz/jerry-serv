@@ -21,9 +21,20 @@ export class Route {
     // glob.sync(resolve(this.apiPath, './**/*.js')).forEach(require)
     // Todo: 待修复require.context不支持绝对路径问题
     const context = require.context('../routes', true, /\.js$/)
-    console.log(context.keys().filter(i => !regx.test(i)))
+    context.keys().filter(i => !regx.test(i)).forEach(key => context(key))
+
+    this.loadRouter()
+  }
+
+  initPublic() {
+    // 注册公开路由
+    const context = require.context('../routes/public', true, /\.js$/)
     context.keys().forEach(key => context(key))
-    
+
+    this.loadRouter()
+  }
+
+  loadRouter() {
     // 为所有中间件注册路由
     for (let [conf, controller] of routeMap) {
       const controllers = isArray(controller)

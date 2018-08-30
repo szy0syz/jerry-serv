@@ -1,13 +1,13 @@
 import xss from 'xss'
 import mongoose from 'mongoose'
 
-const { article: ArticleService } = require('../service')
+const { article: ArticleService } = require('../../service')
 
-const { controller, get, del, put, post, required } = require('../lib/decorator')
+const { controller, get, del, put, post, required } = require('../../lib/decorator')
 const Article = mongoose.model('Article')
 const ArticleType = mongoose.model('ArticleType')
 
-@controller('/api/articleHandler')
+@controller('/api/public/article')
 export class articleHandlerController {
   @post('/like')
   async postLike(ctx) {
@@ -26,6 +26,20 @@ export class articleHandlerController {
         success: false
       }
       console.error(error)
+    }
+  }
+
+  @get('/detail/:_id')
+  async detail(ctx) {
+    const { _id } = ctx.params
+
+    const { username, userid } = ctx.query
+
+    const data = await ArticleService.fetchDetail({_id, username, userid})
+    
+    ctx.body = {
+      success: true,
+      data
     }
   }
 

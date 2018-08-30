@@ -47,6 +47,7 @@
 * [ ] [BE]GraqhQL
 * [ ] [BE]鉴权：登录后放jwt，单独casbin模块，后续请求放header，在graqhql前执行鉴权
 * [ ] [BE]移除session，使用jwt代替
+* [x] [BE]重构后端路由：私密和公开两部分
 
 ## Architecture
 
