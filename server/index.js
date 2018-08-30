@@ -45,10 +45,6 @@ class Server {
   }
 
   async start(host, port) {
-    // const router = new Router()
-    // router.use('', route.routes())
-    // this.app.use(router.routes()).use(router.allowedMethods())
-
     // Import and Set Nuxt.js options
     let config = require('../nuxt.config.js')
     config.dev = !(process.env.NODE_ENV === 'production')
