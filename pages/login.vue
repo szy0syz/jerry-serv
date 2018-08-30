@@ -108,9 +108,13 @@ export default {
             this.loading = false
             return false
           }
-          console.log('token', req.data.data.token)
+          const TOKEN = req.data.data.token
+          console.log('token', TOKEN)
           console.log('info', req.data.data.info)
-          this.$store.commit('SET_TOKEN', req.data.data.token)
+          // 三重保护确保token能正确使用
+          this.$store.commit('SET_TOKEN', TOKEN)
+          localStorage.setItem('TOKEN', TOKEN)
+          axios.defaults.headers.common['Authorization'] = TOKEN
           this.$store.commit('SET_USERINFO', req.data.data.info)
           this.$store.commit('setAvator', 'http://cdn.jerryshi.com/picgo/20180819213615.png')
           this.$Message.success('恭喜您，登录成功！')

@@ -21,9 +21,21 @@ let options = {
   headers: {
     post: {
       'Content-Type': 'application/json'
+    },
+    common: {
+      'Authorization': ''
     }
   }
 }
+
+// 跳过服务端渲染时执行，在客户端时再执行
+// 从web拿到TOKEN
+if (process.browser) { 
+  options.headers.common = {
+    'Authorization': `Bearer ${localStorage.getItem('TOKEN')}`
+  }
+}
+
 // 创建实例
 let axios = Axios.create(options)
 

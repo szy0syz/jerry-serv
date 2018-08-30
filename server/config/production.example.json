@@ -9,5 +9,6 @@
         "config": {
             "useCdnDomain": true
         }
-    }
+    },
+    "jwt_secret": ""
 }

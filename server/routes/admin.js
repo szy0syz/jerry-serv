@@ -41,7 +41,7 @@ export class adminController {
     if (matchData.match) {
       const { _id: db_id, username: db_username } = matchData.user
       // 验证成功：使用jwt发放token
-      const TOKEN = jwt.sign({ _id: db_id, username: db_username }, config.jwt_secret, { expiresIn: '2h' })
+      const TOKEN = jwt.sign({ username: db_username }, config.jwt_secret, { expiresIn: '2h' })
       
       ctx.session.user = {
         _id: db_id,

@@ -1116,7 +1116,7 @@ webpackContext.id = 16;
 /* 17 */
 /***/ (function(module, exports) {
 
-module.exports = {"db":"mongodb://localhost:27017/jerryServ","SITE_ROOT_URL":"http://jj.jerryshi.com","qiniu":{"AK":"","SK":"","bucket":"","qiniuURL":"","config":{"useCdnDomain":true}}}
+module.exports = {"db":"mongodb://localhost:27017/jerryServ","SITE_ROOT_URL":"http://jj.jerryshi.com","qiniu":{"AK":"","SK":"","bucket":"","qiniuURL":"","config":{"useCdnDomain":true}},"jwt_secret":""}
 
 /***/ }),
 /* 18 */
@@ -1128,7 +1128,7 @@ module.exports = {"HOST":"0.0.0.0","PORT":3000,"db":"mongodb://localhost:27017/j
 /* 19 */
 /***/ (function(module, exports) {
 
-module.exports = {"db":"mongodb://localhost/jerryServ","SITE_ROOT_URL":"http://jj.jerryshi.com","qiniu":{"AK":"","SK":"","bucket":"","qiniuURL":"","config":{"useCdnDomain":true}}}
+module.exports = {"db":"mongodb://localhost/jerryServ","SITE_ROOT_URL":"http://jj.jerryshi.com","qiniu":{"AK":"","SK":"","bucket":"","qiniuURL":"","config":{"useCdnDomain":true}},"jwt_secret":""}
 
 /***/ }),
 /* 20 */
@@ -2071,7 +2071,7 @@ var adminController = (_dec = controller('/api/admin'), _dec2 = get('/user'), _d
                 _matchData$user = matchData.user, db_id = _matchData$user._id, db_username = _matchData$user.username;
                 // 验证成功：使用jwt发放token
 
-                TOKEN = __WEBPACK_IMPORTED_MODULE_1_jsonwebtoken___default.a.sign({ _id: db_id, username: db_username }, __WEBPACK_IMPORTED_MODULE_2__config__["a" /* default */].jwt_secret, { expiresIn: '2h' });
+                TOKEN = __WEBPACK_IMPORTED_MODULE_1_jsonwebtoken___default.a.sign({ username: db_username }, __WEBPACK_IMPORTED_MODULE_2__config__["a" /* default */].jwt_secret, { expiresIn: '2h' });
 
 
                 ctx.session.user = {
