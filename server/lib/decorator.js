@@ -4,11 +4,10 @@ const Router = require('koa-router')
 const _ = require('lodash')
 const R = require('ramda')
 
-const koajwt = require('koa-jwt')
-const config = require('../config')
-const jwtMiddleware = koajwt({ secret: config.jwt_secret }).unless({
-  path: [/\/admin\/login/, /\/api\/public\//]
-})
+import { jwtMiddleware } from '../middleware/jwt'
+import config from '../config/index'
+
+const jwt = jwtMiddleware({ signatrue: config.jwt_secret, debug: true })
 
 const symbolPrefix = Symbol('prefix')
 const routeMap = new Map()
@@ -37,11 +36,9 @@ export class Route {
       const prefixPath = conf.target[symbolPrefix]
       if (prefixPath) prefixPath = normalizePath(prefixPath)
       const routerPath = prefixPath + conf.path
-      this.router[conf.method](routerPath, ...controllers)
+      this.router[conf.method](routerPath, jwt, ...controllers)
     }
-
     this.app
-      .use(jwtMiddleware)
       .use(this.router.routes())
       .use(this.router.allowedMethods())
   }
