@@ -25,7 +25,7 @@ export const authentication = app => {
 
       try {
         payload = await verify(token, signatrue)
-        console.log('鉴权成功，挂载负载payload', payload)
+
         ctx.jwt = payload
       } catch (err) {
         const msg = debug ? err.message : 'Authentication Error'

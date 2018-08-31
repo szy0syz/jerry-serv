@@ -23,7 +23,7 @@ export class articleController {
     const { username, userid } = ctx.query
 
     const data = await Article.fetchDetail({_id, username, userid})
-    
+
     ctx.body = {
       success: true,
       data

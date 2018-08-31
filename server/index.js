@@ -9,8 +9,8 @@ import { basename } from 'path'
 const host = config.HOST || process.env.HOST || '0.0.0.0'
 const port = config.PORT || process.env.PORT || 3000
 
-// const MIDDLEWARES = ['database', 'common', 'rest', 'pubRouter', 'router'] ,'authentication', 'authorization'
-const MIDDLEWARES = ['database', 'common', 'router']
+// const MIDDLEWARES = ['database', 'common', 'rest', 'pubRouter', 'router'] , 'authorization'
+const MIDDLEWARES = ['database', 'common', 'authentication', 'authorization', 'router']
 
 // 自动遍历 ./middleware/*.js 导出对象后再逐个遍历初始化koa中间件
 const useMiddlewares = app => {
@@ -28,10 +28,13 @@ const useMiddlewares = app => {
   MIDDLEWARES.forEach(midName => {
     const key = keyList.filter(k => basename(k, '.js') === midName)
 
-    try {
-      R.forEachObjIndexed(initWith => initWith(app))(context(key))
-    } catch (err) {
-      console.error(err)
+    if (key) {
+      console.info('加载系统中间件:', key)
+      try {
+        R.forEachObjIndexed(initWith => initWith(app))(context(key))
+      } catch (err) {
+        console.error(err)
+      }
     }
   })
 

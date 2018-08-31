@@ -114,8 +114,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var Router = __webpack_require__(6);
 // const { resolve } = require('path')
 // const glob = require('glob')
-var _ = __webpack_require__(8);
-var R = __webpack_require__(7);
+var _ = __webpack_require__(9);
+var R = __webpack_require__(8);
 
 // import { jwtMiddleware } from '../middleware/jwt'
 // import config from '../config/index'
@@ -462,7 +462,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lodash__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lodash__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_lodash__);
 
 // import { resolve } from 'path'
@@ -494,25 +494,25 @@ module.exports = require("koa-router");
 /* 7 */
 /***/ (function(module, exports) {
 
-module.exports = require("ramda");
+module.exports = require("path");
 
 /***/ }),
 /* 8 */
 /***/ (function(module, exports) {
 
-module.exports = require("lodash");
+module.exports = require("ramda");
 
 /***/ }),
 /* 9 */
 /***/ (function(module, exports) {
 
-module.exports = require("jsonwebtoken");
+module.exports = require("lodash");
 
 /***/ }),
 /* 10 */
 /***/ (function(module, exports) {
 
-module.exports = require("path");
+module.exports = require("jsonwebtoken");
 
 /***/ }),
 /* 11 */
@@ -918,11 +918,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_nuxt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_nuxt__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_koa_router__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_koa_router___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_koa_router__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ramda__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ramda__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ramda___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_ramda__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__config__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_path__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_path__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_path___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_path__);
 
 
@@ -943,8 +943,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var host = __WEBPACK_IMPORTED_MODULE_6__config__["a" /* default */].HOST || process.env.HOST || '0.0.0.0';
 var port = __WEBPACK_IMPORTED_MODULE_6__config__["a" /* default */].PORT || process.env.PORT || 3000;
 
-// const MIDDLEWARES = ['database', 'common', 'rest', 'pubRouter', 'router'] ,'authentication', 'authorization'
-var MIDDLEWARES = ['database', 'common', 'router'];
+// const MIDDLEWARES = ['database', 'common', 'rest', 'pubRouter', 'router'] , 'authorization'
+var MIDDLEWARES = ['database', 'common', 'authentication', 'authorization', 'router'];
 
 // 自动遍历 ./middleware/*.js 导出对象后再逐个遍历初始化koa中间件
 var useMiddlewares = function useMiddlewares(app) {
@@ -964,12 +964,15 @@ var useMiddlewares = function useMiddlewares(app) {
       return Object(__WEBPACK_IMPORTED_MODULE_7_path__["basename"])(k, '.js') === midName;
     });
 
-    try {
-      __WEBPACK_IMPORTED_MODULE_4_ramda___default.a.forEachObjIndexed(function (initWith) {
-        return initWith(app);
-      })(context(key));
-    } catch (err) {
-      console.error(err);
+    if (key) {
+      console.info('加载系统中间件:', key);
+      try {
+        __WEBPACK_IMPORTED_MODULE_4_ramda___default.a.forEachObjIndexed(function (initWith) {
+          return initWith(app);
+        })(context(key));
+      } catch (err) {
+        console.error(err);
+      }
     }
   });
 
@@ -1219,7 +1222,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 // Authentication 鉴权 和 Authorization 授权
 
-var jwt = __webpack_require__(9);
+var jwt = __webpack_require__(10);
 
 var signatrue = __WEBPACK_IMPORTED_MODULE_1__config__["a" /* default */].jwt_secret;
 var debug = __WEBPACK_IMPORTED_MODULE_1__config__["a" /* default */].env === 'development';
@@ -1241,7 +1244,7 @@ var authentication = function authentication(app) {
               // console.log(ctx.url, '需要鉴权吗【', needAuth, ' 】')
 
               if (!needAuth) {
-                _context.next = 17;
+                _context.next = 16;
                 break;
               }
 
@@ -1262,28 +1265,28 @@ var authentication = function authentication(app) {
             case 8:
               payload = _context.sent;
 
-              console.log('鉴权成功，挂载负载payload', payload);
+
               ctx.jwt = payload;
-              _context.next = 17;
+              _context.next = 16;
               break;
 
-            case 13:
-              _context.prev = 13;
+            case 12:
+              _context.prev = 12;
               _context.t0 = _context['catch'](5);
               msg = debug ? _context.t0.message : 'Authentication Error';
 
               ctx.throw(401, msg);
 
-            case 17:
-              _context.next = 19;
+            case 16:
+              _context.next = 18;
               return next();
 
-            case 19:
+            case 18:
             case 'end':
               return _context.stop();
           }
         }
-      }, _callee, _this, [[5, 13]]);
+      }, _callee, _this, [[5, 12]]);
     }));
 
     return function (_x, _x2) {
@@ -1341,8 +1344,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var _require = __webpack_require__(25),
     Enforcer = _require.Enforcer;
 
-// BasicAuthorizer class stores the casbin handler
+var regx = [/^\/api\//i, /^(?!\/api\/public\/)/i, /^(?!\/api\/admin\/login)/i];
 
+// BasicAuthorizer class stores the casbin handler
 
 var BasicAuthorizer = function () {
   function BasicAuthorizer(ctx, enforcer) {
@@ -1356,8 +1360,8 @@ var BasicAuthorizer = function () {
     key: 'getUserName',
     value: function getUserName() {
       // customize to get username from context
-      console.log(this.ctx);
       var username = this.ctx.jwt.username;
+
 
       return username || '';
     }
@@ -1374,7 +1378,7 @@ var BasicAuthorizer = function () {
           method = ctx.method;
 
       var user = this.getUserName();
-      console.log('~~~ checkPermission: user, path, method __  ', user, path, method);
+
       return enforcer.enforce(user, path, method);
     }
   }]);
@@ -1390,58 +1394,73 @@ function authz(newEnforcer) {
 
   return function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.mark(function _callee(ctx, next) {
-      var enforcer, authzorizer;
+      var needAuthz, enforcer, authzorizer;
       return __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              _context.prev = 0;
-              _context.next = 3;
+              needAuthz = regx.every(function (r) {
+                return r.test(ctx.url);
+              });
+
+              if (!needAuthz) {
+                _context.next = 22;
+                break;
+              }
+
+              _context.prev = 2;
+              _context.next = 5;
               return newEnforcer();
 
-            case 3:
+            case 5:
               enforcer = _context.sent;
 
               if (enforcer instanceof Enforcer) {
-                _context.next = 6;
+                _context.next = 8;
                 break;
               }
 
               throw new Error('Invalid enforcer');
 
-            case 6:
+            case 8:
               authzorizer = new BasicAuthorizer(ctx, enforcer);
 
-              console.log('--authzorizer.checkPermission()--有权限吗？', authzorizer.checkPermission());
-
               if (authzorizer.checkPermission()) {
-                _context.next = 12;
+                _context.next = 13;
                 break;
               }
 
               ctx.status = 403;
-              _context.next = 14;
+              _context.next = 15;
               break;
 
-            case 12:
-              _context.next = 14;
+            case 13:
+              _context.next = 15;
               return next();
 
-            case 14:
-              _context.next = 19;
+            case 15:
+              _context.next = 20;
               break;
 
-            case 16:
-              _context.prev = 16;
-              _context.t0 = _context['catch'](0);
+            case 17:
+              _context.prev = 17;
+              _context.t0 = _context['catch'](2);
               throw _context.t0;
 
-            case 19:
+            case 20:
+              _context.next = 24;
+              break;
+
+            case 22:
+              _context.next = 24;
+              return next();
+
+            case 24:
             case 'end':
               return _context.stop();
           }
         }
-      }, _callee, _this, [[0, 16]]);
+      }, _callee, _this, [[2, 17]]);
     }));
 
     return function (_x, _x2) {
@@ -1459,7 +1478,7 @@ var authorization = function authorization(app) {
         switch (_context2.prev = _context2.next) {
           case 0:
             _context2.next = 2;
-            return Enforcer.newEnforcer("server/middleware/authz_model.conf", "server/middleware/authz_policy.csv");
+            return Enforcer.newEnforcer("server/middleware/authz/authz_model.conf", "server/middleware/authz/authz_policy.csv");
 
           case 2:
             enforcer = _context2.sent;
@@ -1502,7 +1521,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__koa_cors___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__koa_cors__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_koa_static__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_koa_static___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_koa_static__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_path__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_path__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_path___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_path__);
 
 
@@ -1602,7 +1621,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_fs__ = __webpack_require__(33);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_fs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_fs__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_path__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_path__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_path___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_path__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_mongoose__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_mongoose___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_mongoose__);
@@ -2124,7 +2143,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "adminController", function() { return adminController; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_jsonwebtoken__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_jsonwebtoken__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_jsonwebtoken___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_jsonwebtoken__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__config__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__service__ = __webpack_require__(3);
