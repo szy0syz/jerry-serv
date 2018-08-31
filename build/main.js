@@ -922,6 +922,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ramda___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_ramda__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__config__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_path__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_path___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_path__);
 
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -929,6 +931,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 
 
 
@@ -947,7 +950,7 @@ var MIDDLEWARES = ['database', 'common', 'router'];
 var useMiddlewares = function useMiddlewares(app) {
   // 不递归加载子目录
   var context = __webpack_require__(22);
-
+  var keyList = context.keys();
   // R.map(
   //   R.compose(
   //     filename => MIDDLEWARES.includes(filename),
@@ -955,21 +958,34 @@ var useMiddlewares = function useMiddlewares(app) {
   //   )
   // )(context.keys())
 
-  context.keys().forEach(function (key) {
-    var filename = Object(__WEBPACK_IMPORTED_MODULE_5__utils__["a" /* getFilename */])(key);
-    console.log('filename~~~', filename);
-    var isValid = MIDDLEWARES.includes(filename);
-    if (isValid) {
-      console.log('成功加载系统中间件:', filename);
-      try {
-        __WEBPACK_IMPORTED_MODULE_4_ramda___default.a.forEachObjIndexed(function (initWith) {
-          return initWith(app);
-        })(context(key));
-      } catch (err) {
-        console.error(err);
-      }
+  //重构中间件加载流程
+  MIDDLEWARES.forEach(function (midName) {
+    var key = keyList.filter(function (k) {
+      return Object(__WEBPACK_IMPORTED_MODULE_7_path__["basename"])(k, '.js') === midName;
+    });
+
+    try {
+      __WEBPACK_IMPORTED_MODULE_4_ramda___default.a.forEachObjIndexed(function (initWith) {
+        return initWith(app);
+      })(context(key));
+    } catch (err) {
+      console.error(err);
     }
   });
+
+  // context.keys().forEach(key => {
+  //   const filename = getFilename(key)
+  //   //console.log('filename~~~', filename)
+  //   const isValid = MIDDLEWARES.includes(filename)
+  //   if (isValid) {
+  //     //console.log('成功加载系统中间件:', filename)
+  //     try {
+  //       R.forEachObjIndexed(initWith => initWith(app))(context(key))
+  //     } catch (err) {
+  //       console.error(err)
+  //     }
+  //   }
+  // })
 };
 
 var Server = function () {
@@ -1099,7 +1115,7 @@ module.exports = require("nuxt");
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return getFilename; });
+/* unused harmony export getFilename */
 var getFilename = function getFilename(path) {
   var reg = /\/(\w+).js$/;
   var res = reg.exec(path);
