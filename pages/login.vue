@@ -7,10 +7,10 @@
         </div>
         <Form inline ref="loginFormRef" :model="formData" :rules="rule">
           <FormItem prop="user" class="form-item">
-            <Input type="text" icon="person" v-model="formData.user" @on-enter="loginSubmit" placeholder="登录账号"></Input>
+            <Input type="text" icon="person" v-model="formData.user" @on-enter="loginSubmit" placeholder="登录账号"/>
           </FormItem>
           <FormItem prop="password" class="form-item">
-            <Input type="password" icon="ios-locked" v-model="formData.password" @on-enter="loginSubmit" placeholder="账户密码"></Input>
+            <Input type="password" icon="ios-locked" v-model="formData.password" @on-enter="loginSubmit" placeholder="账户密码"/>
           </FormItem>
           <FormItem class="form-item" style="margin-bottom:5px;">
             <!-- <Checkbox v-model="record">记住登录</Checkbox> -->
@@ -109,9 +109,10 @@ export default {
             return false
           }
           const TOKEN = req.data.data.token
-          console.log('token', TOKEN)
+          console.log('TOKEN', TOKEN)
           console.log('info', req.data.data.info)
           // 三重保护确保token能正确使用
+          console.log('三重保护确保token能正确使用')
           this.$store.commit('SET_TOKEN', TOKEN)
           localStorage.setItem('TOKEN', TOKEN)
           axios.defaults.headers.common['Authorization'] = TOKEN
