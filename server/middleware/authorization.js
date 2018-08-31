@@ -7,13 +7,11 @@ class BasicAuthorizer {
     this.enforcer = enforcer
   }
 
-  // getUserName gets the user name from the request.
-  // Currently, only HTTP basic authentication is supported
   getUserName() {
     // customize to get username from context
-    const { user } = this.ctx
-    const { username } = user
-    return username
+    console.log(this.ctx)
+    const { username } = this.ctx.jwt
+    return username || ''
   }
 
   // checkPermission checks the user/method/path combination from the request.
@@ -22,6 +20,7 @@ class BasicAuthorizer {
     const { ctx, enforcer } = this
     const { originalUrl: path, method } = ctx
     const user = this.getUserName()
+    console.log('~~~ checkPermission: user, path, method __  ', user, path, method)
     return enforcer.enforce(user, path, method)
   }
 }
@@ -35,21 +34,23 @@ function authz(newEnforcer) {
         throw new Error('Invalid enforcer')
       }
       const authzorizer = new BasicAuthorizer(ctx, enforcer)
+      console.log('--authzorizer.checkPermission()--有权限吗？', authzorizer.checkPermission())
       if (!authzorizer.checkPermission()) {
         ctx.status = 403
+      } else {
+        await next()
       }
-      await next()
     } catch (e) {
       throw e
     }
   }
 }
 
-export const initCasbin = app => {
+export const authorization = app => {
   // use authz middleware
   app.use(authz(async () => {
     // load the casbin model and policy from files, database is also supported.
-    const enforcer = await Enforcer.newEnforcer("authz_model.conf", "authz_policy.csv")
+    const enforcer = await Enforcer.newEnforcer("server/middleware/authz_model.conf", "server/middleware/authz_policy.csv")
     return enforcer
   }))
 }

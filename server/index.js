@@ -8,8 +8,8 @@ import config from './config'
 const host = config.HOST || process.env.HOST || '0.0.0.0'
 const port = config.PORT || process.env.PORT || 3000
 
-// const MIDDLEWARES = ['database', 'common', 'rest', 'pubRouter', 'router']
-const MIDDLEWARES = ['database', 'common','authentication', 'router']
+// const MIDDLEWARES = ['database', 'common', 'rest', 'pubRouter', 'router'] ,'authentication', 'authorization'
+const MIDDLEWARES = ['database', 'common', 'router']
 
 // 自动遍历 ./middleware/*.js 导出对象后再逐个遍历初始化koa中间件
 const useMiddlewares = app => {
@@ -25,6 +25,7 @@ const useMiddlewares = app => {
 
   context.keys().forEach(key => {
     const filename = getFilename(key)
+    console.log('filename~~~', filename)
     const isValid = MIDDLEWARES.includes(filename)
     if (isValid) {
       console.log('成功加载系统中间件:', filename)

@@ -70,3 +70,6 @@ build/main.map
 build/main.js
 server/config/production.json
 server/config/production.json
+server/.DS_Store
+server/middleware/.DS_Store
+.DS_Store

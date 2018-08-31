@@ -940,8 +940,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var host = __WEBPACK_IMPORTED_MODULE_6__config__["a" /* default */].HOST || process.env.HOST || '0.0.0.0';
 var port = __WEBPACK_IMPORTED_MODULE_6__config__["a" /* default */].PORT || process.env.PORT || 3000;
 
-// const MIDDLEWARES = ['database', 'common', 'rest', 'pubRouter', 'router']
-var MIDDLEWARES = ['database', 'common', 'authentication', 'router'];
+// const MIDDLEWARES = ['database', 'common', 'rest', 'pubRouter', 'router'] ,'authentication', 'authorization'
+var MIDDLEWARES = ['database', 'common', 'router'];
 
 // 自动遍历 ./middleware/*.js 导出对象后再逐个遍历初始化koa中间件
 var useMiddlewares = function useMiddlewares(app) {
@@ -957,6 +957,7 @@ var useMiddlewares = function useMiddlewares(app) {
 
   context.keys().forEach(function (key) {
     var filename = Object(__WEBPACK_IMPORTED_MODULE_5__utils__["a" /* getFilename */])(key);
+    console.log('filename~~~', filename);
     var isValid = MIDDLEWARES.includes(filename);
     if (isValid) {
       console.log('成功加载系统中间件:', filename);
@@ -1224,7 +1225,7 @@ var authentication = function authentication(app) {
               // console.log(ctx.url, '需要鉴权吗【', needAuth, ' 】')
 
               if (!needAuth) {
-                _context.next = 16;
+                _context.next = 17;
                 break;
               }
 
@@ -1245,27 +1246,28 @@ var authentication = function authentication(app) {
             case 8:
               payload = _context.sent;
 
+              console.log('鉴权成功，挂载负载payload', payload);
               ctx.jwt = payload;
-              _context.next = 16;
+              _context.next = 17;
               break;
 
-            case 12:
-              _context.prev = 12;
+            case 13:
+              _context.prev = 13;
               _context.t0 = _context['catch'](5);
               msg = debug ? _context.t0.message : 'Authentication Error';
 
               ctx.throw(401, msg);
 
-            case 16:
-              _context.next = 18;
+            case 17:
+              _context.next = 19;
               return next();
 
-            case 18:
+            case 19:
             case 'end':
               return _context.stop();
           }
         }
-      }, _callee, _this, [[5, 12]]);
+      }, _callee, _this, [[5, 13]]);
     }));
 
     return function (_x, _x2) {
@@ -1307,7 +1309,7 @@ function verify(token, signatrue) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initCasbin", function() { return initCasbin; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "authorization", function() { return authorization; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator__);
 
@@ -1334,18 +1336,14 @@ var BasicAuthorizer = function () {
     this.enforcer = enforcer;
   }
 
-  // getUserName gets the user name from the request.
-  // Currently, only HTTP basic authentication is supported
-
-
   _createClass(BasicAuthorizer, [{
     key: 'getUserName',
     value: function getUserName() {
       // customize to get username from context
-      var user = this.ctx.user;
-      var username = user.username;
+      console.log(this.ctx);
+      var username = this.ctx.jwt.username;
 
-      return username;
+      return username || '';
     }
 
     // checkPermission checks the user/method/path combination from the request.
@@ -1360,6 +1358,7 @@ var BasicAuthorizer = function () {
           method = ctx.method;
 
       var user = this.getUserName();
+      console.log('~~~ checkPermission: user, path, method __  ', user, path, method);
       return enforcer.enforce(user, path, method);
     }
   }]);
@@ -1397,27 +1396,36 @@ function authz(newEnforcer) {
             case 6:
               authzorizer = new BasicAuthorizer(ctx, enforcer);
 
-              if (!authzorizer.checkPermission()) {
-                ctx.status = 403;
-              }
-              _context.next = 10;
-              return next();
+              console.log('--authzorizer.checkPermission()--有权限吗？', authzorizer.checkPermission());
 
-            case 10:
-              _context.next = 15;
+              if (authzorizer.checkPermission()) {
+                _context.next = 12;
+                break;
+              }
+
+              ctx.status = 403;
+              _context.next = 14;
               break;
 
             case 12:
-              _context.prev = 12;
+              _context.next = 14;
+              return next();
+
+            case 14:
+              _context.next = 19;
+              break;
+
+            case 16:
+              _context.prev = 16;
               _context.t0 = _context['catch'](0);
               throw _context.t0;
 
-            case 15:
+            case 19:
             case 'end':
               return _context.stop();
           }
         }
-      }, _callee, _this, [[0, 12]]);
+      }, _callee, _this, [[0, 16]]);
     }));
 
     return function (_x, _x2) {
@@ -1426,7 +1434,7 @@ function authz(newEnforcer) {
   }();
 }
 
-var initCasbin = function initCasbin(app) {
+var authorization = function authorization(app) {
   // use authz middleware
   app.use(authz(_asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jerry_Git_jerry_serv_node_modules_babel_runtime_regenerator___default.a.mark(function _callee2() {
     var enforcer;
@@ -1435,7 +1443,7 @@ var initCasbin = function initCasbin(app) {
         switch (_context2.prev = _context2.next) {
           case 0:
             _context2.next = 2;
-            return Enforcer.newEnforcer("authz_model.conf", "authz_policy.csv");
+            return Enforcer.newEnforcer("server/middleware/authz_model.conf", "server/middleware/authz_policy.csv");
 
           case 2:
             enforcer = _context2.sent;
