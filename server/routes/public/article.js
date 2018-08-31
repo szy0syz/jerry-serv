@@ -34,12 +34,19 @@ export class articleHandlerController {
     const { _id } = ctx.params
 
     const { username, userid } = ctx.query
+    try {
+      const data = await ArticleService.fetchDetail({ _id, username, userid })
 
-    const data = await ArticleService.fetchDetail({ _id, username, userid })
-
-    ctx.body = {
-      success: true,
-      data
+      ctx.body = {
+        success: true,
+        data
+      }
+    } catch (err) {
+      ctx.status = 400
+      ctx.body = {
+        success: false,
+        msg: '请求参数有误'
+      }
     }
   }
 
