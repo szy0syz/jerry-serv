@@ -1,6 +1,6 @@
 {
-    "db": "mongodb://localhost/jerryServ",
-    "SITE_ROOT_URL": "http://jj.jerryshi.com",
+    "db": "mongodb://localhost:27017/jerryServ",
+    "SITE_ROOT_URL": "https://jerryshi.com",
     "qiniu": {
         "AK": "",
         "SK": "",
@@ -9,6 +9,10 @@
         "config": {
             "useCdnDomain": true
         }
+    },
+    "mina": {
+        "appid": "",
+        "secret": ""
     },
     "jwt_secret": ""
 }

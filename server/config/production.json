@@ -12,5 +12,9 @@
             "useCdnDomain": true
         }
     },
+    "mina": {
+        "appid": "wxdaea0300fe209fa9",
+        "secret": "864ac28f6b80ee241ccaf0d2924e4421"
+    },
     "jwt_secret": ""
 }

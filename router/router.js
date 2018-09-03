@@ -112,6 +112,12 @@ export const appRouter = [
         name: 'system-user'
       },
       {
+        path: '/system/auth',
+        title: '权限管理',
+        icon: 'arrow-move',
+        name: 'system-auth'
+      },
+      {
         path: '/system/role',
         title: '角色管理',
         icon: 'edit',
