@@ -132,12 +132,7 @@ export default {
       })
     }
   },
-  async mounted() {
-    // const ress = await axios.get('/api/qiniu/token')
-    // const ress = await qiniuService.fetchToken()
-    // console.log('ress:' ,ress)
-
-  }
+  async mounted() {}
 }
 </script>
 <style scoped>

@@ -299,7 +299,7 @@ export default {
     this.$store.commit('setOpenedList')
     this.checkTag(this.$route.name)
 
-    // 全局获取七牛Token并缓存
+    // 全局获取七牛Token并缓存在store.app.qiniuToken
     this.$store.dispatch('fetchQiniuToken')
   },
   created() {
