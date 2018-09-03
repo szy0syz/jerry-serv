@@ -121,7 +121,7 @@ export default {
     }
   },
   mounted() {
-    this.getToken()
+    // this.getToken()
     this.uploadList = this.$refs.upload.fileList
     // TODO: 重写七牛上传封面图上传组件
     
