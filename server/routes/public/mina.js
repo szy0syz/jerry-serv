@@ -33,14 +33,14 @@ export class minaController {
 
   @post('/cryptdata')
   @required({
-    body: ['session_key', 'encryptedData', 'vi']
+    body: ['session_key', 'encryptedData', 'iv']
   })
   async cryptData(ctx) {
     // 使用修饰器确保传参
     const { session_key, encryptedData, iv } = ctx.request.body
     const wxBizDataCrypt = new WXBizDataCrypt(session_key)
     try {
-      const decryptData = wxBizDataCrypt.decryptData(encryptedData, vi)
+      const decryptData = wxBizDataCrypt.decryptData(encryptedData, iv)
       ctx.body = {
         success: true,
         data: decryptData
