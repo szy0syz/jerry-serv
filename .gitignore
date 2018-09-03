@@ -66,6 +66,7 @@ pages/article/.DS_Store
 
 # backpack
 build/
+build/*
 build/main.map
 build/main.js
 server/config/production.json

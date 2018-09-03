@@ -23,7 +23,8 @@ export const openidAndSessionKey = async code => {
 export class WXBizDataCrypt {
   constructor(sessionKey) {
     this.appId = config.mina.appid
-    this.secret = sessionKey
+    this.secret = config.mina.secret
+    this.sessionKey = sessionKey
   }
 
   decryptData(encryptedData, iv) {
