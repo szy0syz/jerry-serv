@@ -136,7 +136,7 @@ ArticleSchema.static = {
     let entity = await this.findOne({ _id }, { __v: 0 }).exec()
 
     entity.commentList.push({ username, userid, avatar, content })
-    // use mongoose middleware generate [ createdAt, updatedAt ]
+    // use mongoose middleware generate subdocument { createdAt, updatedAt }
     entity = await entity.save()
     
     return entity

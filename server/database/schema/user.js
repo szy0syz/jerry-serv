@@ -70,6 +70,7 @@ UserSchema.pre('save', function (next) {
   })
 })
 
+// class instance methods
 UserSchema.methods = {
   // _password为网站提交来的明文password，第二个就是数据库中加盐后的hash密码
   comparePassword: (_password, password) => {
