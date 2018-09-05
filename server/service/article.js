@@ -104,7 +104,7 @@ export async function subLiker({_id, username, userid}) {
     return result
   })
   // remove subDocument
-  await entity.likeList.id(targetId).remove()  // is prmoise ? TODO:
+  entity.likeList.id(targetId).remove() // not a promise
   entity = await entity.save()
 
   return entity

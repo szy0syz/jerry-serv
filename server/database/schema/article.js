@@ -94,26 +94,27 @@ ArticleSchema.virtual('commentNum').get(function() {
 ArticleSchema.set('toJSON', { virtuals: true })
 ArticleSchema.set('toObject', { virtuals: true })
 
-// 类的静态方法
+// class static methods
 ArticleSchema.static = {
   async addLiker(params) {
     // [_id: article id]
     const { _id, username, avatar, userid } = params
 
-    let entity = await Article.findOne({ _id }, { __v: 0 }).exec()
+    let entity = await this.findOne({ _id }, { __v: 0 }).exec()
     entity.likeList.push({ username, avatar, userid })
     entity = await entity.save()
 
     return entity
   },
+  
   async subLier(params) {
     const { _id, username, userid } = params
-    let entity = await Article.findOne({ _id }, { __v: 0 }).exec()
+    let entity = await this.findOne({ _id }, { __v: 0 }).exec()
 
-    // 需要取消点赞的subdocument的_id
+    // will removed subdocment's id
     let targetId = null
 
-    // 遍历subdocument 找到目标id
+    // find targetId with map subdocuments array
     entity.likeList.some(i => {
       const result = i.username === username || i.userid === userid
       if (result) {
@@ -122,6 +123,22 @@ ArticleSchema.static = {
       return result
     })
 
+    // remove subDocument
+    entity.likeList.id(targetId).remove() // not a promise
+    entity = await entity.save()
+
+    return entity
+  },
+
+  async addComment(params) {
+    const { _id, username, userid, avatar, content } = params
+
+    let entity = await this.findOne({ _id }, { __v: 0 }).exec()
+
+    entity.commentList.push({ username, userid, avatar, content })
+    // use mongoose middleware generate [ createdAt, updatedAt ]
+    entity = await entity.save()
+    
     return entity
   }
 }
