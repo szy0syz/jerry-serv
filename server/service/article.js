@@ -18,7 +18,7 @@ export async function fetchList(params) {
     .sort({ '_id': -1 })
     .populate({ path: 'type', select: 'name' })
     .populate({ path: 'tags', select: 'name' })
-    .populate({ path: 'author', select: '_id username avatar' })
+    .populate({ path: 'creator', select: '_id username avatar' })
     .exec()
 
   return data
@@ -76,45 +76,24 @@ export async function update(model) {
 }
 
 export async function remove(_id) {
-  const res = await Article.remove({ _id: _id })
+  const res = await Article.remove({ _id })
   return res
 }
 
-export async function addLiker({_id, username, avatar, userid}) {
-  let entity = await Article.findOne({ _id }, { __v: 0 }).exec()
+export async function addLiker(params) {
+  const data = await Article.addLiker(params)
 
-  // 数据服务层不管业务逻辑，业务逻辑交给控制器层
-  entity.likeList.push({username, avatar, userid})
-  entity = await entity.save()
-
-  return entity
+  return data
 }
 
-export async function subLiker({_id, username, userid}) {
-  let entity = await Article.findOne({ _id }, { __v: 0 }).exec()
-  // 需要取消点赞的subdocument的_id
-  let targetId = null
+export async function subLiker(params) {
+  const data = await Article.subLiker(params)
 
-  // 遍历subdocument 找到目标id
-  entity.likeList.some(i => {
-    const result = i.username === username || i.userid === userid
-    if(result) {
-      targetId = i._id
-    }
-    return result
-  })
-  // remove subDocument
-  entity.likeList.id(targetId).remove() // not a promise
-  entity = await entity.save()
-
-  return entity
+  return data
 }
 
-export async function addComment({_id, username, userid, avatar, content}) {
-  let entity = await Article.findOne({ _id }, { __v: 0 }).exec()
+export async function addComment(params) {
+  const data = await Article.addComment(params)
 
-  entity.commentList.push({username, userid, avatar, content})
-  entity = await entity.save()
-
-  return entity
+  return data
 }

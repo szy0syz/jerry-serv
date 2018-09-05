@@ -1,4 +1,3 @@
-import xss from 'xss'
 import mongoose from 'mongoose'
 
 const { article: ArticleService } = require('../../service')

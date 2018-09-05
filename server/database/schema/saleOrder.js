@@ -1,12 +1,14 @@
-const mongoose = require('mongoose')
+import xss from 'xss'
 const dayjs = require('dayjs')
+const mongoose = require('mongoose')
+
 const Schema = mongoose.Schema
-const { ObjectId } = Schema.Types
+const { ObjectId, Number } = Schema.Types
 
 // 销售订单 Schema
 const SaleOrderSchema = new Schema({
   number: {
-    type: Schema.Types.Number,
+    type: Number,
     required: true,
     default: `SO${dayjs().format('YYYYMMDDmmssSSS')}`
   },
@@ -58,7 +60,62 @@ const SaleOrderSchema = new Schema({
   }
 })
 
-// class static methods
-ArticleSchema.static = {}
+SaleOrderSchema.static = {
+  async create(model) {
+    let entity = new this(model)
+    entity = await entity.save()
 
-mongoose.model('SaleOrderSchema', SaleOrderSchema)
+    return entity
+  },
+
+  async remove(_id) {
+    const entity = await this.remove({ _id })
+    return entity
+  },
+
+  async update(model) {
+    try {
+      let entity = await this.findOne({ _id: model._id }).exec()
+
+      if (entity) {
+        delete model._id
+        entity = Object.assign(entity, model)
+        entity = await entity.save()
+
+        return entity
+      } else {
+        return false
+      }
+    } catch (err) {
+      console.error(err)
+      return false
+    }
+  },
+
+  async fetch(params) {
+    const { page = 1, size = 20 } = params
+    let data = await this
+      .find({}, { __v: 0 })
+      .skip((page - 1) * size)
+      .limit(Number(size))
+      .sort({ '_id': -1 })
+      .populate({ path: 'author', select: '_id username avatar' })
+      .exec()
+
+    return data
+  },
+
+  async detail(params) {
+    const { _id } = params
+    try {
+      const data = this.findOne({_id}).exec()
+
+      return data
+    } catch(err) {
+      console.error(err)
+      return false
+    }
+  }
+}
+
+mongoose.model('SaleOrder', SaleOrderSchema)

@@ -1,7 +1,5 @@
 import xss from 'xss'
-
 const { article: Article } = require('../service')
-
 const { controller, get, del, put, post, required } = require('../lib/decorator')
 
 @controller('/api/article')
