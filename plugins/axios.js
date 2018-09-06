@@ -7,14 +7,22 @@ const baseURL = {
   production: 'https://yncyzj.cn'
 }
 
-export default function ({ $axios, redirect }) {
+export default function ({ $axios, redirect, store }) {
   $axios.baseURL = baseURL[env]
 
   $axios.onRequest(config => {
+    const TOKEN = localStorage.getItem('TOKEN')
+    if (!config.headers.Authorization) {
+      config.headers.Authorization = `Bearer ${TOKEN}`
+    }
+    if (!store.state.user.token) {
+      store.state.user.token = TOKEN
+    }
     console.log('Making request to: ' + config.url)
   })
 
   $axios.onError(error => {
+    console.log(error)
     const code = parseInt(error.response && error.response.status)
     switch (code) {
       case 401:
@@ -30,15 +38,6 @@ export default function ({ $axios, redirect }) {
         break;
       }
     }
-
-    // if (code === 401) {
-    //   redirect('/login')
-    // } else if (code !== 200) {
-    //   Message.error({
-    //     content: error.response.data.msg || '',
-    //     duration: 3
-    //   })
-    // }
   })
 }
 

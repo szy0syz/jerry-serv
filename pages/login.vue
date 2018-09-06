@@ -90,10 +90,10 @@ export default {
             password: _psd
           })
 
-          console.log('~~~req~~~', req)
+          console.log('~~~req~~~\n', req)
 
           if (!!req.data && req.data.code !== 0) {
-            let msg = req.data.data.message || '登录失败'
+            let msg = req.data.message || '登录失败'
             this.$Message.error({ content: msg, duration: 2, closable: true })
             this.loading = false
             return false
