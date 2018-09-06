@@ -2,7 +2,7 @@ import { openidAndSessionKey, WXBizDataCrypt } from '../../wechat-lib/mina'
 const { controller, get, del, put, post, required } = require('../../lib/decorator')
 
 @controller('/api/public/mina')
-export class minaController {
+export class MinaController {
   @get('/openidAndSessionKey')
   async getOpenID(ctx) {
     const { js_code } = ctx.query

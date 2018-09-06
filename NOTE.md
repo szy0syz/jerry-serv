@@ -61,3 +61,4 @@
 
 * `curl -H "Content-Type:application/json" -X POST -d '{"_id": "5b790ae5275be80c380e7074", "username": "shi", "userid":"44"}' http://127.0.0.1:3000/api/articleHandler/like`
 * `curl -H "Content-Type:application/json" -X POST -d '{"_id": "5b784114c861422a11899e9d", "username": "jerry_shi", "userid":"555", "avatar": "http://cdn.jerryshi.com/picgo/20180808232138.png", "content": "No.2 comment"}' http://127.0.0.1:3000/api/articleHandler/comment`
+* `curl -H "Content-Type:application/json" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNTM2MTk3Njc5LCJleHAiOjE1MzYyMDQ4Nzl9.WGD4H7W57vGpE--4JlJDRU_B6OmRKn_M1nPx1slrhAg" -X POST -d '{"type": "现金", "customer": {"name": "jerry", "id": 666}, "creator":"5b7a66b214e2d51b090d162f", "content": [{"mid": "01011003", "mname": "敌敌畏", "mmodel": "100ml 拜耳", "qty": 2, "price": 90}]}' http://127.0.0.1:3000/api/public/saleorder`

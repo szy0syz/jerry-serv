@@ -8,7 +8,7 @@ const { ObjectId, Number } = Schema.Types
 // 销售订单 Schema
 const SaleOrderSchema = new Schema({
   number: {
-    type: Number,
+    type: String,
     required: true,
     default: `SO${dayjs().format('YYYYMMDDmmssSSS')}`
   },
@@ -60,7 +60,7 @@ const SaleOrderSchema = new Schema({
   }
 })
 
-SaleOrderSchema.static = {
+SaleOrderSchema.statics = {
   async create(model) {
     let entity = new this(model)
     entity = await entity.save()
@@ -93,16 +93,18 @@ SaleOrderSchema.static = {
   },
 
   async fetch(params) {
-    const { page = 1, size = 20 } = params
+    let { page = 1, size = 20 } = params
+    page = parseInt(page)
+    size = parseInt(size)
     let data = await this
       .find({}, { __v: 0 })
       .skip((page - 1) * size)
-      .limit(Number(size))
+      .limit(size)
       .sort({ '_id': -1 })
       .populate({ path: 'author', select: '_id username avatar' })
       .exec()
 
-    return data
+    return data || []
   },
 
   async detail(params) {
