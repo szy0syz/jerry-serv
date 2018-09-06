@@ -1,3 +1,4 @@
+// Authorization 授权
 const { Enforcer } = require('casbin')
 
 const regx = [/^\/api\//i, /^(?!\/api\/public\/)/i, /^(?!\/api\/admin\/login)/i]

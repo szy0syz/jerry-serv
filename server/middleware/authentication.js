@@ -1,17 +1,16 @@
-// Authentication 鉴权 和 Authorization 授权
+// Authentication 鉴权
 import config from '../config'
 const jwt = require('jsonwebtoken')
 
 const signatrue = config.jwt_secret
 const debug = config.env === 'development'
-// 只鉴权/api/ 开头 但不包括 public和login
+// 只鉴权/api/ 开头 但不包括 public和login 的请求
 const regx = [/^\/api\//i, /^(?!\/api\/public\/)/i, /^(?!\/api\/admin\/login)/i]
 let payload
 
 export const authentication = app => {
   app.use(async (ctx, next) => {
     const needAuth = regx.every(r => r.test(ctx.url))
-    // console.log(ctx.url, '需要鉴权吗【', needAuth, ' 】')
 
     if (needAuth) {
       const token = resolveAuthorizationHeader(ctx)
