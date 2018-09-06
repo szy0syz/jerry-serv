@@ -40,7 +40,7 @@ export const authentication = app => {
 function resolveAuthorizationHeader(ctx) {
   if (!ctx.header || !ctx.header.authorization) {
     return (
-      ctx.throw(400, 'Bad Rquest')
+      ctx.throw(400, 'Bad Request')
     )
   }
 

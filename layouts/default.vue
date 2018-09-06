@@ -224,7 +224,7 @@ export default {
   created() {
     /**服务端渲染左侧导航条及pannel页面内容**/
     this.currentPageName = this.$route.name
-    util.setCurrentPath(this, this.$route.name)
+    util.setCurrentPath(this, this.$route.name || 'index')
     this.$store.commit('updateMenulist')
     /**服务端渲染左侧导航条及pannel页面内容**/
   },
