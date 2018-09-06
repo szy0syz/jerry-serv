@@ -60,8 +60,8 @@ npm run publish:prod
 * [ ] [FE] 再次封装axios，对错误信息预先提示
 * [x] [BE] ~~修复require.context不支持绝对路径问题~~
   * 根源：**传递给 require.context 的参数必须是字面量(literal)！**
-* [x] [BE] 优化ArticleQuery查询结果，节省不必要资源缓存
-* [ ] [FE] index页中tagsRouter优化
+* [x] [BE] ~~优化ArticleQuery查询结果，节省不必要资源缓存~~
+* [x] [FE] ~~修复前端404不异常500报错~~
 * [ ] [FE] index页注册快捷键操作
 * [ ] [BE] 完善后端中各个控制器[required]修饰器的逻辑使用
 * [ ] [FE] 使用Nuxt全家桶:axios-moudle/auth-module/apollo-module/pwa-apollo-module
@@ -80,6 +80,7 @@ npm run publish:prod
 * [ ] [BE] 鉴权：登录后放jwt，单独casbin模块，后续请求放header，在graqhql前执行鉴权
 * [ ] [BE] 移除session，使用jwt代替
 * [x] [BE] ~~重构后端路由：私密和受保护两部分~~
+* [ ] [BE] 修复jwt-token过期时的逻辑(重发还是重登)
 
 ## Architecture
 

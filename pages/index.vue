@@ -296,7 +296,9 @@ export default {
     }
   },
   mounted() {
-    this.$store.commit('setOpenedList')
+    // 当挂载index页是，清除所有tags页，不能清除啊！，有些时候切换到index页，总不能把已经打开的全部关掉
+    // this.$store.commit('setOpenedList')
+
     this.checkTag(this.$route.name)
 
     // 全局获取七牛Token并缓存在store.app.qiniuToken

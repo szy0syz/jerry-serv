@@ -199,7 +199,7 @@ export default {
     $route(to) {
       this.currentPageName = to.name
       this.$nextTick(() => {
-        if(!!this.refsTag){
+        if (!!this.refsTag) {
           this.refsTag.forEach((item, index) => {
             if (to.name === item.name) {
               let tag = this.refsTag[index].$el
@@ -207,7 +207,6 @@ export default {
             }
           })
         }
-        
       })
       this.tagsCount = this.tagsList.length
     }
