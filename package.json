@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "@koa/cors": "^2.2.1",
+    "@nuxtjs/axios": "^5.3.1",
     "@nuxtjs/router": "^1.0.1",
     "area-data": "^5.0.6",
     "axios": "^0.17.1",

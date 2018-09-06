@@ -21,9 +21,17 @@ module.exports = {
     'quill/dist/quill.core.css'
     // { src: 'iview/dist/styles/iview.css' }
   ],
+  modules: [
+    '@nuxtjs/axios',
+  ],
+  axios: {
+    timeout: 5000,
+    responseType: 'json'
+  },
   plugins: [
     { src: '~plugins/flexible.js', ssr: false },
     { src: '~plugins/iview.js', ssr: true },
+    { src: '~/plugins/axios' },
     { src: '~/plugins/quillEditor.js', ssr: false }
   ],
   loading: './components/loading.vue',

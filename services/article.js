@@ -12,24 +12,24 @@ const parseConds = conds => {
 }
 
 class ArticleService {
-  getArticles(conds) {
-    return axios.get(`/api/article${conds ? '?' + parseConds(conds) : ''}`)
+  getArticles({ $axios, conds }) {
+    return $axios.$get(`/api/article${conds ? '?' + parseConds(conds) : ''}`)
   }
 
-  detailArticle(_id) {
-    return axios.get(`/api/article/${_id}`)
+  detailArticle({ $axios, _id }) {
+    return $axios.$get(`/api/article/${_id}`)
   }
 
-  postArticle(model) {
-    return axios.post(`/api/article`, model)
+  postArticle({ $axios, model }) {
+    return $axios.$post(`/api/article`, model)
   }
 
-  putArticles(model) {
-    return axios.put(`/api/article`, model)
+  putArticles({ $axios, model }) {
+    return $axios.$put(`/api/article`, model)
   }
 
-  deleteArticles(_id) {
-    return axios.delete(`/api/article/${_id}`)
+  deleteArticles({ $axios, _id }) {
+    return $axios.$delete(`/api/article/${_id}`)
   }
 }
 

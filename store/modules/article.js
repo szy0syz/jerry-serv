@@ -17,38 +17,40 @@ const article = {
   actions: {
     // 异步操作
     async getArticles({state}, conds) {
-      const res = await Service.getArticles(conds)
-
-      state.articles = res.data.data
+      const res = await Service.getArticles({ $axios: this.$axios, conds })
+      state.articles = res.data
       
       return res
     },
 
     async detailArticle({state}, _id) {
-      const res = await Service.detailArticle(_id)
+      const res = await Service.detailArticle({ $axios: this.$axios, _id })
 
-      state.curtArticle = res.data.data
+      state.curtArticle = res.data
 
       return res
     },
 
     async postArticle({dispatch}, model) {
-      const res = await Service.postArticle(model)
+      const res = await Service.postArticle({ $axios: this.$axios, model })
 
       // 如果创建成功就刷新列表页数据
-      if (res.data.success) {
+      if (res.success) {
         await dispatch('getArticles')
       }
 
-      return res.data.data
+      return res.data
     },
 
-    async deleteArticle({state}, _id) {
-      const res = await Service.deleteArticles(_id)
+    async deleteArticle({state, dispatch}, _id) {
+      const res = await Service.deleteArticles({ $axios: this.$axios, _id })
 
-      state.curtArticle = res.data.data
+      if (res.success) {
+        await dispatch('getArticles')
+        state.curtArticle = res.data
+      }
 
-      return res
+      return res.data
     }
   }
 }

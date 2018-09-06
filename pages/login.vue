@@ -81,46 +81,35 @@ export default {
           let _usr = this.formData.user
           // let _psd = md5(this.formData.password)
           let _psd = this.formData.password  // TODO: 后期密码策略优化
-          let req = await axios.post('/api/admin/login', {
+          // let req = await axios.post('/api/admin/login', {
+          //   username: _usr,
+          //   password: _psd
+          // })
+          let req = await this.$axios.$post('/api/admin/login', {
             username: _usr,
             password: _psd
           })
 
-          // 网络异常
-          if (req.status !== 200) {
-            this.$Message.error({
-              content: '网络通讯异常',
-              duration: 2,
-              closable: true
-            })
-            this.loading = false
-            return false
-          }
-          if (!!req.data && req.data.ret !== 200) {
-            let msg = req.data.msg || '失败'
-            this.$Message.error({ content: msg, duration: 2, closable: true })
-            this.loading = false
-            return false
-          }
-          if (!!req.data && req.data.data.code !== 0) {
+          console.log('~~~req~~~', req)
+
+          if (!!req.data && req.data.code !== 0) {
             let msg = req.data.data.message || '登录失败'
             this.$Message.error({ content: msg, duration: 2, closable: true })
             this.loading = false
             return false
           }
-          const TOKEN = req.data.data.token
+
+          const TOKEN = req.data.token
           console.log('TOKEN', TOKEN)
-          console.log('info', req.data.data.info)
+          console.log('info', req.data.info)
           // 三重保护确保token能正确使用
           this.$store.commit('SET_TOKEN', TOKEN)
           localStorage.setItem('TOKEN', TOKEN)
-          axios.defaults.headers.common['Authorization'] = `Bearer ${TOKEN}`
-          this.$store.commit('SET_USERINFO', req.data.data.info)
+          this.$axios.defaults.headers.common['Authorization'] = `Bearer ${TOKEN}`
+          this.$store.commit('SET_USERINFO', req.data.info)
           this.$store.commit('setAvator', 'http://cdn.jerryshi.com/picgo/20180819213615.png')
           this.$Message.success('恭喜您，登录成功！')
-          let route = {
-            path: '/'
-          }
+          let route = { path: '/' }
           if (this.jump !== '' && typeof this.jump !== 'undefined') {
             route.path = this.jump
           }

@@ -62,7 +62,7 @@ export class adminController {
         msg: '请求成功',
         data: {
           code: 0,
-          message: '登录成功',
+          msg: '登录成功',
           token: TOKEN,
           info: {
             name: db_username,

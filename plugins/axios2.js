@@ -8,14 +8,14 @@ import { Message } from 'iview'
 // 环境变量
 const env = process.env.NODE_ENV || 'development'
 
-let baseUrl = {
+let baseURL = {
   development: 'http://127.0.0.1:3000',
   test: 'http://127.0.0.1:3003',
   production: 'https://yncyzj.cn'
 }
 
 let options = {
-  baseURL: baseUrl[env],
+  baseURL: baseURL[env],
   timeout: 5000,
   responseType: 'json',
   headers: {
@@ -48,9 +48,25 @@ axios.interceptors.response.use(
     return res
   },
   err => {
-    if (err.response.status !== 200) {
+    // const status = err.response.status
+    // let config = { content: err.response.data.msg || '' }
+    // switch (status) {
+    //   case 401:
+    //     config = {
+    //       duration: 3
+    //     }
+    //     break;
+    
+    //   default:
+    //     break;
+    // }
+    if (status !== 200) {
       if (process.client) {
-        Message.error(err.response.data.msg || '')
+        Message.error({
+          content: err.response.data.msg || '',
+          duration: 3
+        })
+
       }
     }
     return Promise.resolve(err.response)

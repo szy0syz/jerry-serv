@@ -1,6 +1,4 @@
 import { otherRouter, appRouter } from '@/router/router'
-import axios from '~/plugins/axios2'
-import qiniuService from '../../services/qiniu'
 import Util from '@/libs/util'
 import Cookies from 'js-cookie'
 import Vue from 'vue'
@@ -204,7 +202,7 @@ const app = {
   actions: {
     async fetchQiniuToken({ state }) {
       if (!state.qiniuToken) {
-        let token = await qiniuService.fetchToken()
+        let token = await this.$axios.$get('/api/qiniu/token')
         state.qiniuToken = token
       }
     }
