@@ -477,10 +477,10 @@ export default {
     async createNewTag() {
       if (this.newTagName.length !== 0) {
         let res = await this.$axios.$post('/api/articleTag', { name: this.newTagName })
-        if (res.data.success === true) {
+        if (res.success === true) {
           this.articleTagList.push({
             name: this.newTagName,
-            _id: res.data.data._id
+            _id: res.data._id
           })
           this.addingNewTag = false
           setTimeout(() => {
@@ -552,10 +552,10 @@ export default {
 
         let res = await this.$axios.$post('/api/article', this.article)
 
-        if (res.data.success) {
+        if (res.success) {
           this.$Notice.success({
             title: '发布成功',
-            desc: `《${res.data.data.title}》`
+            desc: `《${res.data.title}》`
           })
           this.$router.push({
             name: 'article-list'

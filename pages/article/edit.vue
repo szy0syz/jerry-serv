@@ -481,7 +481,7 @@ export default {
         if (res.data.success === true) {
           this.articleTagList.push({
             name: this.newTagName,
-            _id: res.data.data._id
+            _id: res.data._id
           })
           this.addingNewTag = false
           setTimeout(() => {
@@ -547,17 +547,18 @@ export default {
       if (this.canPublish()) {
         // this.publishLoading = true
         console.log(this.article)
-        let res = await this.$put('/api/article', this.article)
-        if (res.data.success) {
+        let res = await this.$axios.$put('/api/article', this.article)
+        console.log('res~~~ ', res)
+        if (res.success) {
           this.$Notice.success({
             title: '保存成功',
-            desc: `《${res.data.data.title}》`
+            desc: `《${res.data.title}》`
           })
           this.$router.push({
             name: 'article-list'
           })
         } else {
-          this.$Notice.success({
+          this.$Notice.error({
             title: '保存失败',
             desc: `${res.data.error}`
           })
