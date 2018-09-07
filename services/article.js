@@ -1,5 +1,3 @@
-import axios from '../plugins/axios2'
-
 const parseConds = conds => {
   try {
     conds = JSON.stringify(conds)

@@ -283,7 +283,6 @@
 </template>
 
 <script>
-import axios from '~/plugins/axios2'
 import * as qiniu from 'qiniu-js'
 import randomToken from 'random-token'
 import config from '../../server/config'
@@ -478,7 +477,7 @@ export default {
     },
     async createNewTag() {
       if (this.newTagName.length !== 0) {
-        let res = await axios.post('/api/articleTag', { name: this.newTagName })
+        let res = await this.$axios.$post('/api/articleTag', { name: this.newTagName })
         if (res.data.success === true) {
           this.articleTagList.push({
             name: this.newTagName,
@@ -548,7 +547,7 @@ export default {
       if (this.canPublish()) {
         // this.publishLoading = true
         console.log(this.article)
-        let res = await axios.put('/api/article', this.article)
+        let res = await this.$put('/api/article', this.article)
         if (res.data.success) {
           this.$Notice.success({
             title: '保存成功',
@@ -600,13 +599,13 @@ export default {
     this.article = Object.assign({}, this.article, data)
 
     // -------init ArticleTag--------
-    let tagRes = await axios.get('/api/articleTag?size=99')
-    this.articleTagList = tagRes.data.data
+    let tagRes = await this.$axios.$get('/api/articleTag?size=99')
+    this.articleTagList = tagRes.data
     // --------↑↑↑↑↑↑↑↑↑↑↑↑↑---------
 
     // -------init ArticleType--------
-    let typeRes = await axios.get('/api/articleType?size=99')
-    this.articleTypeList = typeRes.data.data
+    let typeRes = await this.$axios.$get('/api/articleType?size=99')
+    this.articleTypeList = typeRes.data
     // --------↑↑↑↑↑↑↑↑↑↑↑↑↑---------
 
     this.articleStateList = [
@@ -629,33 +628,7 @@ export default {
       protected: '密码',
       private: '私密'
     }
-
-    // tinymce.init({
-    //   selector: '#articleEditor',
-    //   branding: false,
-    //   elementpath: false,
-    //   height: 600,
-    //   language: 'zh_CN.GB2312',
-    //   menubar: 'edit insert view format table tools',
-    //   theme: 'modern',
-    //   plugins: [
-    //     'advlist autolink lists link image charmap print preview hr anchor pagebreak imagetools',
-    //     'searchreplace visualblocks visualchars code fullscreen fullpage',
-    //     'insertdatetime media nonbreaking save table contextmenu directionality',
-    //     'emoticons paste textcolor colorpicker textpattern imagetools codesample'
-    //   ],
-    //   toolbar1:
-    //     ' newnote print fullscreen preview | undo redo | insert | styleselect | forecolor backcolor bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image emoticons media codesample',
-    //   autosave_interval: '20s',
-    //   image_advtab: true,
-    //   table_default_styles: {
-    //     width: '100%',
-    //     borderCollapse: 'collapse'
-    //   }
-    // })
   },
-  destroyed() {
-    // tinymce.get('articleEditor').destroy()
-  }
+  destroyed() {}
 }
 </script>

@@ -39,7 +39,6 @@
 </template>
 <script>
 import config from '../../server/config' //七牛配置
-import axios from '~/plugins/axios2'
 
 export default {
   name: 'qiniu-img-upload',
@@ -78,7 +77,7 @@ export default {
   },
   methods: {
     async getToken() {
-      let token = await axios.get('/api/qiniu/token')
+      let token = await this.$axios.$get('/api/qiniu/token')
       token = token.data.data.token
       this.uptoken.token = token
     },

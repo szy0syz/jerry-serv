@@ -28,7 +28,6 @@
 </template>
 <script>
 import md5 from '~/libs/md5'
-import axios from '~/plugins/axios2'
 import qiniuService from '../services/qiniu.js'
 
 export default {
@@ -90,7 +89,7 @@ export default {
             password: _psd
           })
 
-          console.log('~~~req~~~\n', req)
+          // console.log('~~~req~~~\n', req)
 
           if (!!req.data && req.data.code !== 0) {
             let msg = req.data.message || '登录失败'

@@ -71,8 +71,6 @@ import messageTip from '../components/main-components/message-tip.vue'
 import themeSwitch from '../components/main-components/theme-switch/theme-switch.vue'
 import util from '@/libs/util.js'
 import fullScreen from '../components/main-components/fullscreen.vue'
-// 这里特别提示，登陆和退出，以及需要koa2端请求接口的，使用axios2插件
-import axios from '~/plugins/axios2'
 
 export default {
   middleware: 'auth', // 定义页面中间件
@@ -120,15 +118,16 @@ export default {
         })
       } else if (name === 'loginout') {
         // 退出登录
-        let req = await axios.post('/api/admin/logout')
-        if (req.data.data.code !== 0) {
-          let msg = req.data.data.message || '退出失败'
+        let req = await this.$axios.$post('/api/admin/logout')
+        if (req.data.code !== 0) {
+          let msg = req.data.message || '退出失败'
           this.$Message.error({ content: msg, duration: 2, closable: true })
           return false
         }
+
         this.$Message.success('退出成功')
         this.$store.commit('LOGOUT')
-        //window.location.href = 'login'
+
         this.$store
           .dispatch('LOGOUT')
           .then(() => this.$router.go({ path: 'login' }))
