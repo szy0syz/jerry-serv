@@ -385,6 +385,7 @@ export default {
 
       key = `yncyzj/${key}`
       let token = this.$store.state.app.qiniuToken
+      console.log('edit page handleUploadImg token: [', token , ']')
       const self = this
       const myConfig = config
       const observer = {

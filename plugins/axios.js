@@ -11,12 +11,14 @@ export default function ({ $axios, redirect, store }) {
   $axios.baseURL = baseURL[env]
 
   $axios.onRequest(config => {
-    const TOKEN = localStorage.getItem('TOKEN')
+    let TOKEN
     if (!config.headers.Authorization) {
+      TOKEN = localStorage.getItem('TOKEN')
       config.headers.Authorization = `Bearer ${TOKEN}`
-    }
-    if (!store.state.user.token) {
-      store.state.user.token = TOKEN
+
+      if (!store.state.user.token) {
+        store.state.user.token = TOKEN
+      }
     }
     console.log('Making request to: ' + config.url)
   })

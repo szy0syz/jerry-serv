@@ -78,7 +78,8 @@ export default {
   methods: {
     async getToken() {
       let token = await this.$axios.$get('/api/qiniu/token')
-      token = token.data.data.token
+      token = token.data.token
+      console.log('token~~', token)
       this.uptoken.token = token
     },
     handleView(name) {

@@ -202,8 +202,8 @@ const app = {
   actions: {
     async fetchQiniuToken({ state }) {
       if (!state.qiniuToken) {
-        let token = await this.$axios.$get('/api/qiniu/token')
-        state.qiniuToken = token
+        const res = await this.$axios.$get('/api/qiniu/token')
+        state.qiniuToken = res.data.token
       }
     }
   }
