@@ -28,6 +28,7 @@
 </template>
 <script>
 import md5 from '~/libs/md5'
+import Cookies from 'js-cookie'
 import qiniuService from '../services/qiniu.js'
 
 export default {
@@ -79,7 +80,7 @@ export default {
         } else {
           let _usr = this.formData.user
           // let _psd = md5(this.formData.password)
-          let _psd = this.formData.password  // TODO: 后期密码策略优化
+          let _psd = this.formData.password // TODO: 后期密码策略优化
           // let req = await axios.post('/api/admin/login', {
           //   username: _usr,
           //   password: _psd
@@ -104,9 +105,17 @@ export default {
           // 三重保护确保token能正确使用
           this.$store.commit('SET_TOKEN', TOKEN)
           localStorage.setItem('TOKEN', TOKEN)
-          this.$axios.defaults.headers.common['Authorization'] = `Bearer ${TOKEN}`
+          Cookies.set('TOKEN', TOKEN, { path: '/login' })
+
+          this.$axios.defaults.headers.common[
+            'Authorization'
+          ] = `Bearer ${TOKEN}`
+
           this.$store.commit('SET_USERINFO', req.data.info)
-          this.$store.commit('setAvator', 'http://cdn.jerryshi.com/picgo/20180819213615.png')
+          this.$store.commit(
+            'setAvator',
+            'http://cdn.jerryshi.com/picgo/20180819213615.png'
+          )
           this.$Message.success('恭喜您，登录成功！')
           let route = { path: '/' }
           if (this.jump !== '' && typeof this.jump !== 'undefined') {

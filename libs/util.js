@@ -135,15 +135,10 @@ util.setCurrentPath = function (vm, name) {
       currentPathObj.name !== 'home'
     ) {
       currentPathArr = [
-        // {
-        //   title: '首页',
-        //   path: '/home',
-        //   name: 'home_index'
-        // },
         {
           title: currentPathObj.title,
           path: '',
-          name: name
+          name: currentPathObj.name
         }
       ]
     } else {

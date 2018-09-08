@@ -43,7 +43,7 @@ module.exports = {
     maxAge: 900000
   },
   router: {
-    middleware: 'route' // 在每页渲染前运行 middleware/route.js 中间件的逻辑
+    middleware: ['route', 'auth'] // 在每页渲染前运行 middleware/route.js 中间件的逻辑
   },
   build: {
     // babel: {  // 前端不需要修饰器，后端才要

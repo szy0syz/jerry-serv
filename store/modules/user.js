@@ -1,10 +1,14 @@
 const user = {
   state: {
     token: null, // 登陆token
+    isAuth: false,
     sign_key: null, // 加密密钥
     info: {} // 用户的信息
   },
   getters: {
+    getIsAuth: state => {
+      return state.isAuth
+    },
     getToken: state => {
       return state.token
     },
