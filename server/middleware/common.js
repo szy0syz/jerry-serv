@@ -35,21 +35,21 @@ export const addSession = app => {
   app.use(session(CONFIG, app))
 }
 
-// Custom 401 handling
-// 前置捕捉401错误，就是因为koa才可以前置 error-handler
-export const add401Handler = app => {
-  app.use((ctx, next) => {
-    return next().catch(err => {
-      if (401 == err.status) {
-        ctx.status = 401
-        ctx.body = {
-          success: false,
-          msg: '401 Unauthorized'
-        }
-      } else {
-        console.error(err)
-        throw err
-      }
-    })
-  })
-}
+// // Custom 401 handling
+// // 前置捕捉401错误，就是因为koa才可以前置 error-handler
+// export const add401Handler = app => {
+//   app.use((ctx, next) => {
+//     return next().catch(err => {
+//       if (401 == err.status) {
+//         ctx.status = 401
+//         ctx.body = {
+//           success: false,
+//           msg: '401 Unauthorized'
+//         }
+//       } else {
+//         console.error(err)
+//         throw err
+//       }
+//     })
+//   })
+// }

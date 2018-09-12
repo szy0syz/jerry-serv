@@ -1,9 +1,8 @@
-const format = (data, code = 0, msg = 'ok', success = false) => {
+const format = (data, code = 0, msg = 'ok') => {
   return {
     msg,
     code,
-    data,
-    success
+    data
   }
 }
 
