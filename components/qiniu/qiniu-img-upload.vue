@@ -5,7 +5,7 @@
         <template v-if="item.status === 'finished'">
             <img :src="item.url">
             <div class="demo-upload-list-cover">
-                <Icon type="ios-eye-outline" @click.native="handleView(item.name)"></Icon>
+                <Icon type="ios-eye-outline" @click.native="handleView(item.url)"></Icon>
                 <Icon type="ios-trash-outline" @click.native="handleRemove(item)"></Icon>
             </div>
         </template>
@@ -33,7 +33,7 @@
         </div>
     </Upload>
     <Modal title="图片预览" v-model="visible">
-        <img :src="picHostName + imgName" v-if="visible" style="width: 100%">
+        <img :src="imgName" v-if="visible" style="width: 100%">
     </Modal>
 </div>
 </template>
@@ -85,6 +85,7 @@ export default {
       this.uptoken.token = token
     },
     handleView(name) {
+      console.log(this.uploadList)
       this.imgName = name
       this.visible = true
     },

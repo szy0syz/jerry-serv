@@ -81,16 +81,11 @@ export default {
           let _usr = this.formData.user
           // let _psd = md5(this.formData.password)
           let _psd = this.formData.password // TODO: 后期密码策略优化
-          // let req = await axios.post('/api/admin/login', {
-          //   username: _usr,
-          //   password: _psd
-          // })
+
           let req = await this.$axios.$post('/api/admin/login', {
             username: _usr,
             password: _psd
           })
-
-          // console.log('~~~req~~~\n', req)
 
           if (!!req.data && req.data.code !== 0) {
             let msg = req.data.message || '登录失败'
