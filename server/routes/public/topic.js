@@ -1,24 +1,24 @@
-import mongoose from 'mongoose'
 const { topic: TopicService } = require('../../service')
-
-const {
-  controller,
-  get,
-  del,
-  put,
-  post,
-  required
-} = require('../../lib/decorator')
+const { controller, get } = require('../../lib/decorator')
 
 @controller('/api/public/topic')
-export class topicHandlerController {
+export class TopicController {
   @get('/fetch')
   async getTopics(ctx) {
-    const data = await TopicService.fetchList(ctx.query)
+    try {
+      const data = await TopicService.fetchList(ctx.query)
 
-    ctx.body = {
-      success: true,
-      data
+      ctx.body = {
+        success: true,
+        data
+      }
+    } catch (error) {
+      console.error(error)
+      ctx.status = 500
+      ctx.body = {
+        success: false,
+        error: error
+      }
     }
   }
 

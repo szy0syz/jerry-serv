@@ -1,5 +1,5 @@
 import xss from 'xss'
-const { topic: Topic } = require('../service')
+const { topic: TopicService } = require('../service')
 const {
   controller,
   get,
@@ -13,23 +13,42 @@ const {
 export class topicController {
   @get('/')
   async get(ctx) {
-    // const { page, size, type } = ctx.query
-    const data = await Topic.fetchList(ctx.query)
-    ctx.body = {
-      success: true,
-      data
+    try {
+      const data = await TopicService.fetchList(ctx.query)
+
+      ctx.body = {
+        success: true,
+        data
+      }
+    } catch (error) {
+      console.error(error)
+      ctx.status = 500
+      ctx.body = {
+        success: false,
+        error: error
+      }
     }
   }
 
   @get('/:_id')
   async detail(ctx) {
-    const { _id } = ctx.params
+    try {
+      const { _id } = ctx.params
 
-    const data = await Topic.fetchDetail({ _id })
+      const data = await TopicService.fetchDetail({ _id })
 
-    ctx.body = {
-      success: true,
-      data
+      ctx.body = {
+        success: true,
+        data
+      }
+    } catch (error) {
+      console.error(error)
+      ctx.status = 400
+      ctx.body = {
+        success: false,
+        msg: '请求参数错误',
+        error: error
+      }
     }
   }
 
@@ -67,7 +86,7 @@ export class topicController {
     }
 
     try {
-      data = await Topic.create(data)
+      data = await TopicService.create(data)
       ctx.body = {
         data,
         success: true
@@ -104,7 +123,7 @@ export class topicController {
     }
 
     try {
-      data = await Topic.update(data)
+      data = await TopicService.update(data)
       ctx.body = {
         data,
         success: true
@@ -119,12 +138,22 @@ export class topicController {
 
   @del('/:_id')
   async delete(ctx) {
-    const { _id } = ctx.params
-    const data = await Topic.remove(_id)
+    try {
+      const { _id } = ctx.params
+      const data = await TopicService.remove(_id)
 
-    ctx.body = {
-      success: true,
-      data
+      ctx.body = {
+        success: true,
+        data
+      }
+    } catch (error) {
+      console.error(error)
+      ctx.status = 400
+      ctx.body = {
+        success: false,
+        msg: '请求参数[_id]错误',
+        error: error
+      }
     }
   }
 }
