@@ -176,8 +176,8 @@ export default {
         title: '确认框',
         content: `<p>确认删除《${this.currentRow.title}》吗？</p>`,
         onOk: () => {
-          this.$store.dispatch('deleteArticle', this.currentRow._id)
-          this.$store.dispatch('getArticles')
+          this.$store.dispatch('deleteTopic', this.currentRow._id)
+          this.$store.dispatch('getTopics')
         }
       })
       // this.$store.dispatch('removeProjUnit', this.currentRow._id)

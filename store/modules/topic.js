@@ -30,7 +30,7 @@ const topic = {
       state.curtTopic = res.data
 
       return res
-    }
+    },
 
     // async postArticle({dispatch}, model) {
     //   const res = await Service.postArticle({ $axios: this.$axios, model })
@@ -43,16 +43,16 @@ const topic = {
     //   return res.data
     // },
 
-    // async deleteArticle({state, dispatch}, _id) {
-    //   const res = await Service.deleteArticles({ $axios: this.$axios, _id })
+    async deleteTopic({state, dispatch}, _id) {
+      const res = await Service.deleteTopic({ $axios: this.$axios, _id })
 
-    //   if (res.success) {
-    //     await dispatch('getArticles')
-    //     state.curtArticle = res.data
-    //   }
+      if (res.success) {
+        await dispatch('getTopics')
+        state.curtArticle = res.data
+      }
 
-    //   return res.data
-    // }
+      return res.data
+    }
   }
 }
 

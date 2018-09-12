@@ -27,9 +27,9 @@ class TopicService {
     return $axios.$put(`/api/topic`, model)
   }
 
-  // deleteArticles({ $axios, _id }) {
-  //   return $axios.$delete(`/api/topic/${_id}`)
-  // }
+  deleteTopic({ $axios, _id }) {
+    return $axios.$delete(`/api/topic/${_id}`)
+  }
 }
 
 export default new TopicService()
