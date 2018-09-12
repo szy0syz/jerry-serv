@@ -27,6 +27,18 @@ export const otherRouter = {
       title: '工作流',
       name: 'form-work-flow',
       icon: 'arrow-swap'
+    },
+    {
+      path: '/topic/add',
+      title: '专题发布',
+      name: 'topic-add',
+      icon: 'ios-home'
+    },
+    {
+      path: '/topic/edit/:_id',
+      title: '专题编辑',
+      name: 'article-edit',
+      icon: 'ios-home'
     }
   ]
 }
@@ -56,6 +68,20 @@ export const appRouter = [
         title: '文档标签',
         name: 'article-tags',
         icon: 'alert-circled'
+      }
+    ]
+  },
+  {
+    path: '/topic',
+    icon: 'android-checkbox',
+    title: '专题管理',
+    name: 'topic',
+    children: [
+      {
+        path: '/topic/list',
+        title: '专题管理',
+        name: 'topic-list',
+        icon: 'close-circled'
       }
     ]
   },
