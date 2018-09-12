@@ -209,6 +209,7 @@ const app = {
         const res = await this.$axios.$get('/api/qiniu/token')
         state.qiniuToken = res.data.token
       }
+      return state.qiniuToken
     }
   }
 }

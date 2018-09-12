@@ -77,9 +77,11 @@ export default {
   },
   methods: {
     async getToken() {
-      let token = await this.$axios.$get('/api/qiniu/token')
-      token = token.data.token
-      console.log('token~~', token)
+      let token = this.$store.state.app.qiniuToken
+      if (!token) {
+        token = await this.$store.dispatch('fetchQiniuToken')
+      }
+      console.log('qiniu-img-upload __ token~~', token)
       this.uptoken.token = token
     },
     handleView(name) {
@@ -121,7 +123,7 @@ export default {
     }
   },
   mounted() {
-    // this.getToken()
+    this.getToken()
     this.uploadList = this.$refs.upload.fileList
     // TODO: 重写七牛上传封面图上传组件
     
