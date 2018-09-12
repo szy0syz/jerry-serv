@@ -10,7 +10,7 @@ export async function fetchList(params) {
   if (isTop) {
     where['isTop'] = isTop === 'true'
   }
-  console.log(where)
+  // console.log(where)
   const data = await Article
     .find(where, { __v: 0, password: 0, content:0 })
     .skip((page - 1) * size)
@@ -18,7 +18,7 @@ export async function fetchList(params) {
     .sort({ '_id': -1 })
     .populate({ path: 'type', select: 'name' })
     .populate({ path: 'tags', select: 'name' })
-    .populate({ path: 'creator', select: '_id username avatar' })
+    .populate({ path: 'author', select: '_id username avatar' })
     .exec()
 
   return data
