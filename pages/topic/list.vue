@@ -136,15 +136,7 @@ export default {
         {
           title: '创建时间',
           render: (h, params) => {
-            // const data = params.row
-            // console.log(data)
-            // let createdAt
-            // if (data && data.meta && data.meta.createdAt) {
-            //   createdAt = dayjs(data.meta.createdAt).format('YYYY-MM-DD')
-            // } else {
-            //   createdAt = 'null'
-            // }
-            return h('span', '')
+            return h('span', dayjs(params.row.meta.createdAt).format('YYYY-MM-DD'))
           }
         }
       ]

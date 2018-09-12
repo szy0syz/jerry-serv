@@ -20,8 +20,7 @@ export async function fetchDetail({ _id }) {
   // TODO: [急]待优化fetchDetail时又自增又lean()问题
   let entity = await Topic.findOne({ _id }, { __v: 0 }).lean()
   let model = await Topic.findOne({ _id }, { __v: 0 })
-  console.log('!~~~~~~~~!')
-  console.log(model)
+
   //////////// 待优化
   // TODO: 修复lean()方法不包含虚拟字段问题(上中间件mongoose-lean-virtuals还是自己写？)
   model.clickNum++

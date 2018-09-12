@@ -54,7 +54,7 @@ export class topicController {
 
   @post('/')
   @required({
-    body: ['title', 'content']
+    body: ['title', 'content', 'status']
   })
   async post(ctx) {
     let data = ctx.request.body
@@ -81,8 +81,6 @@ export class topicController {
       password: xss(data.password),
       canComment: Boolean(data.canComment),
       author: xss(data.author)
-      // to test
-      // likeList: data.likeList
     }
 
     try {

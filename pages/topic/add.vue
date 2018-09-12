@@ -475,11 +475,9 @@ export default {
     },
     async handlePublish() {
       if (this.canPublish()) {
-        // this.publishLoading = true
-        // console.log(this.article)
         this.article.author = this.$store.getters.getUserId
-
-        let res = await this.$axios.$post('/api/article', this.article)
+        console.log('~~!!!this.$store.getters.getUserId',this.$store.getters.getUserId)
+        let res = await this.$axios.$post('/api/topic', this.article)
 
         if (res.success) {
           this.$Notice.success({
@@ -487,7 +485,7 @@ export default {
             desc: `《${res.data.title}》`
           })
           this.$router.push({
-            name: 'article-list'
+            name: 'topic-list'
           })
         } else {
           this.$Notice.success({

@@ -37,7 +37,7 @@ export const otherRouter = {
     {
       path: '/topic/edit/:_id',
       title: '专题编辑',
-      name: 'article-edit',
+      name: 'topic-edit',
       icon: 'ios-home'
     }
   ]

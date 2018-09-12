@@ -15,7 +15,7 @@ class TopicService {
     return $axios.$get(`/api/topic${conds ? '?' + parseConds(conds) : ''}`)
   }
 
-  detailopic({ $axios, _id }) {
+  detailTopic({ $axios, _id }) {
     return $axios.$get(`/api/topic/${_id}`)
   }
 
@@ -23,9 +23,9 @@ class TopicService {
   //   return $axios.$post(`/api/topic`, model)
   // }
 
-  // putArticles({ $axios, model }) {
-  //   return $axios.$put(`/api/topic`, model)
-  // }
+  putArticles({ $axios, model }) {
+    return $axios.$put(`/api/topic`, model)
+  }
 
   // deleteArticles({ $axios, _id }) {
   //   return $axios.$delete(`/api/topic/${_id}`)

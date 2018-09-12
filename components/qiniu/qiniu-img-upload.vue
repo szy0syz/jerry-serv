@@ -129,9 +129,9 @@ export default {
     
     // TODO: 是在没办法二次异步问题 A组件 B组件，A组件加载调用B组件，A组件mounted时加载异步数据后store设置state，B组件渲染需要这个state。难解？
     setTimeout(() => {
-      const cover = this.$store.state.article.curtArticle.cover
+      const cover = this.$store.state.article.curtArticle.cover || this.$store.state.topic.curtTopic.cover
       if (cover) {
-      this.uploadList.push({url: this.$store.state.article.curtArticle.cover, status: 'finished'})
+      this.uploadList.push({url: cover, status: 'finished'})
     }
     }, 900)
   }
