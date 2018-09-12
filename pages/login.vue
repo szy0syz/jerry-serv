@@ -107,6 +107,9 @@ export default {
           localStorage.setItem('TOKEN', TOKEN)
           Cookies.set('TOKEN', TOKEN, { path: '/login' })
 
+          // set isAuthc whih store state
+          this.$store.commit('SET_ISAUTHC', true)
+
           this.$axios.defaults.headers.common[
             'Authorization'
           ] = `Bearer ${TOKEN}`

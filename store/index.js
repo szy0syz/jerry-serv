@@ -26,7 +26,6 @@ const store = () =>
         cookies = cookies ? querystring.parse(cookies, '; ') : {}
         if (cookies && cookies.TOKEN) {
           commit('SET_TOKEN', cookies.TOKEN)
-          console.log('cookies.TOKEN~~~~', cookies.TOKEN)
         }
         
         if (!!req.session && !!req.session.user && !!req.session.user.token) {

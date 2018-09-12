@@ -2,7 +2,7 @@ import Koa from 'koa'
 import { Nuxt, Builder } from 'nuxt'
 import Router from 'koa-router'
 import R from 'ramda'
-import { getFilename } from './utils'
+// import { getFilename } from './utils'
 import config from './config'
 import { basename } from 'path'
 

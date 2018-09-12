@@ -8,12 +8,13 @@ const app = {
     cachePage: [],
     lang: '',
     isFullScreen: false,
+    isAuthc: false,       // 是否鉴权
     openedSubmenuArr: [], // 要展开的菜单数组
-    menuTheme: 'dark', // 主题
+    menuTheme: 'dark',    // 主题
     themeColor: '',
     pageOpenedList: [],
     currentPageName: '',
-    currentPath: [], // 面包屑数组
+    currentPath: [],      // 面包屑数组
     menuList: [],
     routers: [otherRouter, ...appRouter], // 总路由
     tagsList: [otherRouter, ...appRouter], // tags-page-opened
@@ -29,6 +30,9 @@ const app = {
     }
   },
   mutations: {
+    SET_ISAUTHC(state, boolean) {
+      state.isAuthc = boolean
+    },
     setAccordion(state, boolean) {
       state.accordion = boolean
     },

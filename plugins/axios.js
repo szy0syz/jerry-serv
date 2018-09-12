@@ -7,7 +7,7 @@ const baseURL = {
   production: 'https://yncyzj.cn'
 }
 
-export default function ({ $axios, redirect, store }) {
+export default function ({ $axios, redirect, store, app }) {
   $axios.baseURL = baseURL[env]
 
   $axios.onRequest(config => {
@@ -23,21 +23,40 @@ export default function ({ $axios, redirect, store }) {
     console.log('Making request to: ' + config.url)
   })
 
+  $axios.onResponse(response => {
+    // 如果state中isAuthc已经为true，就直接跳过不处理
+    const isAuthc = store.state.app.isAuthc
+    if (isAuthc) return
+
+    const isApiPath = /\/api\//.test(response.config.url),
+      isValid = response.data && response.data.success
+    
+    // 如果请求的是 api路径 且 请求结果success为true 就去设置一次isAuthc
+    if (isApiPath && isValid && !isAuthc) {
+      store.state.app.isAuthc = true
+    }
+  })
+
   $axios.onError(error => {
-    console.log(error)
+    // console.log('~~~~~!!!!', Date.now())
+    // console.log(error)
+    // console.dir(arguments)
+    // console.log(app.router, '@#@#@#@#')
     const code = parseInt(error.response && error.response.status)
     switch (code) {
-      case 401:
-        redirect('/login')
-        break;
       case 200:
         break;
+      case 401:
+        redirect(304, '/login')
+        // app.router.replace('/login')
+        break
       default: {
+        console.log(error)
         Message.error({
           content: error.response.data.msg || '',
           duration: 3
         })
-        break;
+        break
       }
     }
   })

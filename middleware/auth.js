@@ -15,6 +15,18 @@ export default function ({ store, redirect, req }) {
   //   redirect('/login')
   // }
 
-  // if在ssr但却没有req  -->  就是 nuxt generate 
+  // if在ssr但却没有req  -->  就是 跳过 nuxt generate 
   if (process.server && !req) return
+
+  // if (process.server) {
+  //   console.log('req.headers.cookie~~~~~~~', req)
+  // }
+  // clinet request
+  if (!process.server) {
+    console.log('in client ---- store.state.app.isAuthc', store.state.app.isAuthc)
+    // const isAuthc = store.state.app.isAuthc
+    // if (!isAuthc) redirect('/login')
+  }
+
+  // console.log('process.server', process.server ,'到我执行?', Date.now())
 }

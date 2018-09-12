@@ -27,15 +27,19 @@ export const authentication = app => {
 
         ctx.jwt = payload
       } catch (err) {
+        // let msg = err.message
+        // if (err.message.test(/jwt expired/)) {
+        // }
+
         const msg = debug ? err.message : 'Authentication Error'
         ctx.throw(401, msg)
       }
     }
-
     await next()
   })
 }
 
+// TODO: 仿koa-jwt find -> cookie & head
 function resolveAuthorizationHeader(ctx) {
   if (!ctx.header || !ctx.header.authorization) {
     return (
