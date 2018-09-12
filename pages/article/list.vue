@@ -105,14 +105,18 @@ export default {
         },
         {
           title: '置顶',
-          key: 'isTop',
-          width: 75,
+          render: (h, params) => {
+            const color = params.row.isTop ? 'green': 'default'
+            const text = params.row.isTop ? '是' : '否'
+            return h('Tag', { props: { type: 'dot', color: color} }, text)
+          },
+          width: 110,
           align: 'center'
         },
         {
           title: '标题',
           key: 'title',
-          width: 400
+          align: 'center'
         },
         {
           title: '文档类别',
@@ -154,7 +158,8 @@ export default {
           title: '作者',
           render: (h, params) => {
             return h('span', params.row.author.username)
-          }
+          },
+          width: 180
         },
         {
           title: '创建时间',
@@ -163,7 +168,8 @@ export default {
               'span',
               dayjs(params.row.meta.createdAt).format('YYYY-MM-DD')
             )
-          }
+          },
+          width: 200
         }
       ]
     }
