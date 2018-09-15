@@ -197,14 +197,19 @@ export default {
   },
   watch: {
     $route(to) {
-      this.$store.commit('setCurrentPageName', to.name)
-      let pathArr = util.setCurrentPath(this, to.name)
-      if (pathArr.length > 2) {
-        this.$store.commit('addOpenSubmenu', pathArr[1].name)
+      try {
+        this.$store.commit('setCurrentPageName', to.name)
+        let pathArr = util.setCurrentPath(this, to.name)
+        if (pathArr.length > 2) {
+          this.$store.commit('addOpenSubmenu', pathArr[1].name)
+        }
+        this.checkTag(to.name)
+        localStorage.currentPageName = to.name
+        this.$store.commit('setAccordion', true)
+      } catch (error) {
+        // TODO: 需要判断跳转到/login
+        console.error(error)
       }
-      this.checkTag(to.name)
-      localStorage.currentPageName = to.name
-      this.$store.commit('setAccordion', true)
     },
     openedSubmenuArr() {
       setTimeout(() => {
@@ -227,9 +232,7 @@ export default {
     this.$store.commit('updateMenulist')
     /**服务端渲染左侧导航条及pannel页面内容**/
   },
-  dispatch() {
-
-  }
+  dispatch() {}
 }
 </script>
 

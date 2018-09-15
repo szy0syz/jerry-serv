@@ -23,7 +23,7 @@ export default function ({ store, redirect, req }) {
   // }
   // clinet request
   if (!process.server) {
-    console.log('in client ---- store.state.app.isAuthc', store.state.app.isAuthc)
+    // console.log('in client ---- store.state.app.isAuthc', store.state.app.isAuthc)
     // const isAuthc = store.state.app.isAuthc
     // if (!isAuthc) redirect('/login')
   }

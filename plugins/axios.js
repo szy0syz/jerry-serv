@@ -47,8 +47,7 @@ export default function ({ $axios, redirect, store, app }) {
       case 200:
         break;
       case 401:
-        redirect(304, '/login')
-        // app.router.replace('/login')
+        redirect('/login')
         break
       default: {
         console.log(error)
