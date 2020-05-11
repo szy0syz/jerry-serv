@@ -69,7 +69,7 @@
     "shelljs": "^0.8.2",
     "simplemde": "^1.11.2",
     "sortablejs": "^1.7.0",
-    "tinymce": "^4.9.7",
+    "tinymce": "^4.9.10",
     "tinymce-vue-2": "0.0.5",
     "vue-quill-editor": "^3.0.6",
     "vuex-persist": "^1.2.2",
