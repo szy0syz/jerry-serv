@@ -53,7 +53,7 @@
     "koa-session2": "^2.2.6",
     "koa-static": "^5.0.0",
     "koa-unless": "^1.0.7",
-    "lodash": "^4.17.10",
+    "lodash": "^4.17.19",
     "mongoose": "^5.7.5",
     "nuxt": "^1.4.2",
     "qiniu": "^7.2.1",
